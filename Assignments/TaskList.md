@@ -16,3 +16,4 @@
 15. Develop unit tests for both the front-end and back-end to ensure as features get added everything works as intended - All
 16. Document an instructional guide that can be available to new users who are new to using the web application - All
 17. Develop documentation for the high level design of the application - All
+18. Release the application and obtain user feedback on its quality - All
