@@ -7,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  home = {
+    title: 'Home',
+    subtitle: 'Welcome Home!',
+    content: 'Welcome to SCK Finance, our Senior Design project.',
+    image: 'assets/wsb.jpeg'
+  };
+
+
   constructor() { }
 
   ngOnInit(): void {
