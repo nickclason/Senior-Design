@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -6,7 +6,7 @@ CORS(app)
 
 @app.route("/")
 def home():
-    return render_template("Welcome to the Flask Server")
+    return "Welcome to the Flask Server"
     
 
 @app.route("/hello-name", methods=['POST'])
