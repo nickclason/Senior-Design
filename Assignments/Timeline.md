@@ -7,7 +7,7 @@
 | 4 | Investigate availability of API’s for gathering both historical and current stock prices | 10/01/21 | 10/22/21 | |
 | 5 | Survey potential users for additional feature requests that can be added to the application | 10/08/21 | 10/22/21 | Complete introductory research and requirement analysis |
 | 6 | Investigate potential methods of hosting a server for the web application | 11/08/21 | 11/15/21 | |
-| 7 | Investigate various data graphing methods to track portfolio data | 11/15/04/21 | 11/22/21 | |
+| 7 | Investigate various data graphing methods to track portfolio data | 11/15/21 | 11/22/21 | |
 | 8 | Create a UI with a friendly user experience | 11/15/21 | 12/17/21 | Complete inital project design and requirements gathering |
 | 9 | Implement any of the backend framework for server | 12/17/21 | 03/18/22 | |
 | 10 | Develop unit tests for both the front-end and back-end to ensure as features get added everything works as intended | 01/05/22 | 03/18/22 | |
