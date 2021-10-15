@@ -6,15 +6,13 @@ Welcome to the the repository for our Senior Design Project
 
 ### Steps to Run Locally:
 
-#### Launch Backend
 ```
+# Launch Backend
 cd src/backend
+source venv/bin/activate
 python run.py
-```
 
-
-#### Launch Frontend
-```
+# Launch frontend
 cd src/frontend
 ng serve
 ```
