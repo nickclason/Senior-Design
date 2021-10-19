@@ -6,9 +6,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent, }, //canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: '', component: HomeComponent, }, // Home
+    { path: 'login', component: LoginComponent }, // Login
+    { path: 'register', component: RegisterComponent }, // Register
 
     // // otherwise redirect to home
     { path: '**', redirectTo: '' }

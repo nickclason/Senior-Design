@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+
+
+export interface Response {
+  message: string
+}
 
 @Component({
   selector: 'app-login',
@@ -7,9 +13,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  message: string = "Not logged in"
+
+  constructor(private http:HttpClient) {}
 
   ngOnInit(): void {
   }
 
+  loginBtnCallback() {
+    return this.http.get<Response>('http://localhost:5000/auth/login').subscribe(
+      response => {
+        console.log(response)
+        console.log(response.message)
+        this.message = response.message
+      });
+
+  }
 }
