@@ -1,22 +1,56 @@
-from flask import jsonify
+from flask import *
+from flask_sqlalchemy import SQLAlchemy
 
-from app import app
+from app import app, db
+from app.models.user import User
 
-@app.route("/")
+
+@app.route("/api")
 def home():
     return jsonify(message="This is coming from the Flask API")
 
 
-@app.route("/auth/login", methods=['GET'])
+@app.route("/api/auth/login", methods=['GET'])
 def login():
-    return jsonify(message="This message is from the Flask backend API: Login Successful")
+    return jsonify(message="Login Successful")
 
 
-@app.route("/auth/register", methods=['POST'])
+@app.route("/api/auth/register", methods=['POST', 'GET'])
 def register():
-    return "register"
+
+    if request.method == 'POST':
+        session.permanent = True
+
+        json_data = request.get_json()  # get data from POST request
+        email = json_data['email']
+        username = json_data['username']
+        password = json_data['password']
+
+        usr = {'email': email, 'username': username, 'password': password}
+        session['user'] = usr
+
+        found_username = User.query.filter_by(username=username).first()
+        found_email = User.query.filter_by(email=email).first()
+        if found_username:
+            return jsonify(message="Username already exists")
+        elif found_email:
+            return jsonify(message="Email already exists")
+        else:
+            usr = User(email, username, password)
+            
+            db.session.add(usr)
+            db.session.commit() # save to database
+            
+            return jsonify(message="Registration Successful")  # this is just a placeholder, it should redirect to home or user page
+    else:
+        if "user" in session:
+            flash("You are already logged in")
+            return jsonify(message="Registration Unsuccessful: TODO: Redirect/send redirect code to frontend?")
+
+        return jsonify(message="Registration Unsuccessful: TODO: Redirect/send redirect code to frontend?")
 
 
-@app.route("/auth/logout", methods=['GET'])
+
+@app.route("/api/auth/logout", methods=['GET'])
 def logout():
     return "logout"

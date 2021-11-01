@@ -1,1 +1,19 @@
-<p>register works!</p>
+<form [formGroup]="registerForm">
+
+  <div class= mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+  </div>
+
+  <div class= mat-form-field>
+    <input matInput placeholder="Username" formControlName="username">
+  </div>
+
+  <div class= mat-form-field>
+    <input matInput placeholder="password" formControlName="password">
+  </div>
+
+</form>
+
+<button mat-raised-button color="primary" (click)="onRegister()">Sign Up</button>
+{{message}}
+

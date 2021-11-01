@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginBtnCallback() {
-    return this.http.get<Response>('http://localhost:5000/auth/login').subscribe(
+    return this.http.get<Response>('http://localhost:5000/api/auth/login').subscribe(
       response => {
         console.log(response)
         console.log(response.message)

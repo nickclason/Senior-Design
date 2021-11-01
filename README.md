@@ -13,17 +13,3 @@ cd src
 docker-compose build
 docker-compose up
 ```
-
-### Steps to Run Locally:
-
-```
-# Launch Backend
-cd src/backend
-source venv/bin/activate
-python run.py
-
-# Launch frontend
-cd src/frontend
-ng serve
-```
-
