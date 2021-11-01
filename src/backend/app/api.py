@@ -17,7 +17,6 @@ def login():
 
 @app.route("/api/auth/register", methods=['POST', 'GET'])
 def register():
-
     if request.method == 'POST':
         session.permanent = True
 
@@ -25,8 +24,10 @@ def register():
         email = json_data['email']
         username = json_data['username']
         password = json_data['password']
+        firstName = json_data['firstName']
+        lastName = json_data['lastName']
 
-        usr = {'email': email, 'username': username, 'password': password}
+        usr = {'email': email, 'username': username, 'password': password, 'firstName': firstName, 'lastName': lastName}
         session['user'] = usr
 
         found_username = User.query.filter_by(username=username).first()
@@ -36,7 +37,7 @@ def register():
         elif found_email:
             return jsonify(message="Email already exists")
         else:
-            usr = User(email, username, password)
+            usr = User(email, username, password, firstName, lastName)
             
             db.session.add(usr)
             db.session.commit() # save to database
