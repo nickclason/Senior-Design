@@ -6,8 +6,9 @@ Welcome to the the repository for our Senior Design Project
 
 ### Steps to Run with Docker:
 ##### Requirements:
-* Docker  
+* [Docker](https://www.docker.com/get-started)
 * Docker Compose
+  * Docker Desktop for Windows/Mac includes Docker Compose
 ```
 cd src
 docker-compose build
