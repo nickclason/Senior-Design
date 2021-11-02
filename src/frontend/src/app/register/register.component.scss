@@ -1,0 +1,40 @@
+$custom-pink: #ff006a;
+$custom-dark-pink: #db075f;
+
+$custom-lighter-grey: #EEEEEE;
+$custom-light-grey: #DDDDDD;
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: $custom-light-grey;
+}
+
+.full-width {
+    width: 100%;
+}
+
+td {
+    padding-right: 8px;
+}
+
+mat-card {
+    margin: 40px;
+}
+
+.submitButton {
+    margin-top: 20px;
+    background-color: $custom-dark-pink;
+    color: $custom-lighter-grey
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: $custom-pink !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+    background-color: $custom-dark-pink !important;
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 
@@ -7,7 +7,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export interface Response {
   message: string
 }
-
 
 
 @Component({
@@ -20,38 +19,55 @@ export class RegisterComponent implements OnInit {
   message: string;
   registerForm: FormGroup;
 
+  username: string;
+  password: string;
+  minPwChar: number = 8
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email
+  ]);
+
+  minPwLength: number = 8;
+
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
-    
-    this.registerForm = this.fb.group({
-      email: '',
-      username: '',
-      password: ''
-    })
 
-    // this.registerForm.valueChanges.subscribe(console.log) // this logs every value change
+    this.registerForm = this.fb.group({
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      password1: ['', [Validators.required, Validators.minLength(this.minPwChar)]],
+      password2: ['', [Validators.required]]
+    }, {validator: this.passwordMatchValidator})
+  }
+
+
+  passwordMatchValidator(g: FormGroup) {
+    return g.get('password1')?.value === g.get('password2')?.value
+       ? null : {'mismatch': true};
+  }
+
+  get password1() { return this.registerForm.get('password1'); }
+  get password2() { return this.registerForm.get('password2'); }
+
+  onPasswordInput() {
+    if (this.registerForm.hasError('passwordMismatch'))
+      this.password2?.setErrors([{'passwordMismatch': true}]);
+    else
+      this.password2?.setErrors(null);
   }
 
 
   onRegister() {
-    console.log('email: ' + this.registerForm.get('email')?.value)
-    console.log('username: ' + this.registerForm.get('username')?.value)
-    console.log('password: ' + this.registerForm.get('password')?.value)
-
-    let httpOptions = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-
-    let user = { email: this.registerForm.get('email')?.value, 
-                 username: this.registerForm.get('username')?.value, 
-                 password: this.registerForm.get('password')?.value }
+    let user = { email: this.username,
+                 password: this.password,
+                 firstName: this.registerForm.get('firstName')?.value,
+                 lastName: this.registerForm.get('lastName')?.value }
 
     let url = 'http://localhost:5000/api/auth/register'
 
-    return this.http.post<Response>(url, user, httpOptions).subscribe(
+    return this.http.post<Response>(url, user).subscribe(
       response => {
         console.log(response)
         this.message = response.message
