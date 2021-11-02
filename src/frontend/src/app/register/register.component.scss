@@ -1,8 +1,4 @@
-$custom-pink: #ff006a;
-$custom-dark-pink: #db075f;
-
-$custom-lighter-grey: #EEEEEE;
-$custom-light-grey: #DDDDDD;
+@import '../../custom-styles.scss';
 
 .container {
     height: 100%;
@@ -37,4 +33,16 @@ mat-card {
 
 ::ng-deep .mat-form-field-ripple {
     background-color: $custom-dark-pink !important;
+}
+
+.otherLinks {
+    margin: 0.7em 0.3em 0 0.3em;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: $custom-dark-pink;
 }
