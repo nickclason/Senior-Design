@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-
+import { FormControl, FormGroup } from "@angular/forms";
+import { Router } from '@angular/router';
 
 export interface Response {
   message: string
@@ -15,18 +16,25 @@ export class LoginComponent implements OnInit {
 
   message: string = "Not logged in"
 
-  constructor(private http:HttpClient) {}
+  profileForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  constructor(private http:HttpClient, private router: Router) {}
 
   ngOnInit(): void {
   }
 
-  loginBtnCallback() {
-    return this.http.get<Response>('http://localhost:5000/api/auth/login').subscribe(
+  onLogin() {
+    let url = 'http://localhost:5000/api/auth/login'
+    let user = {email: this.profileForm.get('email')?.value, password: this.profileForm.get('password')?.value}
+    
+    return this.http.post<Response>(url, user).subscribe(
       response => {
         console.log(response)
-        console.log(response.message)
         this.message = response.message
-      });
-
+      })
   }
+
 }

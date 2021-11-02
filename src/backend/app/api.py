@@ -4,27 +4,33 @@ from flask_sqlalchemy import SQLAlchemy
 from app import app, db
 from app.models.user import User
 
+#
+# TODO: Hash the passwords in the frontend, and store them in the database, when checking passwords for login, check if the hashes match.
+# TODO: define a set of error codes to throw that the frontend can then react to in order to display the correct error message
+#
 
 @app.route("/api")
 def home():
     return jsonify(message="This is coming from the Flask API")
 
 
-@app.route("/api/auth/login", methods=['GET'])
+@app.route("/api/auth/login", methods=['POST'])
 def login():
-    # print(session)
-    # if "user" in session:
-    #     return jsonify(message="You are already logged in")
-    # else:
-    #     return jsonify(message="You are not logged in")
-
-    return jsonify(message="This is the login API")
+    json_data = request.get_json()
+    user = User.query.filter_by(email=json_data['email']).first()
+    
+    if user and (user.password == json_data['password']):
+        session['logged_in'] = True
+        status = True
+    else:
+        status = False
+    
+    return jsonify({'result': status})
 
 
 @app.route("/api/auth/register", methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
-        session.permanent = True
 
         json_data = request.get_json()  # get data from POST request
         email = json_data['email']
@@ -32,31 +38,28 @@ def register():
         firstName = json_data['firstName']
         lastName = json_data['lastName']
 
-        usr = {'email': email, 'password': password, 'firstName': firstName, 'lastName': lastName}
-        # session['user'] = usr
-        # print(session)
-
         found_email = User.query.filter_by(email=email).first()
         if found_email:
-            return jsonify(message="Email already exists")
+            return jsonify(message="Registration Failed: Email already exists")
         else:
-            usr = User(email, password, firstName, lastName)
+            new_user = User(email, password, firstName, lastName)            
+            db.session.add(new_user)
+            db.session.commit()
             
-            db.session.add(usr)
-            db.session.commit() # save to database
-            
-            return jsonify(message="Registration Successful")  # this is just a placeholder, it should redirect to home or user page somehow
-    # else:
+            return jsonify(message="Registration Successful")
+    # else:  # GET request
     #     if "user" in session:
     #         flash("You are already logged in")
-    #         return jsonify(message="Registration Unsuccessful: TODO: Redirect/send redirect code to frontend?")
+    #         return jsonify(message="Registration Unsuccessful)
 
-    return jsonify(message="Registration Unsuccessful: TODO: Redirect/send redirect code to frontend?")
+    return jsonify(message="Registration Failed: Unknown cause")
 
 
 @app.route("/api/auth/logout", methods=['GET'])
 def logout():
-    return "logout"
+    session.pop('logged_in', None)
+    return jsonify({'result': 'success'})
+
 
 
 # test to see if db is working
@@ -69,5 +72,4 @@ def logout():
 #         print(user.password)
 
 #     return jsonify(message="View Users Successful")
-
 

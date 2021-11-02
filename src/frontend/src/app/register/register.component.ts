@@ -52,8 +52,8 @@ export class RegisterComponent implements OnInit {
   get password2() { return this.registerForm.get('password2'); }
 
   onPasswordInput() {
-    if (this.registerForm.hasError('passwordMismatch'))
-      this.password2?.setErrors([{'passwordMismatch': true}]);
+    if (this.registerForm.hasError('mismatch'))
+      this.password2?.setErrors([{'pwMatchError': true}]);
     else
       this.password2?.setErrors(null);
   }

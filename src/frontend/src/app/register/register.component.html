@@ -1,3 +1,5 @@
+<!-- TODO: add a "Already have an account? Login here" button-->
+
 <div class="container">
   <mat-card>
       <form [formGroup]="registerForm">
@@ -29,7 +31,7 @@
           </mat-form-field>
           </p>
 
-          <mat-form-field class="full-width">
+        <mat-form-field class="full-width">
             <input matInput type="password" placeholder="Password" formControlName="password1" (input)="onPasswordInput()" [(ngModel)]="password">
             <mat-error *ngIf="password1?.hasError('required')">
                 Password is <strong>required</strong>.
@@ -38,6 +40,7 @@
                 Password must have at least {{minPwChar}} characters.
             </mat-error>
         </mat-form-field>
+
         <mat-form-field class="full-width">
             <input matInput type="password" placeholder="Confirm Password" formControlName="password2" (input)="onPasswordInput()">
             <mat-error *ngIf="password2?.hasError('required')">

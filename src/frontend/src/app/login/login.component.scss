@@ -1,0 +1,55 @@
+$custom-pink: #ff006a;
+$custom-dark-pink: #db075f;
+
+$custom-lighter-grey: #EEEEEE;
+$custom-light-grey: #DDDDDD;
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: $custom-light-grey;
+}
+
+.loginForm {
+    padding: 1em 1em;
+}
+
+.inputField {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.submitButton {
+    margin-right: 1em;
+    background-color: $custom-dark-pink;
+    color: $custom-lighter-grey
+}
+
+.submitOptions {
+    display: flex;
+    align-items: center;
+}
+
+.otherLinks {
+    margin: 0.7em 0.3em 0 0.3em;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: $custom-dark-pink;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: $custom-pink !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+    background-color: $custom-dark-pink !important;
+}
