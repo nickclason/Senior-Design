@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-
-// make this component available to the app somehow
-export interface Response {
-  message: string
-}
+// User-defined imports
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DataService, loginResponse, UserData} from '../data.service';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -16,32 +13,28 @@ export interface Response {
 })
 export class RegisterComponent implements OnInit {
 
-  message: string;
   registerForm: FormGroup;
 
-  username: string;
+  email: string;
   password: string;
-  minPwChar: number = 8
-
+  minPwLength: number = 8;
+  
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email
   ]);
 
-  minPwLength: number = 8;
-
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
 
     this.registerForm = this.fb.group({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
-      password1: ['', [Validators.required, Validators.minLength(this.minPwChar)]],
+      password1: ['', [Validators.required, Validators.minLength(this.minPwLength)]],
       password2: ['', [Validators.required]]
     }, {validator: this.passwordMatchValidator})
   }
-
 
   passwordMatchValidator(g: FormGroup) {
     return g.get('password1')?.value === g.get('password2')?.value
@@ -60,18 +53,11 @@ export class RegisterComponent implements OnInit {
 
 
   onRegister() {
-    let user = { email: this.username,
-                 password: this.password,
-                 firstName: this.registerForm.get('firstName')?.value,
-                 lastName: this.registerForm.get('lastName')?.value }
-
-    let url = 'http://localhost:5000/api/auth/register'
-
-    return this.http.post<Response>(url, user).subscribe(
-      response => {
-        console.log(response)
-        this.message = response.message
-      })
-  
+      this.dataService.createUser(this.registerForm.get('firstName')?.value, this.registerForm.get('lastName')?.value, this.email, this.password)
+        .subscribe((newUserData) =>
+        {
+          this.dataService.login(this.email,this.password, this.router);
+        });
   }
+
 }

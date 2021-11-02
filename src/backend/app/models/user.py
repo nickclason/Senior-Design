@@ -2,7 +2,6 @@ from app import db
 
 from flask_sqlalchemy import SQLAlchemy
 
-
 #
 # TODO: Add a time_registered field to the User table
 # TODO: Add a time_last_login field to the User table
@@ -22,3 +21,6 @@ class User(db.Model):
         self.password = password  # need to hash this shit later if we really care
         self.firstName = firstName
         self.lastName = lastName
+
+    def __repr__(self):
+        return '<User %r>' % (self.email)

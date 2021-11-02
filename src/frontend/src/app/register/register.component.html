@@ -20,7 +20,7 @@
                 <p>
                     <mat-form-field class="full-width">
                     <mat-label>Email Address</mat-label>
-                    <input type="email" matInput [formControl]="emailFormControl" placeholder="user@example.com" [(ngModel)]="username">
+                    <input type="email" matInput [formControl]="emailFormControl" placeholder="user@example.com" [(ngModel)]="email">
                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                         Please enter a valid email address.
                     </mat-error>
@@ -36,7 +36,7 @@
                         Password is <strong>required</strong>.
                     </mat-error>
                     <mat-error *ngIf="password1?.hasError('minlength')">
-                        Password must have at least {{minPwChar}} characters.
+                        Password must have at least {{minPwLength}} characters.
                     </mat-error>
                 </mat-form-field>
 

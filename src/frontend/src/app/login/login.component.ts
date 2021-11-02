@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { FormControl, FormGroup } from "@angular/forms";
-import { Router } from '@angular/router';
 
-export interface Response {
-  message: string
-}
+// User-defined imports
+import {FormControl, FormGroup} from "@angular/forms";
+import {Router} from '@angular/router';
+import {DataService} from '../data.service';
 
 @Component({
   selector: 'app-login',
@@ -14,27 +12,32 @@ export interface Response {
 })
 export class LoginComponent implements OnInit {
 
-  message: string = "Not logged in"
-
   profileForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
 
-  constructor(private http:HttpClient, private router: Router) {}
+  loggedIn: boolean = false;
+
+  constructor(private router: Router, private dataService: DataService) {}
 
   ngOnInit(): void {
+    // TODO: issue a GET to /api/auth/login to check if the user is already logged in
+    
+    this.dataService.alreadyLoggedIn().subscribe(
+      (data: any) => {
+        
+        console.log(data)
+
+        if (data.UserData) {
+          this.router.navigate(['profile']);
+        }
+        
+      })
   }
 
   onLogin() {
-    let url = 'http://localhost:5000/api/auth/login'
-    let user = {email: this.profileForm.get('email')?.value, password: this.profileForm.get('password')?.value}
-    
-    return this.http.post<Response>(url, user).subscribe(
-      response => {
-        console.log(response)
-        this.message = response.message
-      })
+    this.dataService.login(this.profileForm.get('email')?.value, this.profileForm.get('password')?.value, this.router);
   }
 
 }
