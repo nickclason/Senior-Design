@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 // User-defined imports
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DataService, loginResponse, UserData} from '../data.service';
 import {Router} from "@angular/router";
 
 
@@ -24,7 +23,7 @@ export class RegisterComponent implements OnInit {
     Validators.email
   ]);
 
-  constructor(private fb: FormBuilder, private router: Router, private dataService: DataService) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -53,11 +52,6 @@ export class RegisterComponent implements OnInit {
 
 
   onRegister() {
-      this.dataService.createUser(this.registerForm.get('firstName')?.value, this.registerForm.get('lastName')?.value, this.email, this.password)
-        .subscribe((newUserData) =>
-        {
-          this.dataService.login(this.email,this.password, this.router);
-        });
   }
 
 }

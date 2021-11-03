@@ -1,19 +1,30 @@
-from flask import Flask, session
+import sys
+import os.path
+
+from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy 
+from flask_jwt_extended import JWTManager
+
 
 # General Flask app
 app = Flask(__name__)
-app.secret_key = 'super secret key'
+app.config.from_json(os.path.join('resources', 'config.json'))
+
+
+# Set up JWT package
+jwt = JWTManager(app)
+
 
 # Add CORS support
 CORS(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Connect Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3' # users is the table name?
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # turn off flask-sqlalchemy modification tracker
 
+# Set up SQLAlchemy
 db = SQLAlchemy(app)
 
+
+# Import all the routes
 from app import api
+from app import errors
