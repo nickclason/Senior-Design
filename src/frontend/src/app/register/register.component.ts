@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // User-defined imports
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from "@angular/router";
-
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     Validators.email
   ]);
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
 
@@ -50,8 +50,17 @@ export class RegisterComponent implements OnInit {
       this.password2?.setErrors(null);
   }
 
-
+  // TODO: Here what I'm trying to do is register the user, if successful, then log in.
+  // Doesn't seem to be working so for the time being I'm just going to redirect them to loging page
   onRegister() {
+    this.auth.registerUser(this.registerForm.get('firstName')!.value, this.registerForm.get('lastName')!.value, this.email, this.password).subscribe(
+      () => {
+        console.log("User registered successfully!");
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 
 }

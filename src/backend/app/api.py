@@ -66,17 +66,6 @@ def logout():
     return make_response()
 
 
-@app.route("/api/profile", methods=['GET'])
-@auth_required
-def view_users():
-    try:
-        user = get_authenticated_user()
-        return make_response(jsonify({'email': user['email'], 'password': user['password']}))
-    except AuthenticationError as error:
-        print('authentication error: %s', error)
-        abort(403)
-
-
 @app.route('/api/auth/refresh', methods=['POST'])
 @auth_refresh_required
 def refresh_api():
@@ -85,4 +74,15 @@ def refresh_api():
         return make_response(jsonify({'accessToken': access_token}))
     except AuthenticationError as error:
         print('authentication error %s', error)
+        abort(403)
+
+
+@app.route("/api/profile", methods=['GET'])
+@auth_required
+def view_users():
+    try:
+        user = get_authenticated_user()
+        return make_response(jsonify( {'email': user.email, 'firstName': user.firstName, 'lastName': user.lastName} ))
+    except AuthenticationError as error:
+        print('authentication error: %s', error)
         abort(403)

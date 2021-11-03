@@ -16,7 +16,7 @@
                 </mat-form-field>
 
                 <div class="submitOptions">
-                    <button mat-raised-button class="submitButton" color="primary" (click)="onLogin()">Login</button>
+                    <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid" (click)="onLogin()">Login</button>
                     <mat-checkbox>Remember me!</mat-checkbox>
                 </div>
             </form>

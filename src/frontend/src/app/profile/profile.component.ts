@@ -10,10 +10,16 @@ import {Router} from "@angular/router";
 })
 export class ProfileComponent implements OnInit {
 
+  email: string;
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    // GET on init to see if already logged in?
+    this.email = localStorage.getItem('email')!;
+    // I also want to rename this to something like "dashboard", I think this should be where
+    // users go to view all of their investments and portfolio. Should help to keep the # of components
+    // down if everything is handled from here
+
+    // This should just be a call to the API that returns all the users info
   }
 
 
