@@ -60,7 +60,8 @@ def register():
     return jsonify(message="Registration Failed: Unknown cause")
 
 
-@app.route("/api/auth/logout", methods=['GET'])
+# @app.route("/api/auth/logout", methods=['GET'])
+@app.route("/api/auth/logout", methods=['GET', 'POST'])
 def logout():
     deauthenticate_user()
     return make_response()
