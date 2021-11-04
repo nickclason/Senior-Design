@@ -10,7 +10,10 @@ Welcome to the the repository for our Senior Design Project
 * Docker Compose
   * Docker Desktop for Windows/Mac includes Docker Compose
 ```
-cd src
+cd src/frontend
+npm install
+
+cd .. (/src)
 docker-compose build
 docker-compose up
 ```

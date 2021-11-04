@@ -2,7 +2,7 @@ services:
   
   frontend:
     build: ./frontend
-    command: sh -c "npm install && node_modules/.bin/ng serve --host 0.0.0.0"
+    command: sh -c "npm install && node_modules/.bin/ng serve --proxy-config proxy.conf.json --port 4200 --host 0.0.0.0 --disable-host-check true"
     ports:
       - '4200:4200'
     working_dir: /root/frontend
