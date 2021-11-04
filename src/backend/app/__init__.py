@@ -17,8 +17,8 @@ jwt = JWTManager(app)
 
 
 # Add CORS support
-CORS(app)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+# CORS(app)
+# cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 # Set up SQLAlchemy
@@ -26,5 +26,5 @@ db = SQLAlchemy(app)
 
 
 # Import all the routes
-from app import api
+from .api import *
 from app import errors
