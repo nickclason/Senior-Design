@@ -17,3 +17,6 @@ cd .. (/src)
 docker-compose build
 docker-compose up
 ```
+
+### Project Progress
+Weekly status updates on the current state of the projecct can be found [here](Assignments/ProjectStatus.md).

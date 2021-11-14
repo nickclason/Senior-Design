@@ -39,7 +39,7 @@ def get_authenticated_user():
     identity = get_jwt_identity()
     user = User.query.filter_by(email=identity).first()
     if user:
-        # print('user found: %s' % user.email)    
+        print('user found: %s' % user.email)    
         return user
     else:
         raise UserNotFound(identity)
@@ -51,7 +51,8 @@ def deauthenticate_user():
     in a real app, set a flag in user database requiring login, or
     implement token revocation scheme
     """
-    identity = get_jwt_identity()
+    # identity = get_jwt_identity()
+    identity = get_authenticated_user()
     app.logger.debug('logging user "%s" out', identity)
 
 
