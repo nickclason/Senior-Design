@@ -81,7 +81,7 @@ export class AuthService {
   deauthenticate() {
     const opts = {
       // headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('refreshToken')})
-      headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('refreshToken')})
+      headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')})
     };
 
     localStorage.clear();

@@ -29,8 +29,11 @@ class UserNotFound(AuthenticationError):
 
 def authenticate_user(email, password):
     user = User.query.filter_by(email=email).first()
-    if user and user.password == password:
-        return (create_access_token(identity=email), create_refresh_token(identity=email))
+    if user and user.password == password: # Check hashed passwords... uh todo...
+        accessToken = create_access_token(identity=email)
+        refreshToken = create_refresh_token(identity=email)
+
+        return accessToken, refreshToken
     else:
         raise InvalidCredentials()
 
@@ -51,7 +54,7 @@ def deauthenticate_user():
     in a real app, set a flag in user database requiring login, or
     implement token revocation scheme
     """
-    # identity = get_jwt_identity()
+    verify_jwt_in_request()
     identity = get_authenticated_user()
     app.logger.debug('logging user "%s" out', identity)
 

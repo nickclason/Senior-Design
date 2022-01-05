@@ -3,8 +3,8 @@
     "DEBUG": false,
     "SECRET_KEY": "super secret key",
     "JWT_TOKEN_LOCATION": "headers",
-    "JWT_ACCESS_TOKEN_EXPIRES": 30,
-    "JWT_REFRESH_TOKEN_EXPIRES": 60,
+    "JWT_ACCESS_TOKEN_EXPIRES": 3600,
+    "JWT_REFRESH_TOKEN_EXPIRES": 3600,
     "SQLALCHEMY_DATABASE_URI": "sqlite:///users.sqlite3",
     "SQLALCHEMY_TRACK_MODIFICATIONS": false
 }

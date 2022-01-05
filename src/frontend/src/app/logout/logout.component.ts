@@ -11,16 +11,20 @@ import { AuthService } from '../services/auth.service';
 })
 export class LogoutComponent implements OnInit {
 
+  message = '';
   constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
   logout() {
-    console.log("logging out");
     this.auth.deauthenticate().subscribe(
       () => {
-        this.router.navigate(['/login']);
+        console.log("logging out");
+        this.router.navigate(['/']); // redirect to home page
+      },
+      (error) => {
+        this.message = error;
       }
     );
   }
