@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { StockInfoComponent } from './stock-info/stock-info.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     NavbarComponent,
     ProfileComponent,
     LogoutComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    StockInfoComponent
   ],
   imports: [
     BrowserModule,

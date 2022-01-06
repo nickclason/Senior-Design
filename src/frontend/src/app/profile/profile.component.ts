@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // User-defined imports
 import {Router} from "@angular/router";
-
+import { StockInfoComponent } from '../stock-info/stock-info.component';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
