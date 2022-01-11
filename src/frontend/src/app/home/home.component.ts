@@ -9,8 +9,8 @@ export class HomeComponent implements OnInit {
 
   home = {
     title: 'Home',
-    subtitle: 'Welcome Home!',
-    content: 'Welcome to SCK Finance, our Senior Design project.',
+    subtitle: 'Welcome Home, Ben!',
+    content: 'Welcome to SCK Finance, our Senior Design project. ',
     image: 'assets/wsb.jpeg'
   };
 
