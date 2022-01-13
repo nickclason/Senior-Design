@@ -80,7 +80,6 @@ export class AuthService {
   // logout and clear tokens
   deauthenticate() {
     const opts = {
-      // headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('refreshToken')})
       headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')})
     };
 

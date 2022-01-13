@@ -2,6 +2,7 @@ from logging import error
 from os import access
 from flask import Flask, jsonify, make_response, abort, request
 from flask_sqlalchemy import SQLAlchemy
+from hashlib import sha256
 
 from app.auth import authenticate_user, deauthenticate_user,  refresh_authentication, get_authenticated_user, auth_required, auth_refresh_required, AuthenticationError
 from app import app, db
@@ -27,7 +28,12 @@ def login():
     if request.method == 'POST':
         try:
             email = request.json['email']
-            password = request.json['password']
+            plaintext_password = request.json['password']
+            
+            h = sha256()
+            h.update(plaintext_password.encode('utf-8'))
+            password = h.hexdigest()
+            
             access_token, refresh_token = authenticate_user(email, password)
 
             return make_response(jsonify({'accessToken': access_token, 'refreshToken': refresh_token}))
@@ -43,7 +49,7 @@ def register():
     if request.method == 'POST':
         json_data = request.get_json()  # get data from POST request
         email = json_data['email']
-        password = json_data['password']
+        plaintext_password = json_data['password'] 
         firstName = json_data['firstName']
         lastName = json_data['lastName']
 
@@ -51,6 +57,11 @@ def register():
         if user:
             return jsonify(message="Registration Failed: Email already exists")
         else:
+
+            h = sha256()
+            h.update(plaintext_password.encode('utf-8'))
+            password = h.hexdigest()
+
             new_user = User(email, password, firstName, lastName)            
             db.session.add(new_user)
             db.session.commit()
