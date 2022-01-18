@@ -10,7 +10,6 @@ from app.models.user import User
 
 #
 # TODO: implement blueprints for the various API endpoints and create new files as needed
-# TODO: Hash the passwords in the frontend, and store them in the database, when checking passwords for login, check if the hashes match.
 # TODO: define a set of error codes to throw that the frontend can then react to in order to display the correct error message
 # TODO: write a script to inject a bunch of test data into the db on creation
 # TODO: write some documentation explaining how the auth process works
