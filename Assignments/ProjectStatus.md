@@ -44,3 +44,9 @@ We began creating a wiki on GitHub using the built in wiki function on the repos
 
 ## 11/26/21 - Finished Final Design Report
 Finished putting all of the content into our wiki that is required and submitted to our advisor for evaluation.
+
+## 01/11/22 - Begin working on Test Plan and set up development environment
+Get all team members set up with the development environment and ensure everything is properly set up. Begin looking at test plan assignment.
+
+## 0/18/22 - Complete Test Plan Assignment
+We met to work on the test plan assignment, completed and submitted.
