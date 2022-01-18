@@ -24,6 +24,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 # Set up SQLAlchemy
 db = SQLAlchemy(app)
 
+os.environ['ALPHAVANTAGE_API_KEY'] = "WEU6RQTCFLYBO6XE"
 
 # Import all the routes
 from .api import *

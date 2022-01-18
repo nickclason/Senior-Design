@@ -1,5 +1,6 @@
-from logging import error
-from os import access
+import os 
+import requests
+
 from flask import Flask, jsonify, make_response, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import sha256
@@ -8,12 +9,8 @@ from app.auth import authenticate_user, deauthenticate_user,  refresh_authentica
 from app import app, db
 from app.models.user import User
 
-#
-# TODO: implement blueprints for the various API endpoints and create new files as needed
-# TODO: define a set of error codes to throw that the frontend can then react to in order to display the correct error message
-# TODO: write a script to inject a bunch of test data into the db on creation
-# TODO: write some documentation explaining how the auth process works
-#
+# from alpha_vantage.timeseries import TimeSeries
+# from pprint import pprint
 
 
 # Verify API works
@@ -103,3 +100,44 @@ def view_users():
     except AuthenticationError as error:
         print('authentication error: %s', error)
         abort(403)
+
+
+######################################################
+## This stuff should probably be in a separate file ##
+######################################################
+@app.route("/api/stocks/validate_ticker", methods=['GET'])
+def validate_ticker():
+    if request.method == 'GET':
+        ticker = request.args.get('ticker')
+        if ticker is None:
+            abort(400)
+        else:
+            try:
+                url = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(ticker.upper(), os.environ["ALPHAVANTAGE_API_KEY"]) # search endpoint
+                r = requests.get(url)
+                data = r.json()
+
+                for symbol in data['bestMatches']:
+                    if symbol['1. symbol'] == ticker.upper():
+                        return jsonify(message="Valid Ticker", symbol=symbol, statusCode = 200)
+                
+                abort(400)
+
+            except Exception as e:
+                print(e)
+                abort(400)
+    else:
+        abort(400)
+
+
+# Useful endpoints
+                # ts = TimeSeries(key=os.environ["ALPHAVANTAGE_API_KEY"], indexing_type='date')
+                # data, meta_data = ts.get_intraday(symbol=ticker.upper(), interval='1min')
+
+                # ts = TimeSeries(key=app.ALPHAVANTAGE_API_KEY, indexing_type='integer')
+                # data, meta_data = ts.get_intraday(symbol=ticker.upper(), interval='1min', outputsize='full')
+
+                # pprint(data.head(2))
+                # pprint(data)
+                
+                # url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={}&apikey={}'.format(ticker.upper(), os.environ["ALPHAVANTAGE_API_KEY"]) # basic data
