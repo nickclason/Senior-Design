@@ -6,8 +6,11 @@ Welcome to the the repository for our Senior Design Project
 
 # How to Run
 ```
-cd src
+#### Windows
+start\windows\start.bat
 
+#### MacOS/Linux
+cd src
 # First time only
 chmod +x start_backend.sh
 chmod +x start_frontend.sh

@@ -5,7 +5,7 @@ then
     echo "backend/venv already exists..." 
 else
     echo "backend/venv does not exist, creating new virtual environment..."
-    python3 -m venv backend/venv
+    python -m venv backend/venv
 fi
 
 backend/venv/bin/pip install  --no-cache-dir -r backend/requirements.txt 
