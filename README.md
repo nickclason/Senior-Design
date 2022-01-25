@@ -6,15 +6,12 @@ Welcome to the the repository for our Senior Design Project
 
 # How to Run
 ```
-#### Windows
+cd src
+
+# Windows
 start\windows\start.bat
 
-#### MacOS/Linux
-cd src
-# First time only
-chmod +x start_backend.sh
-chmod +x start_frontend.sh
-
+# MacOS/Linux
 # In two separate terminals...
 ./start_backend.sh     # in Terminal 1
 ./start_frontend.sh    # in Terminal 2
