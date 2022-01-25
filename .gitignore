@@ -133,3 +133,5 @@ dmypy.json
 
 # mac specific
 .DS_Store
+
+src/backend/app/env.py

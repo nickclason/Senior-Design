@@ -1,16 +1,14 @@
-import os 
+
 import requests
 
 from flask import Flask, jsonify, make_response, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import sha256
 
-from app.auth import authenticate_user, deauthenticate_user,  refresh_authentication, get_authenticated_user, auth_required, auth_refresh_required, AuthenticationError
 from app import app, db
+from app.auth import authenticate_user, deauthenticate_user,  refresh_authentication, get_authenticated_user, auth_required, auth_refresh_required, AuthenticationError
+from app.env import *
 from app.models.user import User
-
-# from alpha_vantage.timeseries import TimeSeries
-# from pprint import pprint
 
 
 # Verify API works
@@ -113,7 +111,7 @@ def validate_ticker():
             abort(400)
         else:
             try:
-                url = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(ticker.upper(), os.environ["ALPHAVANTAGE_API_KEY"]) # search endpoint
+                url = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(ticker.upper(), ALPHA_VANTAGE_API_KEY) # search endpoint
                 r = requests.get(url)
                 data = r.json()
 

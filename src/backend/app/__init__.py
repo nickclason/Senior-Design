@@ -1,15 +1,14 @@
 import sys
-import os.path
+from os import path
 
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy 
 from flask_jwt_extended import JWTManager
 
-
 # General Flask app
 app = Flask(__name__)
-app.config.from_json(os.path.join('resources', 'config.json'))
+app.config.from_json(path.join('resources', 'config.json'))
 
 
 # Set up JWT package
@@ -23,8 +22,6 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Set up SQLAlchemy
 db = SQLAlchemy(app)
-
-os.environ['ALPHAVANTAGE_API_KEY'] = "WEU6RQTCFLYBO6XE"
 
 # Import all the routes
 from .api import *
