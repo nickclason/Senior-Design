@@ -39,6 +39,8 @@ docker-compose up
   * pip freeze > requirements.txt  # Update requirements
   * deactivate                     # To exit the virtual environmetn
 
+* Frontend adding packages
+  * 
 
 
 ### Project Progress

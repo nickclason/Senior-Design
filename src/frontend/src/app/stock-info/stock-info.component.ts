@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stock-info.component.scss']
 })
 export class StockInfoComponent implements OnInit {
-
+  
   constructor() { }
 
   ngOnInit(): void {

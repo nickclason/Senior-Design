@@ -24,7 +24,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { StockInfoComponent } from './stock-info/stock-info.component';
 
-
+import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +51,7 @@ import { StockInfoComponent } from './stock-info/stock-info.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
