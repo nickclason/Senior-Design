@@ -23,8 +23,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { StockInfoComponent } from './stock-info/stock-info.component';
+import { CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService,
+         StockChartModule, StockChartAllModule } from '@syncfusion/ej2-angular-charts';
 
-import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,9 +52,11 @@ import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ButtonModule,
+
+    StockChartModule,
+    StockChartAllModule,
   ],
-  providers: [],
+  providers: [CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
