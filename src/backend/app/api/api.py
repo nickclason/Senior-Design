@@ -1,6 +1,4 @@
 
-import requests
-
 from flask import Flask, jsonify, make_response, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from hashlib import sha256
@@ -9,6 +7,8 @@ from app import app, db
 from app.auth import authenticate_user, deauthenticate_user,  refresh_authentication, get_authenticated_user, auth_required, auth_refresh_required, AuthenticationError
 from app.env import *
 from app.models.user import User
+
+from alpaca_trade_api.rest import REST, TimeFrame
 
 
 # Verify API works
@@ -100,42 +100,18 @@ def view_users():
         abort(403)
 
 
-######################################################
-## This stuff should probably be in a separate file ##
-######################################################
-@app.route("/api/stocks/validate_ticker", methods=['GET'])
-def validate_ticker():
+@app.route("/api/stocks/get_bars", methods=['GET'])
+def get_bars():
     if request.method == 'GET':
         ticker = request.args.get('ticker')
         if ticker is None:
             abort(400)
         else:
             try:
-                url = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(ticker.upper(), ALPHA_VANTAGE_API_KEY) # search endpoint
-                r = requests.get(url)
-                data = r.json()
+                api = REST()
+                bars = api.get_bars(ticker.upper(), TimeFrame.Day, "2021-01-01", "2021-12-31", adjustment='raw').df
 
-                for symbol in data['bestMatches']:
-                    if symbol['1. symbol'] == ticker.upper():
-                        return jsonify(message="Valid Ticker", symbol=symbol, statusCode = 200)
-                
-                abort(400)
-
+                return jsonify(message="Valid Ticker", statusCode = 200)
             except Exception as e:
                 print(e)
                 abort(400)
-    else:
-        abort(400)
-
-
-# Useful endpoints
-                # ts = TimeSeries(key=os.environ["ALPHAVANTAGE_API_KEY"], indexing_type='date')
-                # data, meta_data = ts.get_intraday(symbol=ticker.upper(), interval='1min')
-
-                # ts = TimeSeries(key=app.ALPHAVANTAGE_API_KEY, indexing_type='integer')
-                # data, meta_data = ts.get_intraday(symbol=ticker.upper(), interval='1min', outputsize='full')
-
-                # pprint(data.head(2))
-                # pprint(data)
-                
-                # url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={}&apikey={}'.format(ticker.upper(), os.environ["ALPHAVANTAGE_API_KEY"]) # basic data
