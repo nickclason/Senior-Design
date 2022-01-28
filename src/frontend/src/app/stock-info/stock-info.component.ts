@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-stock-info',
@@ -11,16 +11,18 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export class StockInfoComponent implements OnInit {
   
-  public stockchartData: Object[];
-  form: FormGroup = new FormGroup({});
+  form: FormGroup = new FormGroup({
+    stock: new FormControl('', Validators.required),
+    function: new FormControl('INTRADAY', Validators.required),
+    interval: new FormControl('60min', Validators.required)
+  });
 
+  // Ben I'm so sorry I don't know what I'm doing, everything I'm doing feels so wrong
+  functionList: any = ['INTRADAY', 'DAILY', 'DAILY_ADJUSTED', 'WEEKLY', 'WEEKLY_ADJUSTED', 'MONTHLY', 'MONTHLY_ADJUSTED']
+  intervalList: any = ['1min', '5min', '15min', '30min', '60min']
+  stockChartData: any[] = [];
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
-    this.stockchartData = [];
-    
-    this.form = fb.group({
-      stock: ['']
-    })
+  constructor(private http: HttpClient) {
   }
   
   ngOnInit(): void {
@@ -31,10 +33,18 @@ export class StockInfoComponent implements OnInit {
   }
 
   submit(){
-    // console.log(this.form.value);
-    var url = 'http://localhost:5000/stocks/get_timeseries_weekly?ticker=' + this.form.value.stock
+    
+    var url: string;
+    if (this.form.value.interval == 'None') {
+      url = `http://localhost:5000/stocks/get_timeseries?function=${this.form.value.function}&symbol=${this.form.value.stock}&interval=${this.form.value.interval}`;
+    }
+    else {
+      url = `http://localhost:5000/stocks/get_timeseries?function=${this.form.value.function}&symbol=${this.form.value.stock}`;
+    }
+
+
     this.http.get<any>(url).subscribe(data => { 
-      this.stockchartData = convert_unix_to_date(data['chartData'])
+      this.stockChartData = convert_unix_to_date(data['chartData'])
     })  
   }
 

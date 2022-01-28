@@ -17,6 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
@@ -52,6 +53,7 @@ import { CandleSeriesService, LegendService, TooltipService, DataLabelService, D
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
 
     StockChartModule,
     StockChartAllModule,

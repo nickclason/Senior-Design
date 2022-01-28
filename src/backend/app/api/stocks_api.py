@@ -6,50 +6,88 @@ from app.helper import *
 import requests
 
 
+
+# '''
+# Description:
+#     Input: 
+#     Output:
+# '''
+
 # Define stock data blueprint
 stocks_bp = Blueprint('/stocks', __name__)
 
+# TODO: Make function types and all that an enum?
 
-# We could make this much more general, but for now, we'll just create 
-# a route for each time series time frame we want to track.
-@stocks_bp.route("/get_timeseries_daily", methods=['GET'])
-def get_timeseries_daily():
+ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co/query?function='
+
+@stocks_bp.route("/get_timeseries", methods=['GET'])
+def get_timeseries():
+    '''
+    Description: endpoint that returns a timeseries of data for a given stock
+        Input: 
+            function - string of the function to use for the data
+            symbol - string of the stock symbol to get data for
+            
+            interval (optional) - string of the interval to use for the data (default is '60min)'
+            outputsize (optional) - string of the output size to use for the data (default is 'compact')
+            adjusted (optional) - boolean of whether or not to use adjusted data (default is True)
+
+        Output: 
+            chart_data - list of dictionaries, each dictionary is a single data point for the given function
+    '''
+
+
+    if request.method == 'GET':
+        function = request.args.get('function').upper() # Intraday, Daily, Weekly (Adjusted), Monthly (Adjusted)
+        symbol = request.args.get('symbol').upper()
+        interval = request.args.get('interval') # Intraday only - 1min, 5min, 15min, 30min, 60min
+        outputsize = request.args.get('outputsize') # Intraday, Daily,  Default=compact (100 datapoints), full (20+ years of data)
+        adjusted = request.args.get('adjusted') # Intraday only - Default is true
+
+    if function is None or symbol is None:
+        abort(400)
+    else:
+        try:
+            
+            if function == 'INTRADAY': # Example: "localhost:5000/stocks/get_timeseries?function=INTRADAY&symbol=AAPL"
+                outputsize = 'compact' if outputsize is None else outputsize
+                adjusted = 'true' if adjusted is None else adjusted
+                interval = '60min' if interval is None else interval
+
+                url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_INTRADAY&symbol={}&interval={}&adjusted={}&outputsize={}&apikey={}'.format(symbol.upper(), interval, adjusted, outputsize, ALPHA_VANTAGE_API_KEY)
+                raw = make_request(url)
+
+            elif function == 'DAILY': # Example: "localhost:5000/stocks/get_timeseries?function=DAILY&symbol=AAPL"
+                outputsize = 'compact' if outputsize is None else outputsize
+
+                url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_{}&symbol={}&outputsize={}&apikey={}'.format(function, symbol.upper(), outputsize, ALPHA_VANTAGE_API_KEY)
+                raw = make_request(url)
+
+            elif function in ['WEEKLY', 'WEEKLY_ADJUSTED', 'MONTHLY', 'MONTHLY_ADJUSTED']: # Example: "localhost:5000/stocks/get_timeseries?function=WEEKLY&symbol=AAPL"
+                url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_{}&symbol={}&apikey={}'.format(function, symbol.upper(), ALPHA_VANTAGE_API_KEY)
+                raw = make_request(url)
+
+            chartData = convert_timeseries_to_chartdata(raw, function, interval)
+            return make_response(jsonify(message="Valid Ticker", statusCode = 200, chartData=chartData))
+
+        except Exception as e:
+            print(e)
+            abort(400)
+        
+
+# function = GLOBAL_QUOTE
+@stocks_bp.route("/get_quote", methods=['GET'])
+def get_quote():
     if request.method == 'GET':
         ticker = request.args.get('ticker')
-        if ticker is None:
-            abort(400)
-        else:
-            try:
-                # outputsize=compact/full, compact=100 datapoints, full=20+ yrs of data
-                url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&apikey={}'.format(ticker.upper(), ALPHA_VANTAGE_API_KEY)
-                r = requests.get(url)
-                raw = r.json()
 
-                chart_data = convert_timeseries_daily_to_chart_data(raw)
+        return make_response(jsonify(message="Not Implemented", statusCode = 501))
+        
 
-                return make_response(jsonify(message="Valid Ticker", statusCode = 200, chartData=chart_data))
-
-            except Exception as e:
-                print(e)
-                abort(400)
-
-
-@stocks_bp.route("/get_timeseries_weekly", methods=['GET'])
-def get_timeseries_weekly():
+# function = SYMBOL_SEARCH
+@stocks_bp.route("/search", methods=['GET'])
+def search():
     if request.method == 'GET':
-        ticker = request.args.get('ticker')
-        if ticker is None:
-            abort(400)
-        else:
-            try:
-                # outputsize=compact/full, compact=100 datapoints, full=20+ yrs of data
-                url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={}&apikey={}'.format(ticker.upper(), ALPHA_VANTAGE_API_KEY)
-                r = requests.get(url)
-                raw = r.json()
-                chart_data = convert_timeseries_weekly_to_chart_data(raw)
+        keywords = request.args.get('keywords')
 
-                return make_response(jsonify(message="Valid Ticker", statusCode = 200, chartData=chart_data))
-
-            except Exception as e:
-                print(e)
-                abort(400)
+        return make_response(jsonify(message="Not Implemented", statusCode = 501))
