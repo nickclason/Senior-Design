@@ -1,4 +1,13 @@
-<p>stock-info component works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Stock</mat-label>
+        <input matInput placeholder="AAPL, TSLA, MSFT, etc." formControlName="stock">
+    </mat-form-field>
+    
+    <button mat-raised-button color="accent">Submit</button>
+</form>
+
 
 <ejs-stockchart id="chart-container" >
     <e-stockchart-series-collection>

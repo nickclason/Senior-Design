@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-stock-info',
@@ -11,22 +12,32 @@ import { HttpClient } from '@angular/common/http';
 export class StockInfoComponent implements OnInit {
   
   public stockchartData: Object[];
+  form: FormGroup = new FormGroup({});
 
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, private fb: FormBuilder) {
     this.stockchartData = [];
+    
+    this.form = fb.group({
+      stock: ['']
+    })
   }
   
   ngOnInit(): void {
-    // TODO: implement some kind of search, drop down, or something like that to get stock we want to see
-    var tesla_url = 'http://localhost:5000/stocks/get_timeseries_weekly?ticker=TSLA'
-    var apple_url = 'http://localhost:5000/stocks/get_timeseries_weekly?ticker=AAPL'
-   
-    this.http.get<any>(apple_url).subscribe(data => { 
+  }
 
+  get f(){
+    return this.form.controls;
+  }
+
+  submit(){
+    // console.log(this.form.value);
+    var url = 'http://localhost:5000/stocks/get_timeseries_weekly?ticker=' + this.form.value.stock
+    this.http.get<any>(url).subscribe(data => { 
       this.stockchartData = convert_unix_to_date(data['chartData'])
-      // console.log(this.stockchartData)
     })  
   }
+
 }
 
 function convert_unix_to_date(data: any) {
