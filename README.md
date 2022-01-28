@@ -40,7 +40,7 @@ docker-compose up
   * deactivate                     # To exit the virtual environmetn
 
 * Frontend adding packages
-  * 
+  * Add package to package.json
 
 
 ### Project Progress
