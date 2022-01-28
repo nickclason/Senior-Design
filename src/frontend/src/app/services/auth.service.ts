@@ -8,12 +8,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../environments/environment';
 
 
-const LOGIN_API = environment.apiServer + '/api/auth/login';
-const LOGOUT_API = environment.apiServer + '/api/auth/logout';
-const REGISTER_API = environment.apiServer + '/api/auth/register'; // can technically not include this here as it doesn't require any auth?
-const REFRESH_API = environment.apiServer + '/api/auth/refresh';
-const PROFILE_API = environment.apiServer + '/api/profile';
-
+const LOGIN_API = environment.apiServer + '/auth/login';
+const LOGOUT_API = environment.apiServer + '/auth/logout';
+const REGISTER_API = environment.apiServer + '/auth/register'; // can technically not include this here as it doesn't require any auth?
+const REFRESH_API = environment.apiServer + '/auth/refresh';
+const DASHBOARD_API = environment.apiServer + '/auth/dashboard';
 class LoginResponse {
   accessToken: string;
   refreshToken: string;
@@ -65,7 +64,7 @@ export class AuthService {
           headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')})
         };
 
-        return this.http.get<UserInfo>(PROFILE_API, opts).pipe(
+        return this.http.get<UserInfo>(DASHBOARD_API, opts).pipe(
           map(userInfo => {
             localStorage.setItem('email', userInfo.email);
             this.authStatus.next(true);
