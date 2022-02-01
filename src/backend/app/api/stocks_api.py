@@ -35,11 +35,9 @@ def get_timeseries():
         Output: 
             chart_data - list of dictionaries, each dictionary is a single data point for the given function
     '''
-
-
     if request.method == 'GET':
         function = request.args.get('function').upper() # Intraday, Daily, Weekly (Adjusted), Monthly (Adjusted)
-        symbol = request.args.get('symbol').upper()
+        symbol = request.args.get('symbol')
         interval = request.args.get('interval') # Intraday only - 1min, 5min, 15min, 30min, 60min
         outputsize = request.args.get('outputsize') # Intraday, Daily,  Default=compact (100 datapoints), full (20+ years of data)
         adjusted = request.args.get('adjusted') # Intraday only - Default is true
@@ -75,19 +73,37 @@ def get_timeseries():
             abort(400)
         
 
-# function = GLOBAL_QUOTE
 @stocks_bp.route("/get_quote", methods=['GET'])
 def get_quote():
     if request.method == 'GET':
-        ticker = request.args.get('ticker')
-
-        return make_response(jsonify(message="Not Implemented", statusCode = 501))
+        symbol = request.args.get('symbol')
+    
+    if symbol is None:
+        abort(400)
+    else:
+        try:
+            url = ALPHA_VANTAGE_BASE_URL + 'GLOBAL_QUOTE&symbol={}&apikey={}'.format(symbol.upper(), ALPHA_VANTAGE_API_KEY)
+            raw = make_request(url)
+            quote = clean_quote(raw)
+            return make_response(jsonify(message="Valid Ticker", statusCode = 200, quote=quote))
+        except Exception as e:
+            print(e)
+            abort(400)
         
 
-# function = SYMBOL_SEARCH
 @stocks_bp.route("/search", methods=['GET'])
 def search():
     if request.method == 'GET':
         keywords = request.args.get('keywords')
 
-        return make_response(jsonify(message="Not Implemented", statusCode = 501))
+    if keywords is None:
+        return make_response(jsonify(message="No keywords provided", statusCode = 200, results = []))
+    else:
+        try:
+            url = ALPHA_VANTAGE_BASE_URL + 'SYMBOL_SEARCH&keywords={}&apikey={}'.format(keywords, ALPHA_VANTAGE_API_KEY)
+            raw = make_request(url)
+            cleaned = clean_results(raw)
+            return make_response(jsonify(message="Valid keywords", statusCode = 200, results=cleaned))
+        except Exception as e:
+            print(e)
+            abort(400)
