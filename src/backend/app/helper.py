@@ -16,7 +16,7 @@ def convert_timeseries_intraday_to_chart_data(timeseries, interval):
     chart_data = []
     for x in timeseries['Time Series ({})'.format(interval)].items():
         chart_data.append({
-            'date': convert_time_str_to_epoch(x[0]),
+            'date': datetime.datetime.strptime(x[0], '%Y-%m-%d %H:%M:%S').timestamp(),
             'open': x[1]['1. open'],
             'high': x[1]['2. high'],
             'low': x[1]['3. low'],
