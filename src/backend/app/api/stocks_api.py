@@ -3,9 +3,6 @@ from flask import abort, Blueprint, jsonify, make_response, request
 from app.env import *
 from app.helper import *
 
-import requests
-
-
 
 # '''
 # Description:

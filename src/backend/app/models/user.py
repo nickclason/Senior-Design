@@ -7,10 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 # TODO: Add a time_last_login field to the User table
 #
 
-
 class User(db.Model):
-    _id = db.Column("id", db.Integer, primary_key=True)
-
+    id = db.Column("id", db.Integer, primary_key=True)
     email = db.Column("email", db.String(254), unique=True)  # max email length is apparently 254 chars
     password = db.Column("password", db.String(32))
     firstName = db.Column("firstName", db.String(64))
@@ -18,7 +16,7 @@ class User(db.Model):
 
     def __init__(self, email, password, firstName, lastName):
         self.email = email
-        self.password = password  # need to hash this shit later if we really care
+        self.password = password
         self.firstName = firstName
         self.lastName = lastName
 

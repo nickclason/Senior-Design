@@ -42,7 +42,7 @@ def get_authenticated_user():
     identity = get_jwt_identity()
     user = User.query.filter_by(email=identity).first()
     if user:
-        print('user found: %s' % user.email)    
+        # print('user found: %s' % user.email)    
         return user
     else:
         raise UserNotFound(identity)

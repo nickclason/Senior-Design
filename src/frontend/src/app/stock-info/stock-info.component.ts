@@ -33,7 +33,6 @@ export class StockInfoComponent implements OnInit {
   }
 
   submit(){
-    
     var url: string;
     if (this.form.value.interval == 'None') {
       url = `http://localhost:5000/stocks/get_timeseries?function=${this.form.value.function}&symbol=${this.form.value.stock}&interval=${this.form.value.interval}`;
