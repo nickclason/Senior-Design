@@ -3,6 +3,9 @@ from flask import abort, Blueprint, jsonify, make_response, request
 from app.env import *
 from app.helper import *
 
+# This file should contain any requests made to get data from outside sources
+# any internal operations should be handled in api/portfolio_api.py
+
 
 # '''
 # Description:
@@ -11,13 +14,13 @@ from app.helper import *
 # '''
 
 # Define stock data blueprint
-stocks_bp = Blueprint('/stocks', __name__)
+data_bp = Blueprint('/data', __name__)
 
 # TODO: Make function types and all that an enum?
 
 ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co/query?function='
 
-@stocks_bp.route("/get_timeseries", methods=['GET'])
+@data_bp.route("/get_timeseries", methods=['GET'])
 def get_timeseries():
     '''
     Description: endpoint that returns a timeseries of data for a given stock
@@ -44,7 +47,7 @@ def get_timeseries():
     else:
         try:
             
-            if function == 'INTRADAY': # Example: "localhost:5000/stocks/get_timeseries?function=INTRADAY&symbol=AAPL"
+            if function == 'INTRADAY': # Example: "localhost:5000/data/get_timeseries?function=INTRADAY&symbol=AAPL"
                 outputsize = 'compact' if outputsize is None else outputsize
                 adjusted = 'true' if adjusted is None else adjusted
                 interval = '60min' if interval is None else interval
@@ -52,13 +55,13 @@ def get_timeseries():
                 url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_INTRADAY&symbol={}&interval={}&adjusted={}&outputsize={}&apikey={}'.format(symbol.upper(), interval, adjusted, outputsize, ALPHA_VANTAGE_API_KEY)
                 raw = make_request(url)
 
-            elif function == 'DAILY': # Example: "localhost:5000/stocks/get_timeseries?function=DAILY&symbol=AAPL"
+            elif function == 'DAILY': # Example: "localhost:5000/data/get_timeseries?function=DAILY&symbol=AAPL"
                 outputsize = 'compact' if outputsize is None else outputsize
 
                 url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_{}&symbol={}&outputsize={}&apikey={}'.format(function, symbol.upper(), outputsize, ALPHA_VANTAGE_API_KEY)
                 raw = make_request(url)
 
-            elif function in ['WEEKLY', 'WEEKLY_ADJUSTED', 'MONTHLY', 'MONTHLY_ADJUSTED']: # Example: "localhost:5000/stocks/get_timeseries?function=WEEKLY&symbol=AAPL"
+            elif function in ['WEEKLY', 'WEEKLY_ADJUSTED', 'MONTHLY', 'MONTHLY_ADJUSTED']: # Example: "localhost:5000/data/get_timeseries?function=WEEKLY&symbol=AAPL"
                 url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_{}&symbol={}&apikey={}'.format(function, symbol.upper(), ALPHA_VANTAGE_API_KEY)
                 raw = make_request(url)
 
@@ -70,8 +73,13 @@ def get_timeseries():
             abort(400)
         
 
-@stocks_bp.route("/get_quote", methods=['GET'])
+@data_bp.route("/get_quote", methods=['GET'])
 def get_quote():
+    '''
+    Description: Endpoint that returns the current quote for a given stock
+        Input: N/A
+        Output: Most recent price for the given stock
+    '''
     if request.method == 'GET':
         symbol = request.args.get('symbol')
     
@@ -88,8 +96,13 @@ def get_quote():
             abort(400)
         
 
-@stocks_bp.route("/search", methods=['GET'])
+@data_bp.route("/search", methods=['GET'])
 def search():
+    '''
+    Description: Endpoint that allows us to search for stocks, i.e if enter "apple" it will return most likely matches
+        Input: keywords - string of keywords to search for
+        Output: list of dictionaries, each dictionary is a single stock, containing the stock symbol and the stock name, as well as likelihood it is a match
+    '''
     if request.method == 'GET':
         keywords = request.args.get('keywords')
 
