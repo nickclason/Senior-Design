@@ -9,5 +9,10 @@ class Stock(db.Model):
     latest_price = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False)
 
+    def __init__(self, symbol, latest_price, timestamp):
+        self.symbol = symbol
+        self.latest_price = latest_price
+        self.timestamp = timestamp
+
     def __repr__(self):
         return f'<Stock {self.symbol}>'
