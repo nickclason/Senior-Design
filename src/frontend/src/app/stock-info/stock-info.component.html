@@ -1,105 +1,30 @@
-<!-- <form [formGroup]="form" (ngSubmit)="submit()">
+<div style="text-align:center">
+  <h1>
+     Enter Stock to Add to Portfolio
+  </h1>
+  <input type="text"  [(ngModel)]="symbol">
+  <button  (click)="clickEvent()" >
+    Add to portfolio</button>
+  <h2>{{symbol}}</h2>
 
-    <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Stock</mat-label>
-        <input matInput placeholder="AAPL, TSLA, MSFT, etc." formControlName="stock">
-    </mat-form-field>
-    
-    <button mat-raised-button color="accent">Submit</button>
-</form> -->
-
-<!-- <div class="container">
-         
-    <form [formGroup]="form" (ngSubmit)="submit()">
-
-        <mat-form-field>
-            <mat-label>Function</mat-label>
-            <mat-select formControlName="function">
-              <mat-option *ngFor="let f of functionList" [value]="f">
-                {{ f }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field> 
-
-
-         <div class="form-group">
-            <mat-label for="function">Function:</mat-label>
-            <mat-select formControlName="function">
-                <mat-option disabled>Select Function</mat-option>
-                <mat-option>Choose Function</mat-option>
-                <mat-option *ngFor="let func of functionList">{{func}}</mat-option>
-            </mat-select>
-        </div> 
-
-         <div class="form-group">
-            <mat-label for="interval">Interval:</mat-label>
-            <mat-select formControlName="interval" class="form-control">
-                <mat-option disabled>Select Interval</mat-option>
-                <mat-option>Choose Interval</mat-option>
-                <mat-option *ngFor="let int of intervalList">{{int}}</mat-option>
-            </mat-select>
-        </div>
-
-        <div class="form-group">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Stock</mat-label>
-                <input matInput placeholder="AAPL, TSLA, MSFT, etc." formControlName="stock">
-            </mat-form-field>
-        </div>
-
-        <button mat-raised-button color="accent">Submit</button>
-        
-    </form>
-</div> --> 
-
-
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <mat-form-field appearance="outline">
-      <input matInput placeholder="Enter Stock Ticker" formControlName="stock">
-    </mat-form-field>
-    
-    <br/>
-    <br/>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Select a function</mat-label>
-      <mat-select formControlName="function">
-        <mat-option *ngFor="let f of functionList" [value]="f">
-          {{ f }}
-        </mat-option>
-      </mat-select>
-
-    </mat-form-field>
-    
-    <br/>
-    <br/>
-    
-    <mat-form-field appearance="outline">
-      <mat-label>Select interval</mat-label>
-      <mat-select formControlName="interval">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let i of intervalList" [value]="i">
-          {{i}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> 
-
-    <br/>
-    <br/>
-  
-    <button mat-raised-button>Submit</button>
-    <!-- <button mat-raised-button type="button" (click)="setDefault()">Default Value</button>
-    <button mat-raised-button type="button" (click)="resetForm()">Reset</button> -->
-  </form>
-
-
-<div></div>
-
-<div class="container">
-    <ejs-stockchart id="chart-container" >
-        <e-stockchart-series-collection>
-            <e-stockchart-series [dataSource]='stockChartData' type='Candle' xName='date' High='high' Low='low' Open='open' Close ='close' Name='Apple'></e-stockchart-series>
-        </e-stockchart-series-collection>
-    </ejs-stockchart>
 </div>
 
+<div>
+  <h1>Current Holdings</h1>
+
+  <table>
+    <tr>
+      <th>Symbol</th>
+      <!-- <th>Shares</th> -->
+      <th>Price</th>
+      <!-- <th>Total</th> -->
+    </tr>
+    <tr *ngFor="let holding of holdings">
+      <td>{{holding.symbol}}</td>
+      <!-- <td>{{holding.shares}}</td> TODO -->
+      <td>{{holding.price}}</td>
+      <!-- <td>{{holding.total}}</td> TODO -->
+    </tr>
+  </table>
+
+</div>

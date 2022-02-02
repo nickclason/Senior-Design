@@ -2,6 +2,11 @@
 import datetime
 import requests
 
+from flask import abort, jsonify
+
+from app import db
+from app.models.stock import Stock
+
 # '''
 # Description:
 
@@ -11,7 +16,7 @@ import requests
 # '''
 
 
-
+####
 def convert_timeseries_intraday_to_chart_data(timeseries, interval):
     chart_data = []
     for x in timeseries['Time Series ({})'.format(interval)].items():
@@ -96,7 +101,7 @@ def convert_timeseries_monthly_to_chart_data(timeseries, adjusted=False):
         })
     return chart_data
 
-
+####
 def convert_timeseries_to_chartdata(timeseries, function, interval):
     '''
     Description: Helper function to assist in converting all data into a single format, using epoch time
@@ -122,7 +127,7 @@ def convert_timeseries_to_chartdata(timeseries, function, interval):
     
     return None
 
-
+####
 def clean_quote(quote):
     new_quote = []
     new_quote.append({
@@ -174,7 +179,7 @@ def make_request(url):
         print(e)
         return None
 
-
+####
 def convert_time_str_to_epoch(time_str):
     '''
     Description: Helper function to convert a string of time into epoch time
@@ -185,3 +190,38 @@ def convert_time_str_to_epoch(time_str):
     '''
 
     return datetime.datetime.strptime(time_str, '%Y-%m-%d').timestamp()
+
+
+####
+def add_stock_to_db(symbol):
+    '''
+    Description: Helper function to add a stock to the database
+
+        Input: stock - dictionary of the stock to add to the database
+              db - database to add the stock to
+
+        Output: True if successful, False otherwise
+    '''
+    try:
+        resp = make_request('http://localhost:5000/data/get_quote?symbol=' + symbol.upper())
+        latest_price = resp['quote'][0]['price']
+        timestamp = datetime.datetime.fromtimestamp(resp['quote'][0]['latest_trading_day'])
+        
+        stock = Stock.query.filter_by(symbol=symbol.upper()).first()
+        if stock:
+            # update stock         
+            stock.latest_price = latest_price
+            stock.timestamp = timestamp
+            db.session.commit()
+            
+            return True
+        else:
+            new_stock = Stock(symbol.upper(), latest_price, timestamp)
+            db.session.add(new_stock)
+            db.session.commit()
+                
+            return True
+
+    except Exception as e:
+        print(e)
+        return False
