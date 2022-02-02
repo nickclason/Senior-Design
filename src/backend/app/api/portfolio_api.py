@@ -5,7 +5,6 @@ from app.auth import *
 from app.env import *
 
 from app.models.user import User
-from app.models.portfolio import Portfolio, Stock
 # from app.models.stock import Stock
 
 
