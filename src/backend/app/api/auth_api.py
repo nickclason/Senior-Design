@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db # Database
 from app.auth import * # Authentication
 from app.models.user import User # User model
+from app.models.portfolio import Portfolio # Portfolio model
 
 from hashlib import sha256 # Hashing
 
@@ -51,7 +52,7 @@ def register():
             h.update(plaintext_password.encode('utf-8'))
             password = h.hexdigest()
 
-            new_user = User(email, password, firstName, lastName)            
+            new_user = User(email, password, firstName, lastName, Portfolio())            
             db.session.add(new_user)
             db.session.commit()
             
@@ -89,6 +90,7 @@ def refresh_api():
 def dashboard():
     try:
         user = get_authenticated_user()
+
         return make_response(jsonify( {'email': user.email, 'firstName': user.firstName, 'lastName': user.lastName} ))
     except AuthenticationError as error:
         print('authentication error: %s', error)
