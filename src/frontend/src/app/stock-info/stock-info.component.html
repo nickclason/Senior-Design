@@ -1,29 +1,46 @@
 <div style="text-align:center">
-  <h1>
-     Enter Stock to Add to Portfolio
-  </h1>
-  <input type="text"  [(ngModel)]="symbol">
-  <button  (click)="clickEvent()" >
-    Add to portfolio</button>
-  <h2>{{symbol}}</h2>
+  <h1>Enter Transaction</h1>
+  <div>
+    <label for="symbol">Symbol:</label>
+    <input type="text"  [(ngModel)]="symbol">
+  </div>
+  
+  <div>
+    <label for="quantity">Quantity:</label>
+    <input type="number" [(ngModel)]="quantity">
+  </div>
 
+  <div>
+    <select [(ngModel)]="buy">
+      <option value=1>BUY</option>
+      <option value=0>SELL</option>
+      </select>
+  </div>
+  <button  (click)="clickEvent()" >Add Transaction</button>
 </div>
 
+
 <div>
-  <h1>Current Holdings</h1>
+  <h1>Portfolio</h1>
 
   <table>
     <tr>
       <th>Symbol</th>
-      <!-- <th>Shares</th> -->
-      <th>Price</th>
-      <!-- <th>Total</th> -->
+
+      <th>Quantity</th> 
+      
+      <th>Current Value</th>
+
+      <!-- <th>Cost Basis Per Share</th> -->
+
+      <th>Total Value</th>
     </tr>
+    
     <tr *ngFor="let holding of holdings">
       <td>{{holding.symbol}}</td>
-      <!-- <td>{{holding.shares}}</td> TODO -->
-      <td>{{holding.price}}</td>
-      <!-- <td>{{holding.total}}</td> TODO -->
+      <td>{{holding.quantity}}</td>
+      <td>{{holding.current_value}}</td>
+      <td>{{holding.total_value}}</td>
     </tr>
   </table>
 

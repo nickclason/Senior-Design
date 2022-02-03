@@ -8,6 +8,7 @@ from app.helper import *
 from app.models.user import User
 from app.models.portfolio import Portfolio
 from app.models.stock import Stock
+from app.models.transaction import Transaction
 
 import datetime
 
@@ -30,30 +31,35 @@ portfolio_bp = Blueprint('/portfolio', __name__)
 
 
 # This should become "create_transaction"
-@portfolio_bp.route('/add_holding', methods=['POST'])
+@portfolio_bp.route('/create_transaction', methods=['POST'])
 @auth_required
 def add_holding():
     if request.method == 'POST':
         try:
             json_data = request.get_json()  # get data from POST request
-            print(json_data)
             symbol = json_data['symbol'].upper()
-            # quantity = json_data['quantity'] # TODO: implement with TX's
-            # price = json_data['price'] # TODO: implement with TX's
+            quantity = json_data['quantity']
+            buy = True if json_data['buy'] == 1 else False
+
+            # price = json_data['price'] # TODO: currently when we create a transaction, we just use the previous close price... not ideal but it works
 
             user = get_authenticated_user() # Get the user
             portfolio = user.portfolio # Get the user's portfolio
 
-            # could make this more logical (if stock exists add it, if not then add to db)
             add_stock_to_db(symbol) # Add the stock to the database if it doesn't exist
             stock = Stock.query.filter_by(symbol=symbol).first() # Get the stock from the database
+           
+            tx = Transaction(quantity=quantity, timestamp=datetime.datetime.now(), buy=buy, stock=stock) # Create a transaction
 
-            portfolio.holdings.append(stock) # Add the stock to the user's portfolio
+            portfolio.transactions.append(tx) # Add the transaction to the user's portfolio
+
+
+            # TODO: If selling we need to check that the user has enough shares to sell, for now its fine
+
+
             db.session.commit() # Commit the changes to the database
 
-            print(portfolio.holdings)
-
-            return make_response(jsonify({'message': 'TODO: implement add_holding', 'statusCode': 200}))
+            return make_response(jsonify({'message': 'Transaction Added', 'statusCode': 200}))
         except Exception as error:
             print(error)
             abort(400)
@@ -66,17 +72,37 @@ def get_holdings():
         try:
             user = get_authenticated_user() # Get the user
             portfolio = user.portfolio # Get the user's portfolio
+            transactions = portfolio.transactions # Get the user's transactions
 
-            holdings = []
-            for holding in portfolio.holdings:
-                holdings.append({
-                    'symbol': holding.symbol,
-                    'price': holding.latest_price,
-                    # 'quantity': holding.quantity, # TODO: implement with TX's
-                    
+            # time to do it the dirty way
+            holdings={}
+            for tx in transactions:
+                if tx.buy:
+                    if tx.stock.symbol in holdings:
+                        holdings[tx.stock.symbol] += tx.quantity
+                    else:
+                        holdings[tx.stock.symbol] = tx.quantity
+                else: # sell
+                    if tx.stock.symbol in holdings:
+                        holdings[tx.stock.symbol] -= tx.quantity
+                        if holdings[tx.stock.symbol] == 0: # shouldn't every allow them to sell more than they own so this is "fine"
+                            holdings.pop(tx.stock.symbol)
+
+            
+            data = []
+            for stock in holdings:
+                curr_price = Stock.query.filter_by(symbol=stock).first().latest_price # idk if this is the "latest" but for now its fine...
+                
+                data.append({    
+                    'symbol': stock,
+                    'quantity': holdings[stock],
+                    'current_value': curr_price, 
+                    'total_value': curr_price*holdings[stock]
                 })
+            
 
-            return make_response(jsonify({'holdings': holdings, 'statusCode': 200}))
+
+            return make_response(jsonify({'holdings': data, 'statusCode': 200}))
         except Exception as error:
             print(error)
             abort(400)

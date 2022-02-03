@@ -3,17 +3,16 @@ from app import db
 from flask_sqlalchemy import SQLAlchemy
 
 
-stocks = db.Table('stocks', 
+transactions = db.Table('transactions',
     db.Column('portfolio_id', db.Integer, db.ForeignKey('portfolio.id')),
-    db.Column('stock_id', db.Integer, db.ForeignKey('stock.id'))
+    db.Column('transaction_id', db.Integer, db.ForeignKey('transaction.id'))
 )
-
 
 class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    holdings = db.relationship('Stock', secondary=stocks, backref='portfolios')
+    transactions = db.relationship('Transaction', secondary=transactions, backref='portfolio')
 
 
     def __rep__(self):
