@@ -11,14 +11,19 @@
   </div>
 
   <div>
+    <label for="date">Date</label>
+    <input type="date" [(ngModel)]="date">
+  </div>
+
+  <div>
     <select [(ngModel)]="buy">
       <option value=1>BUY</option>
       <option value=0>SELL</option>
       </select>
   </div>
+  
   <button  (click)="clickEvent()" >Add Transaction</button>
 </div>
-
 
 <div>
   <h1>Portfolio</h1>

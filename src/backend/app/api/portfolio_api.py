@@ -40,22 +40,23 @@ def add_holding():
             symbol = json_data['symbol'].upper()
             quantity = json_data['quantity']
             buy = True if json_data['buy'] == 1 else False
-
-            # price = json_data['price'] # TODO: currently when we create a transaction, we just use the previous close price... not ideal but it works
+            date = json_data['date']
+         
 
             user = get_authenticated_user() # Get the user
             portfolio = user.portfolio # Get the user's portfolio
 
             add_stock_to_db(symbol) # Add the stock to the database if it doesn't exist
             stock = Stock.query.filter_by(symbol=symbol).first() # Get the stock from the database
-           
-            tx = Transaction(quantity=quantity, timestamp=datetime.datetime.now(), buy=buy, stock=stock) # Create a transaction
 
+            price = make_request('http://localhost:5000/data/get_price_on_day?symbol={}&date={}'.format(symbol, date)) # Get the price of the stock on the given date
+            price = price['price']
+
+            tx = Transaction(quantity=quantity, timestamp=datetime.datetime.fromtimestamp(int(date)/1000), buy=buy, stock=stock, price=price) 
             portfolio.transactions.append(tx) # Add the transaction to the user's portfolio
-
-
+            
+            
             # TODO: If selling we need to check that the user has enough shares to sell, for now its fine
-
 
             db.session.commit() # Commit the changes to the database
 
@@ -92,16 +93,14 @@ def get_holdings():
             data = []
             for stock in holdings:
                 curr_price = Stock.query.filter_by(symbol=stock).first().latest_price # idk if this is the "latest" but for now its fine...
-                
+
                 data.append({    
                     'symbol': stock,
                     'quantity': holdings[stock],
                     'current_value': curr_price, 
                     'total_value': curr_price*holdings[stock]
                 })
-            
-
-
+                
             return make_response(jsonify({'holdings': data, 'statusCode': 200}))
         except Exception as error:
             print(error)

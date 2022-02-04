@@ -1,4 +1,5 @@
 from flask import abort, Blueprint, jsonify, make_response, request
+from itsdangerous import json
 
 from app.env import *
 from app.helper import *
@@ -114,6 +115,26 @@ def search():
             raw = make_request(url)
             cleaned = clean_results(raw)
             return make_response(jsonify(message="Valid keywords", statusCode = 200, results=cleaned))
+        except Exception as e:
+            print(e)
+            abort(400)
+
+
+@data_bp.route("/get_price_on_day", methods=['GET'])
+def get_price_on_day():
+
+    if request.method == 'GET':
+        try:
+
+            symbol = request.args.get('symbol')
+            date = request.args.get('date')
+            date_str = datetime.datetime.fromtimestamp(int(date)/1000).strftime('%Y-%m-%d')
+
+            url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_DAILY&symbol={}&apikey={}'.format(symbol.upper(), ALPHA_VANTAGE_API_KEY) 
+            resp = make_request(url)['Time Series (Daily)'][date_str]['4. close']
+
+            return make_response(jsonify(price=resp, statusCode = 200))
+
         except Exception as e:
             print(e)
             abort(400)
