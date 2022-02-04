@@ -25,8 +25,12 @@ export class StockInfoComponent implements OnInit {;
 
   clickEvent(){
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    
-    const epochNow = (new Date(this.date)).getTime();
+
+    let d = new Date(this.date);
+    // console.log(d)
+    d.setHours(d.getHours() + 24);
+    const epochNow = d.getTime();
+   
     const body = { symbol: this.symbol.toUpperCase(), quantity: this.quantity, buy: this.buy, date: epochNow };
 
     this.http.post<any>('http://localhost:5000/portfolio/create_transaction', body, opts).subscribe(); // This works, need to handle when the repsonse is not 200 (i.e doesn't work)

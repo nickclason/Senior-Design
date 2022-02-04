@@ -12,7 +12,7 @@ class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    transactions = db.relationship('Transaction', secondary=transactions, backref='portfolio')
+    transactions = db.relationship('Transaction', secondary=transactions, backref='portfolio', lazy='dynamic')
 
 
     def __rep__(self):

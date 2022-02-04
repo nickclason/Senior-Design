@@ -129,6 +129,7 @@ def get_price_on_day():
             symbol = request.args.get('symbol')
             date = request.args.get('date')
             date_str = datetime.datetime.fromtimestamp(int(date)/1000).strftime('%Y-%m-%d')
+            print(date_str)
 
             url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_DAILY&symbol={}&apikey={}'.format(symbol.upper(), ALPHA_VANTAGE_API_KEY) 
             resp = make_request(url)['Time Series (Daily)'][date_str]['4. close']

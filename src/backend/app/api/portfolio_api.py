@@ -50,9 +50,16 @@ def add_holding():
             stock = Stock.query.filter_by(symbol=symbol).first() # Get the stock from the database
 
             price = make_request('http://localhost:5000/data/get_price_on_day?symbol={}&date={}'.format(symbol, date)) # Get the price of the stock on the given date
-            price = price['price']
+            
+            if buy:
+                price = price['price']
+            else:
+                price = stock.latest_price
 
-            tx = Transaction(quantity=quantity, timestamp=datetime.datetime.fromtimestamp(int(date)/1000), buy=buy, stock=stock, price=price) 
+            time = datetime.date.fromtimestamp(int(date)/1000) # Convert the timestamp to a datetime object
+            # new_time = datetime.datetime(time.year, time.month, time.day) # Create a new datetime object with the same date
+            # print(new_time)
+            tx = Transaction(quantity=quantity, timestamp=time, buy=buy, stock=stock, price=price) 
             portfolio.transactions.append(tx) # Add the transaction to the user's portfolio
             
             
@@ -105,3 +112,67 @@ def get_holdings():
         except Exception as error:
             print(error)
             abort(400)
+
+
+@portfolio_bp.route('/get_timeseries', methods=['GET'])
+@auth_required
+def get_portfolio_timeseries():
+
+    # Daily Portfolio Value
+    if request.method == 'GET':
+        try:
+            user = get_authenticated_user() # Get the user
+            portfolio = user.portfolio
+            transactions = portfolio.transactions
+
+            # # from collections import Counter
+            # for t in transactions:
+            #     print(t)
+
+            # stock_id = Stock.query.filter_by(symbol='NVDA').first().id
+            # txs = transactions.filter(Transaction.timestamp == datetime.datetime(2022, 1, 3, 0, 0, 0), Transaction.stock_id==stock_id).all()
+
+            # print(len(txs))
+            # for tx in txs:
+            #     print(tx)
+
+            data={}
+            date1 = datetime.datetime(2022, 1, 1, 0, 0, 0)
+            date2 = datetime.datetime(2022, 2, 4, 0, 0, 0)
+            day = datetime.timedelta(days=1)
+        
+            
+            while date1 <= date2:
+                value = 0
+                print(date1.strftime('%Y-%m-%d'))
+                
+                txs = transactions.filter(Transaction.timestamp == date1).all() # Get all transactions on the given date
+                # we can eventually even filter by just specific stocks at certain times, etc...
+
+                # need to go through
+
+                # print()
+                # txs = transactions.filter(Transaction.timestamp==date1).all()
+                # for tx in transactions:
+                #     print(tx)
+                for tx in txs:
+                    if tx.buy:
+                        value += tx.quantity*tx.price
+                    else:
+                        value -= tx.quantity*tx.price
+
+                if data:
+                    data[date1.strftime('%Y-%m-%d')] = data[(date1-day).strftime('%Y-%m-%d')] + value
+                else:
+                    data[date1.strftime('%Y-%m-%d')] = value
+                
+
+                date1 = date1 + day
+            
+
+            return make_response(jsonify({'data': data, 'statusCode': 200}))
+
+        except Exception as error:
+            print(error)
+            abort(400)
+
