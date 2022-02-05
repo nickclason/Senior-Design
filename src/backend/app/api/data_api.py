@@ -1,9 +1,15 @@
+from csv import excel_tab
 from time import strptime
+from tracemalloc import start
 from flask import abort, Blueprint, jsonify, make_response, request
-from itsdangerous import json
+
+import yfinance as yf
 
 from app.env import *
 from app.helper import *
+
+from datetime import datetime, timedelta
+
 
 # This file should contain any requests made to get data from outside sources
 # any internal operations should be handled in api/portfolio_api.py
@@ -18,85 +24,95 @@ from app.helper import *
 # Define stock data blueprint
 data_bp = Blueprint('/data', __name__)
 
-# TODO: Make function types and all that an enum?
-
 ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co/query?function='
 
+
+# Gets timeseries data for a single stock
 @data_bp.route("/get_timeseries", methods=['GET'])
 def get_timeseries():
-    '''
-    Description: endpoint that returns a timeseries of data for a given stock
-        Input: 
-            function - string of the function to use for the data
-            symbol - string of the stock symbol to get data for
-            
-            interval (optional) - string of the interval to use for the data (default is '60min)'
-            outputsize (optional) - string of the output size to use for the data (default is 'compact')
-            adjusted (optional) - boolean of whether or not to use adjusted data (default is True)
-
-        Output: 
-            chart_data - list of dictionaries, each dictionary is a single data point for the given function
-    '''
     if request.method == 'GET':
-        function = request.args.get('function').upper() # Intraday, Daily, Weekly (Adjusted), Monthly (Adjusted)
-        symbol = request.args.get('symbol')
-        interval = request.args.get('interval') # Intraday only - 1min, 5min, 15min, 30min, 60min
-        outputsize = request.args.get('outputsize') # Intraday, Daily,  Default=compact (100 datapoints), full (20+ years of data)
-        adjusted = request.args.get('adjusted') # Intraday only - Default is true
-
-    if function is None or symbol is None:
-        abort(400)
-    else:
         try:
+            ticker = request.args.get('ticker').upper() # Ex. MSFT, AAPL, etc.
+            period = request.args.get('period') # default is '1mo', valid periods: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max
+            start_date = request.args.get('start_date') # format: YYYY-MM-DD
+            end_date = request.args.get('end_date') # format: YYYY-MM-DD
+            interval = request.args.get('interval') # default is '1d', valid intervals: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
+
+            if period: # If period is specified, use it 
+                interval='1d' if not interval else interval
+                raw = yf.download(ticker, period=period, interval=interval)
+                raw.reset_index(level=0, inplace=True)
+                raw = raw.to_dict(orient='records')
+                
+                data={}
+                for entry in raw:
+                    data[entry['Date'].to_pydatetime().date().strftime('%Y-%m-%d')] = {
+                            'open': entry['Open'],
+                            'high': entry['High'],
+                            'low': entry['Low'],
+                            'close': entry['Close'],
+                            'volume': entry['Volume'],
+                            'adj_close': entry['Adj Close']
+                        }
+
+                return make_response(jsonify(data=data, statusCode=200))
+            elif start_date and end_date: # If start and end date are specified, use them
+                interval='1d' if not interval else interval
+                raw = yf.download(ticker, start=start_date, end=end_date, interval=interval)
+                raw.reset_index(level=0, inplace=True)
+                raw = raw.to_dict(orient='records')
+
+                data={}
+                for entry in raw:
+                    data[entry['Date'].to_pydatetime().date().strftime('%Y-%m-%d')] = {
+                            'open': entry['Open'],
+                            'high': entry['High'],
+                            'low': entry['Low'],
+                            'close': entry['Close'],
+                            'volume': entry['Volume'],
+                            'adj_close': entry['Adj Close']
+                        }
+
+                return make_response(jsonify(data=data, statusCode=200))
+            else:
+                raw = yf.download(ticker, period = '1mo')
+                raw.reset_index(level=0, inplace=True)
+                raw = raw.to_dict(orient='records')
+                
+                data={}
+                for entry in raw:
+                    data[entry['Date'].to_pydatetime().date().strftime('%Y-%m-%d')] = {
+                            'open': entry['Open'],
+                            'high': entry['High'],
+                            'low': entry['Low'],
+                            'close': entry['Close'],
+                            'volume': entry['Volume'],
+                            'adj_close': entry['Adj Close']
+                        }
+
+                return make_response(jsonify(data=data, statusCode=200))
             
-            if function == 'INTRADAY': # Example: "localhost:5000/data/get_timeseries?function=INTRADAY&symbol=AAPL"
-                outputsize = 'compact' if outputsize is None else outputsize
-                adjusted = 'true' if adjusted is None else adjusted
-                interval = '60min' if interval is None else interval
-
-                url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_INTRADAY&symbol={}&interval={}&adjusted={}&outputsize={}&apikey={}'.format(symbol.upper(), interval, adjusted, outputsize, ALPHA_VANTAGE_API_KEY)
-                raw = make_request(url)
-
-            elif function == 'DAILY': # Example: "localhost:5000/data/get_timeseries?function=DAILY&symbol=AAPL"
-                outputsize = 'compact' if outputsize is None else outputsize
-
-                url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_{}&symbol={}&outputsize={}&apikey={}'.format(function, symbol.upper(), outputsize, ALPHA_VANTAGE_API_KEY)
-                raw = make_request(url)
-
-            elif function in ['WEEKLY', 'WEEKLY_ADJUSTED', 'MONTHLY', 'MONTHLY_ADJUSTED']: # Example: "localhost:5000/data/get_timeseries?function=WEEKLY&symbol=AAPL"
-                url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_{}&symbol={}&apikey={}'.format(function, symbol.upper(), ALPHA_VANTAGE_API_KEY)
-                raw = make_request(url)
-
-            chartData = convert_timeseries_to_chartdata(raw, function, interval)
-            return make_response(jsonify(message="Valid Ticker", statusCode = 200, chartData=chartData))
-
         except Exception as e:
             print(e)
-            abort(400)
-        
+            # Handle error in front, maybe try again?
+            return make_response(jsonify(error=str(e), statusCode=400))
 
-@data_bp.route("/get_quote", methods=['GET'])
-def get_quote():
-    '''
-    Description: Endpoint that returns the current quote for a given stock
-        Input: N/A
-        Output: Most recent price for the given stock
-    '''
+
+@data_bp.route("/current_price", methods=['GET'])
+def current_price():
     if request.method == 'GET':
-        symbol = request.args.get('symbol')
-    
-    if symbol is None:
-        abort(400)
-    else:
         try:
-            url = ALPHA_VANTAGE_BASE_URL + 'GLOBAL_QUOTE&symbol={}&apikey={}'.format(symbol.upper(), ALPHA_VANTAGE_API_KEY)
-            raw = make_request(url)
-            quote = clean_quote(raw)
-            return make_response(jsonify(message="Valid Ticker", statusCode = 200, quote=quote))
+            ticker = request.args.get('ticker').upper() # Ex. MSFT, AAPL, etc.
+
+            stock = yf.Ticker(ticker)
+            price = stock.info['regularMarketPrice'] # TODO: I think this is good, can check when market it open
+
+            return make_response(jsonify(price=price, statusCode=200))
         except Exception as e:
             print(e)
-            abort(400)
-        
+            return make_response(jsonify(error=str(e), statusCode=400))
+
+
 
 @data_bp.route("/search", methods=['GET'])
 def search():
@@ -121,41 +137,38 @@ def search():
             abort(400)
 
 
-@data_bp.route("/get_price_on_day", methods=['GET'])
-def get_price_on_day():
+# Gets price on specified date, if date is not a valid trading day, gets most recent closing price
+@data_bp.route("/price_on_day", methods=['GET'])
+def price_on_day():
+    try:
+        ticker = request.args.get('ticker').upper() # Ex. MSFT, AAPL, etc.
+        end_date = request.args.get('day') # format: YYYY-MM-DD
+               
+        url = 'http://localhost:5000/data/get_timeseries?ticker={}&end_date={}&interval=1d'.format(ticker, end_date)
+        resp = make_request(url)
+        data = resp['data']
 
-    if request.method == 'GET':
-        try:
+        if end_date in data:
+            return make_response(jsonify(statusCode = 200, price=data[end_date]['close']))
+        
+        else:
+            while end_date not in data:
+                start_date = datetime.strptime(end_date, '%Y-%m-%d') - timedelta(days=1)
+                start_date = start_date.strftime('%Y-%m-%d')
+                url = 'http://localhost:5000/data/get_timeseries?ticker={}&start_date={}&end_date={}&interval=1d'.format(ticker, start_date, end_date)
+                resp = make_request(url)
+                data = resp['data']
 
-            symbol = request.args.get('symbol')
-            date = request.args.get('date')
-            
-            date_str = datetime.datetime.fromtimestamp(int(date)).strftime('%Y-%m-%d')
+                if start_date in data:
+                    return make_response(jsonify(statusCode = 200, price=data[start_date]['close']))
+                
+                end_date = datetime.strptime(end_date, '%Y-%m-%d') - timedelta(days=1)
+                end_date = end_date.strftime('%Y-%m-%d')
 
+            return make_response(jsonify(statusCode = 200, price=None))
 
-
-            url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_DAILY&symbol={}&apikey={}'.format(symbol.upper(), ALPHA_VANTAGE_API_KEY) 
-            resp = make_request(url)
-            resp = resp['Time Series (Daily)']
-
-            if date_str in resp:
-                return make_response(jsonify(message="Valid Ticker", statusCode = 200, price=resp[date_str]['4. close']))
-            else:
-                # print("test")
-                day = datetime.timedelta(days=1)
-                date1 = datetime.datetime.fromtimestamp(int(date))
-
-                while date_str not in resp:
-                    
-                    date1 = date1 - day
-                    date_str = date1.strftime('%Y-%m-%d')
-                    
-                    
-                    if date_str in resp:
-                        return make_response(jsonify(message="Valid Ticker", statusCode = 200, price=resp[date_str]['4. close']))
-                    else:
-                        continue
-
-        except Exception as e:
-            print(e)
-            abort(400)
+        
+        return make_response(jsonify(price='price', statusCode=200))
+    except Exception as e:
+        print(e)
+        return make_response(jsonify(error=str(e), statusCode=400))
