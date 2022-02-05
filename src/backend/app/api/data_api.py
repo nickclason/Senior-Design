@@ -142,8 +142,8 @@ def search():
 def price_on_day():
     try:
         ticker = request.args.get('ticker').upper() # Ex. MSFT, AAPL, etc.
-        end_date = request.args.get('day') # format: YYYY-MM-DD
-               
+        end_date = request.args.get('end_date') # format: YYYY-MM-DD
+        print(end_date)
         url = 'http://localhost:5000/data/get_timeseries?ticker={}&end_date={}&interval=1d'.format(ticker, end_date)
         resp = make_request(url)
         data = resp['data']
@@ -153,6 +153,7 @@ def price_on_day():
         
         else:
             while end_date not in data:
+
                 start_date = datetime.strptime(end_date, '%Y-%m-%d') - timedelta(days=1)
                 start_date = start_date.strftime('%Y-%m-%d')
                 url = 'http://localhost:5000/data/get_timeseries?ticker={}&start_date={}&end_date={}&interval=1d'.format(ticker, start_date, end_date)
