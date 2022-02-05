@@ -15,11 +15,14 @@ export class StockInfoComponent implements OnInit {;
 
   holdings: any;
 
+  stockChartData: Object[];
+
   constructor(private http: HttpClient) {
   }
   
   ngOnInit(): void {
     this.updateHoldings();
+    this.updateChart();
   }
 
 
@@ -40,8 +43,26 @@ export class StockInfoComponent implements OnInit {;
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
     this.http.get<any>('http://localhost:5000/portfolio/get_holdings', opts).subscribe(data => {
       this.holdings = data['holdings'];
-      console.log(this.holdings)
+      // console.log(this.holdings)
     });
+  }
+
+  updateChart() {
+    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+    this.http.get<any>('http://localhost:5000/portfolio/get_timeseries', opts).subscribe(data => {
+
+    this.stockChartData = this.convert_unix_to_date(data['data'])  
+    // console.log(this.stockChartData)
+    
+    });
+  }
+
+  convert_unix_to_date(data: any) {
+    var new_data = data
+    for (var i = 0; i < data.length; i++) {
+      new_data[i]['date'] = new Date(data[i]['date'] * 1000);;
+    }
+    return new_data;
   }
 
 }

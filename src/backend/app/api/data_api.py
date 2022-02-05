@@ -1,3 +1,4 @@
+from time import strptime
 from flask import abort, Blueprint, jsonify, make_response, request
 from itsdangerous import json
 
@@ -128,13 +129,32 @@ def get_price_on_day():
 
             symbol = request.args.get('symbol')
             date = request.args.get('date')
-            date_str = datetime.datetime.fromtimestamp(int(date)/1000).strftime('%Y-%m-%d')
-            print(date_str)
+            
+            date_str = datetime.datetime.fromtimestamp(int(date)).strftime('%Y-%m-%d')
+
+
 
             url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_DAILY&symbol={}&apikey={}'.format(symbol.upper(), ALPHA_VANTAGE_API_KEY) 
-            resp = make_request(url)['Time Series (Daily)'][date_str]['4. close']
+            resp = make_request(url)
+            resp = resp['Time Series (Daily)']
 
-            return make_response(jsonify(price=resp, statusCode = 200))
+            if date_str in resp:
+                return make_response(jsonify(message="Valid Ticker", statusCode = 200, price=resp[date_str]['4. close']))
+            else:
+                # print("test")
+                day = datetime.timedelta(days=1)
+                date1 = datetime.datetime.fromtimestamp(int(date))
+
+                while date_str not in resp:
+                    
+                    date1 = date1 - day
+                    date_str = date1.strftime('%Y-%m-%d')
+                    
+                    
+                    if date_str in resp:
+                        return make_response(jsonify(message="Valid Ticker", statusCode = 200, price=resp[date_str]['4. close']))
+                    else:
+                        continue
 
         except Exception as e:
             print(e)

@@ -11,12 +11,14 @@ from app.models.stock import Stock
 from app.models.transaction import Transaction
 
 import datetime
+from time import sleep
 
 # '''
 # Description:
 #     Input: 
 #     Output:
 # '''
+ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co/query?function='
 
 
 # Define portfolio blueprint
@@ -41,7 +43,7 @@ def add_holding():
             quantity = json_data['quantity']
             buy = True if json_data['buy'] == 1 else False
             date = json_data['date']
-         
+            print(date)
 
             user = get_authenticated_user() # Get the user
             portfolio = user.portfolio # Get the user's portfolio
@@ -49,7 +51,7 @@ def add_holding():
             add_stock_to_db(symbol) # Add the stock to the database if it doesn't exist
             stock = Stock.query.filter_by(symbol=symbol).first() # Get the stock from the database
 
-            price = make_request('http://localhost:5000/data/get_price_on_day?symbol={}&date={}'.format(symbol, date)) # Get the price of the stock on the given date
+            price = make_request('http://localhost:5000/data/get_price_on_day?symbol={}&date={}'.format(symbol, int(date/1000.0))) # Get the price of the stock on the given date
             
             if buy:
                 price = price['price']
@@ -120,59 +122,87 @@ def get_portfolio_timeseries():
 
     # Daily Portfolio Value
     if request.method == 'GET':
-        try:
+        # try:
             user = get_authenticated_user() # Get the user
             portfolio = user.portfolio
             transactions = portfolio.transactions
 
-            # # from collections import Counter
-            # for t in transactions:
-            #     print(t)
 
-            # stock_id = Stock.query.filter_by(symbol='NVDA').first().id
-            # txs = transactions.filter(Transaction.timestamp == datetime.datetime(2022, 1, 3, 0, 0, 0), Transaction.stock_id==stock_id).all()
+            data=[]
+            date1 = datetime.datetime(2022, 1, 1, 0, 0, 0) # These should become inputs from the frontend
+            date2 = datetime.datetime(2022, 2, 4, 0, 0, 0) # ^^^
+            day = datetime.timedelta(days=1) # ^^^
 
-            # print(len(txs))
-            # for tx in txs:
-            #     print(tx)
+            req_count = 0
+            price_cache = {}
+            while date1 < date2:
 
-            data={}
-            date1 = datetime.datetime(2022, 1, 1, 0, 0, 0)
-            date2 = datetime.datetime(2022, 2, 4, 0, 0, 0)
-            day = datetime.timedelta(days=1)
-        
-            
+                url = ALPHA_VANTAGE_BASE_URL + 'TIME_SERIES_DAILY&symbol={}&apikey={}'
+                txs = transactions.filter(Transaction.timestamp == date1).all()
+                for tx in txs:
+                    symbol = tx.stock.symbol
+                    if symbol not in price_cache:
+
+                        resp = make_request(url.format(symbol, ALPHA_VANTAGE_API_KEY) )
+                        req_count+=1
+                        
+                        # I don't think this is the issue, its most likely an API limit problem actually, even caching
+                        # like I am can't get around 5 calls/min limit
+                        if 'Time Series (Daily)' in resp:
+                            price_cache[symbol] = resp['Time Series (Daily)']
+                        else:
+                            price_cache[symbol] = resp['Time Series (Daily)	']
+                        
+
+                date1 += day
+
+            date1 = datetime.datetime(2022, 1, 1, 0, 0, 0) # These should become inputs from the frontend
+            date2 = datetime.datetime(2022, 2, 4, 0, 0, 0) # ^^^
+            holdings = {}
             while date1 <= date2:
                 value = 0
-                print(date1.strftime('%Y-%m-%d'))
-                
+
                 txs = transactions.filter(Transaction.timestamp == date1).all() # Get all transactions on the given date
                 # we can eventually even filter by just specific stocks at certain times, etc...
-
-                # need to go through
-
-                # print()
-                # txs = transactions.filter(Transaction.timestamp==date1).all()
-                # for tx in transactions:
-                #     print(tx)
+                # could even add high, low, open, close, etc to get candle stick data
+                
                 for tx in txs:
                     if tx.buy:
-                        value += tx.quantity*tx.price
+                        if tx.stock.symbol in holdings:
+                            holdings[tx.stock.symbol] += tx.quantity
+                        else:
+                            holdings[tx.stock.symbol] = tx.quantity
                     else:
-                        value -= tx.quantity*tx.price
+                        if tx.stock.symbol in holdings:
+                            holdings[tx.stock.symbol] -= tx.quantity
+                            
+          
+                for stock in holdings:
+                    if stock not in price_cache:
+                        print("Error: Stock {} not in price cache".format(stock))
+                        abort(400)
+                    
+                    if date1.strftime('%Y-%m-%d') in price_cache[stock]:
+                        price = float(price_cache[stock][date1.strftime('%Y-%m-%d')]['4. close'])
+                    else:
+                        temp_date = date1 - day
+                        while temp_date.strftime('%Y-%m-%d') not in price_cache[stock]:
+                            temp_date -= day
+                        
+                        price = float(price_cache[stock][temp_date.strftime('%Y-%m-%d')]['4. close'])
 
-                if data:
-                    data[date1.strftime('%Y-%m-%d')] = data[(date1-day).strftime('%Y-%m-%d')] + value
-                else:
-                    data[date1.strftime('%Y-%m-%d')] = value
-                
+                    value += holdings[stock] * price
+
+                data.append({'date' : date1.timestamp(), 
+                            'open' : value,
+                            'close' : value,
+                            'high' : value,
+                            'low' : value })   
+
 
                 date1 = date1 + day
+                # sleep(5)
             
-
             return make_response(jsonify({'data': data, 'statusCode': 200}))
 
-        except Exception as error:
-            print(error)
-            abort(400)
 
