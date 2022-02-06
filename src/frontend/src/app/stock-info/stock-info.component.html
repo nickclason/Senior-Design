@@ -30,18 +30,21 @@
 
   <table>
     <tr>
+
+      <th></th>
+
       <th>Symbol</th>
 
       <th>Quantity</th> 
       
       <th>Current Value</th>
 
-      <!-- <th>Cost Basis Per Share</th> -->
-
       <th>Total Value</th>
     </tr>
     
     <tr *ngFor="let holding of holdings">
+      
+      <td><img class="my-img" src={{holding.logo_url}}></td>
       <td>{{holding.symbol}}</td>
       <td>{{holding.quantity}}</td>
       <td>{{holding.current_value}}</td>
@@ -51,18 +54,35 @@
 
 </div>
 
+<!-- <table mat-table [dataSource]="holdings">
+  <ng-container matColumnDef="symbol" class="my-container">
+    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+    <td mat-cell *matCellDef="let holding"> {{holding.symbol}} </td>
+  </ng-container>
 
-<!-- <ejs-stockchart id="chart-container" >
-  <e-stockchart-series-collection>
-      <e-stockchart-series [dataSource]='stockChartData' type='Line' xName='date' yName='close' Name='Fuck'></e-stockchart-series>
-  </e-stockchart-series-collection>
-</ejs-stockchart> -->
-<!-- 
-<ejs-stockchart id="chart-container" >
-  <e-stockchart-series-collection>
-      <e-stockchart-series [dataSource]='stockChartData' type='Candle' xName='date' High='high' Low='low' Open='open' Close ='close' Name='Fuck'></e-stockchart-series>
-  </e-stockchart-series-collection>
-</ejs-stockchart> -->
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef> Quantity </th>
+    <td mat-cell *matCellDef="let holding"> {{holding.quantity}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="current_value">
+    <th mat-header-cell *matHeaderCellDef> Current Value </th>
+    <td mat-cell *matCellDef="let holding"> {{holding.current_value}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="total_value">
+    <th mat-header-cell *matHeaderCellDef> Total Value </th>
+    <td mat-cell *matCellDef="let holding"> {{holding.total_value}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="logo_url">
+    <th mat-header-cell *matHeaderCellDef> Logo URL </th>
+    <td mat-cell *matCellDef="let holding"> <img [src]="holding.logo_url" /> </td>
+  </ng-container> 
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table> -->
 
 
 <ejs-stockchart id="chart-container" >

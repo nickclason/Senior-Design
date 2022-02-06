@@ -27,10 +27,9 @@ import datetime
 portfolio_bp = Blueprint('/portfolio', __name__)
 
 
-# This should become "create_transaction"
 @portfolio_bp.route('/create_transaction', methods=['POST'])
 @auth_required
-def add_holding():
+def create_transaction():
     if request.method == 'POST':
         try:
             json_data = request.get_json()  # get data from POST request
@@ -98,13 +97,18 @@ def get_holdings():
             
             data = []
             for stock in holdings:
-                curr_price = Stock.query.filter_by(symbol=stock).first().latest_price # idk if this is the "latest" but for now its fine...
+                s = Stock.query.filter_by(symbol=stock).first() # TODO: (def not latest...) idk if this is the "latest" but for now its fine...
 
                 data.append({    
                     'symbol': stock,
                     'quantity': holdings[stock],
-                    'current_value': curr_price, 
-                    'total_value': curr_price*holdings[stock]
+                    'current_value': s.latest_price,
+                    'total_value': s.latest_price*holdings[stock],
+                    'logo_url': s.logo_url,
+                    'industry': s.industry,
+                    'sector': s.sector,
+                    'company_name': s.company_name,
+                    'website': s.website,
                 })
                 
             return make_response(jsonify({'holdings': data, 'statusCode': 200}))

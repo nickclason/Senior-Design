@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
+export interface Stock {
+  symbol: string;
+  quantity: number;
+  current_value: number;
+  total_value: number;
+  website: string;
+  industry: string;
+  sector: string;
+  logo_url: string;
+  company_name: string;
+}
+
+
 @Component({
   selector: 'app-stock-info',
   templateUrl: './stock-info.component.html',
@@ -8,14 +22,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 
 export class StockInfoComponent implements OnInit {;
+  
   symbol: string;
   quantity: number;
   buy: number = 1; // 1=buy, 0 (or anything besides 1)=sell
   date: Date = new Date();
 
-  holdings: any;
+  holdings: Stock[];
 
   stockChartData: Object[];
+
+  displayedColumns: string[] = ['symbol', 'quantity', 'current_value', 'total_value']
 
   constructor(private http: HttpClient) {
   }
@@ -30,7 +47,6 @@ export class StockInfoComponent implements OnInit {;
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
 
     let d = new Date(this.date);
-    // console.log(d)
     d.setHours(d.getHours() + 24);
     const epochNow = d.getTime();
    
@@ -43,7 +59,7 @@ export class StockInfoComponent implements OnInit {;
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
     this.http.get<any>('http://localhost:5000/portfolio/get_holdings', opts).subscribe(data => {
       this.holdings = data['holdings'];
-      // console.log(this.holdings)
+      console.log(data['holdings'])
     });
   }
 

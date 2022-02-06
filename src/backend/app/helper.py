@@ -2,10 +2,10 @@
 import datetime
 import requests
 
-from flask import abort, jsonify
-
 from app import db
 from app.models.stock import Stock
+
+import yfinance as yf
 
 # '''
 # Description:
@@ -74,20 +74,23 @@ def add_stock_to_db(symbol):
         Output: True if successful, False otherwise
     '''
     try:
-        resp = make_request('http://localhost:5000/data/current_price?ticker=' + symbol.upper())
-        latest_price = resp['price']
+        ticker = yf.Ticker(symbol.upper())
+        info = ticker.info
         
         
         stock = Stock.query.filter_by(symbol=symbol.upper()).first()
         if stock:
             # update stock         
-            stock.latest_price = latest_price
+            stock.latest_price = info['currentPrice']
             stock.timestamp = datetime.datetime.now()
             db.session.commit()
             
             return True
         else:
-            new_stock = Stock(symbol.upper(), latest_price, datetime.datetime.now())
+
+            new_stock = Stock(symbol.upper(), info['currentPrice'], datetime.datetime.now(), info['website'],
+                              info['industry'], info['sector'], info['logo_url'], info['longName'])
+
             db.session.add(new_stock)
             db.session.commit()
                 
