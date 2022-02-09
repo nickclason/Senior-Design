@@ -19,7 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from  '@angular/material/table'
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
@@ -55,7 +55,7 @@ import { CandleSeriesService, LegendService, TooltipService, DataLabelService, D
     ReactiveFormsModule,
     MatSelectModule,
     MatTableModule,
-
+    MatSlideToggleModule,
     StockChartModule,
     StockChartAllModule,
   ],

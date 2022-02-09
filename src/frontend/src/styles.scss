@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~@angular/material/theming';
 
 html, body { height: 100%; }
 
@@ -41,3 +40,6 @@ body { margin: 0;
     --text: var(--gray0);
     --border-color: var(--purple);
 }
+
+
+@import '~@angular/material/theming';
