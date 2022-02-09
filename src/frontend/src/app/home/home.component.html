@@ -1,12 +1,22 @@
 <!-- app/home/home.component.html -->
-<img class="fullBg" [src]="home.image">
+<header>
+    <img class="fullBg" [src]="home.image">
+    <h1>{{home.title}}</h1>
+    <h2>{{home.subtitle}}</h2>
+    
+</header>
+<mat-card>
+<mat-card-content>
+    {{home.content}}
+</mat-card-content>
+<p>{{home.text}}</p>
+</mat-card>
 
 <mat-card>
     <mat-card-header>
-        <mat-card-title><h1>{{home.title}}</h1></mat-card-title>
-        <mat-card-subtitle>{{home.subtitle}}</mat-card-subtitle>
+        <mat-card-title></mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        {{home.content}}
+        
     </mat-card-content>
-</mat-card>

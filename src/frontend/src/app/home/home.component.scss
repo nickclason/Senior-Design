@@ -1,0 +1,26 @@
+
+
+
+header {
+    padding: 1em;
+    clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0);
+    margin-bottom: 1em;
+    padding-bottom: 3.5em;
+    text-align: center;
+    background: linear-gradient(to right, var(--gray1), var(--gray3));
+}
+
+.light {
+    background: linear-gradient(to right, var(--gray1), var(--gray3));
+}
+
+.dark {
+    background: linear-gradient(to right, var(--gray5), var(--gray6));
+}
+
+img {
+    margin: 2em 0 0;
+    width: 50%;
+    height: 50%;
+
+}

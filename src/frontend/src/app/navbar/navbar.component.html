@@ -1,10 +1,34 @@
-<mat-toolbar color="primary" class="navbar">
-    <div>SCK</div>
-    <div>
-        <a mat-button [routerLink]="['home']" routerLinkActive="active"><span>Home</span></a>
-        <a mat-button [routerLink]="['login']" routerLinkActive="active"><span>Login</span></a>
-        <a mat-button [routerLink]="['register']" routerLinkActive="active"><span>Register</span></a>
-        <a mat-button [routerLink]="['profile']" routerLinkActive="active"><span>Dashboard</span></a>
-        <a mat-button (click)="logout()"><span>Logout</span></a>
-    </div>
-</mat-toolbar>
+<ul class="navbar-items" id="unorderedList">
+    <span class="navbar-items">
+        <li>
+            <a mat-button [routerLink]="['home']" routerLinkActive="active">Home</a>
+        </li>
+        <li>
+            <a mat-button [routerLink]="['login']" routerLinkActive="active">Login</a>
+        </li>
+        <li>
+            <a mat-button [routerLink]="['register']" routerLinkActive="active">Register</a>
+        </li>
+        <li>
+            <a mat-button [routerLink]="['profile']" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li>
+            <a mat-button (click)="logout()"><span>Logout</span></a>
+        </li>
+    </span>
+    <span>
+        <li class="navbar-items has-dropdown">
+            <a mat-button class="navbar-items" href="javascript:void(0)">Theme</a>
+            <ul class="dropdown">
+                <li class="dropdown-item">
+                    <a id="light" href="javascript:void(0)">Light</a>
+                </li>
+                <li class="dropdown-item">
+                    <a id="dark" href="javascript:void(0)">Dark</a>
+                </li>
+            </ul>
+        </li>
+    </span>
+
+   
+</ul>
