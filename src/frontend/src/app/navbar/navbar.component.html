@@ -13,7 +13,7 @@
             <a mat-button [routerLink]="['profile']" routerLinkActive="active">Dashboard</a>
         </li>
         <li>
-            <a mat-button [routerLink]="['logout']" routerLinkActive="active">Logout</a>
+            <a mat-button (click)="logout()"><span>Logout</span></a>
         </li>
     </span>
     <span>

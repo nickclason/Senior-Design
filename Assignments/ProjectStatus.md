@@ -50,3 +50,11 @@ Get all team members set up with the development environment and ensure everythi
 
 ## 0/18/22 - Complete Test Plan Assignment
 We met to work on the test plan assignment, completed and submitted.
+
+## 01/25/22 - Work on application
+Current state of the application: functioning backend to serve data to the frontend, basic API endpoints, functioning user accounts etc.
+
+## 02/01/22 - Work on application
+Improve the database structure, add more endpoints to the backend and more effectively process/serve data for the frontend. Work together on formulating ideas for the design of the frontend, specifics of what the application needs to do, etc.
+
+## 02/08/22 - Submit User Guide assignment and work on application

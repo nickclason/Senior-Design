@@ -1,6 +1,11 @@
 import { BoundDirectivePropertyAst } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -9,14 +14,16 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 })
 export class NavbarComponent implements OnInit {
 
+
   darkButton!: HTMLElement;
   lightButton!: HTMLElement;
   unorderedList: HTMLElement;
   body!: HTMLElement;
 
-  constructor() { 
-    
-  }
+  message = '';
+
+  constructor(private router: Router, private auth: AuthService) { }
+
 
   ngOnInit(): void {
     const darkButton = document.getElementById('dark');
@@ -46,6 +53,17 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  
+
+  logout() {
+    this.auth.deauthenticate().subscribe(
+      () => {
+        console.log("logging out");
+        this.router.navigate(['/']); // redirect to home page
+      },
+      (error) => {
+        this.message = error;
+      }
+    );
+  }
 
 }

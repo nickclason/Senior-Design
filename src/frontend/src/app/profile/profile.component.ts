@@ -11,10 +11,13 @@ import { StockInfoComponent } from '../stock-info/stock-info.component';
 export class ProfileComponent implements OnInit {
 
   email: string;
+  firstName: string;
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    this.email = localStorage.getItem('email')!;
+    // this.email = localStorage.getItem('email')!;
+    this.firstName = localStorage.getItem('firstName')!;
+
     // I also want to rename this to something like "dashboard", I think this should be where
     // users go to view all of their investments and portfolio. Should help to keep the # of components
     // down if everything is handled from here

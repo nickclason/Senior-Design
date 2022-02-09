@@ -22,11 +22,11 @@ import { MatTableModule } from  '@angular/material/table'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
-import { LogoutComponent } from './logout/logout.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { StockInfoComponent } from './stock-info/stock-info.component';
 import { CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService,
-         StockChartModule, StockChartAllModule } from '@syncfusion/ej2-angular-charts';
+         StockChartModule, StockChartAllModule, CategoryService, LineSeriesService } from '@syncfusion/ej2-angular-charts';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { CandleSeriesService, LegendService, TooltipService, DataLabelService, D
     RegisterComponent,
     NavbarComponent,
     ProfileComponent,
-    LogoutComponent,
     AccessDeniedComponent,
     StockInfoComponent
   ],
@@ -60,7 +59,7 @@ import { CandleSeriesService, LegendService, TooltipService, DataLabelService, D
     StockChartModule,
     StockChartAllModule,
   ],
-  providers: [CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService],
+  providers: [CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService, CategoryService, LineSeriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

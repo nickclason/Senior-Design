@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@angular/material/theming';
+
 html, body { height: 100%; }
 
 body { margin: 0;
@@ -39,15 +41,3 @@ body { margin: 0;
     --text: var(--gray0);
     --border-color: var(--purple);
 }
-
-
-// @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
-
-@import '~@angular/material/theming';
-
-// $my-app-primary: mat-palette($mat-blue-grey);
-// $my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
-// $my-app-warn:    mat-palette($mat-deep-orange);
-
-// $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
-
