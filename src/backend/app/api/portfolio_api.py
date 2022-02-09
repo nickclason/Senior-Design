@@ -80,6 +80,10 @@ def get_holdings():
             portfolio = user.portfolio # Get the user's portfolio
             transactions = portfolio.transactions # Get the user's transactions
 
+            # no transactions, no point in processing further
+            if transactions.count() == 0:
+                return make_response(jsonify(holdings=[], statusCode=200))
+
             # time to do it the dirty way
             holdings={}
             for tx in transactions:
@@ -94,6 +98,9 @@ def get_holdings():
                         if holdings[tx.stock.symbol] == 0: # shouldn't every allow them to sell more than they own so this is "fine"
                             holdings.pop(tx.stock.symbol)
 
+            # no holdings, no point in processing further
+            if len(holdings) == 0:
+                return make_response(jsonify(holdings=[], statusCode=200))
             
             data = []
             for stock in holdings:
@@ -130,11 +137,15 @@ def timeseries():
             portfolio = user.portfolio # Get the user's portfolio]
             transactions = portfolio.transactions # Get the user's transactions
 
+            # no transactions, no point in processing further
+            if transactions.count() == 0:
+                return make_response(jsonify(data=[], statusCode=200))
+
             holdings = {}
             date1=datetime.datetime.strptime(start_date, '%Y-%m-%d')
             date2=datetime.datetime.strptime(end_date, '%Y-%m-%d')
             day = datetime.timedelta(days=1)
-
+            
             while date1 <= date2:
                 txs = transactions.filter(Transaction.timestamp == date1).all() 
                 
@@ -153,14 +164,39 @@ def timeseries():
 
                 date1 += day
 
-            
+
+
+
+            # no holdings, no point in processing further
+            if len(holdings) == 0:
+                return make_response(jsonify(data=[], statusCode=200))
+
             tickers = [str(key) for key in holdings]
             raw = yf.download(tickers, start=start_date, end=end_date, group_by='tickers')
 
+            # the way yf.download works, is that if there is more than 1 ticker, it will return a dataframe grouped
+            # by the name of the ticker, otherwise it will return a dataframe with a single "row"
+            # so we need to check if the dataframe is grouped or not
             data_cache = {}
-            for ticker in tickers:
+            if len(tickers) > 1:
+                for ticker in tickers:
+                    data={}
+                    ticker_data = raw[ticker]
+                    ticker_data.reset_index(level=0, inplace=True)
+                    ticker_data = ticker_data.to_dict(orient='records')
+                    for entry in ticker_data:
+                        data[entry['Date'].to_pydatetime().date().strftime('%Y-%m-%d')] = {
+                            'open': entry['Open'],
+                            'high': entry['High'],
+                            'low': entry['Low'],
+                            'close': entry['Close'],
+                            'volume': entry['Volume'],
+                            'adj_close': entry['Adj Close']
+                        }
+                    data_cache[ticker] = data
+            else:
                 data={}
-                ticker_data = raw[ticker]
+                ticker_data = raw
                 ticker_data.reset_index(level=0, inplace=True)
                 ticker_data = ticker_data.to_dict(orient='records')
                 for entry in ticker_data:
@@ -172,7 +208,7 @@ def timeseries():
                         'volume': entry['Volume'],
                         'adj_close': entry['Adj Close']
                     }
-                data_cache[ticker] = data
+                data_cache[tickers[0]] = data
 
                     
             data=[]

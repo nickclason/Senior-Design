@@ -5,6 +5,6 @@
         <a mat-button [routerLink]="['login']" routerLinkActive="active"><span>Login</span></a>
         <a mat-button [routerLink]="['register']" routerLinkActive="active"><span>Register</span></a>
         <a mat-button [routerLink]="['profile']" routerLinkActive="active"><span>Dashboard</span></a>
-        <a mat-button [routerLink]="['logout']" routerLinkActive="active"><span>Logout</span></a>
+        <a mat-button (click)="logout()"><span>Logout</span></a>
     </div>
 </mat-toolbar>

@@ -22,7 +22,6 @@ import { MatTableModule } from  '@angular/material/table'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
-import { LogoutComponent } from './logout/logout.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { StockInfoComponent } from './stock-info/stock-info.component';
 import { CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService,
@@ -37,7 +36,6 @@ import { CandleSeriesService, LegendService, TooltipService, DataLabelService, D
     RegisterComponent,
     NavbarComponent,
     ProfileComponent,
-    LogoutComponent,
     AccessDeniedComponent,
     StockInfoComponent
   ],

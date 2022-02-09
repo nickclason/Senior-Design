@@ -39,7 +39,9 @@ export class StockInfoComponent implements OnInit {;
   
   ngOnInit(): void {
     this.updateHoldings();
+    console.log(this.holdings)
     this.updateChart();
+    
   }
 
 
@@ -57,19 +59,20 @@ export class StockInfoComponent implements OnInit {;
 
   updateHoldings(){
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+    
     this.http.get<any>('http://localhost:5000/portfolio/get_holdings', opts).subscribe(data => {
+      
       this.holdings = data['holdings'];
-      console.log(data['holdings'])
+    
     });
   }
 
   updateChart() {
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
     // make the dates be inputs eventually
-    this.http.get<any>('http://localhost:5000/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-05&interval=1d', opts).subscribe(data => {
+    this.http.get<any>('http://localhost:5000/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-08&interval=1d', opts).subscribe(data => {
 
     this.stockChartData = this.convert_unix_to_date(data['data'])  
-    // console.log(this.stockChartData)
     
     });
   }
