@@ -25,6 +25,7 @@ class RefreshResponse {
 // Can add to this as needed
 class UserInfo {
   email: string;
+  firstName: string;
 }
 
 @Injectable({
@@ -67,6 +68,7 @@ export class AuthService {
         return this.http.get<UserInfo>(DASHBOARD_API, opts).pipe(
           map(userInfo => {
             localStorage.setItem('email', userInfo.email);
+            localStorage.setItem('firstName', userInfo.firstName);
             this.authStatus.next(true);
           })
         );
