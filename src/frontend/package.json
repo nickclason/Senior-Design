@@ -24,10 +24,8 @@
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4",
-    
     "@syncfusion/ej2": "*",
     "@syncfusion/ej2-angular-charts": "*"
-    
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.8",
