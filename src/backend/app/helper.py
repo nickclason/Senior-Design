@@ -74,22 +74,32 @@ def add_stock_to_db(symbol):
         Output: True if successful, False otherwise
     '''
     try:
-        ticker = yf.Ticker(symbol.upper())
-        info = ticker.info
-        
-        
         stock = Stock.query.filter_by(symbol=symbol.upper()).first()
         if stock:
+
             # update stock         
-            stock.latest_price = info['currentPrice']
+            current_price = make_request('http://localhost:5000/data/current_price?{}'.format(symbol.upper()))['price']
+            
+            stock.latest_price = current_price
             stock.timestamp = datetime.datetime.now()
             db.session.commit()
             
             return True
         else:
+            # TODO: Fix this for ETFS/Mutual Funds, don't add those to your portfolio right now pls
+            ticker = yf.Ticker(symbol.upper())
+            stats = ticker.stats()
 
-            new_stock = Stock(symbol.upper(), info['currentPrice'], datetime.datetime.now(), info['website'],
-                              info['industry'], info['sector'], info['logo_url'], info['longName'])
+            current_price = stats['financialData']['currentPrice']
+            website = stats['summaryProfile']['website']
+            idx = website.find('.') + 1
+            logo_url = "https://logo.clearbit.com/{}".format(website[idx:])
+            industry = stats['summaryProfile']['industry']
+            sector = stats['summaryProfile']['sector']
+            longName = stats['price']['longName']
+            
+            new_stock = Stock(symbol.upper(), current_price, datetime.datetime.now(), website,
+                              industry, sector, logo_url, longName)
 
             db.session.add(new_stock)
             db.session.commit()

@@ -98,14 +98,14 @@ def get_timeseries():
             return make_response(jsonify(error=str(e), statusCode=400))
 
 
+# Might be able to remove this/update it
 @data_bp.route("/current_price", methods=['GET'])
 def current_price():
     if request.method == 'GET':
         try:
             ticker = request.args.get('ticker').upper() # Ex. MSFT, AAPL, etc.
-
             stock = yf.Ticker(ticker)
-            price = stock.info['regularMarketPrice'] # TODO: I think this is good, can check when market it open
+            price = stock.history(period='1d')['Close'][0]
 
             return make_response(jsonify(price=price, statusCode=200))
         except Exception as e:

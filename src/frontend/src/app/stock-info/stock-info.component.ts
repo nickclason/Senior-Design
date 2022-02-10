@@ -63,6 +63,7 @@ export class StockInfoComponent implements OnInit {;
     this.http.get<any>('http://localhost:5000/portfolio/get_holdings', opts).subscribe(data => {
       
       this.holdings = data['holdings'];
+      console.log(this.holdings)
     
     });
   }
@@ -70,7 +71,7 @@ export class StockInfoComponent implements OnInit {;
   updateChart() {
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
     // make the dates be inputs eventually
-    this.http.get<any>('http://localhost:5000/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-08&interval=1d', opts).subscribe(data => {
+    this.http.get<any>('http://localhost:5000/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-10&interval=1d', opts).subscribe(data => {
 
     this.stockChartData = this.convert_unix_to_date(data['data'])  
     
