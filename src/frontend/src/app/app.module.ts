@@ -22,7 +22,6 @@ import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RegisterComponent } from './register/register.component';
 // End User Defined Imports
 // -----------------------------------------------------------------------------
