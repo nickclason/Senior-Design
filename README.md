@@ -17,21 +17,6 @@ start\windows\start.bat
 ./start_frontend.sh    # in Terminal 2
 ```
 
-### Steps to Run with Docker:
-##### Requirements:
-* [Docker](https://www.docker.com/get-started)
-* Docker Compose
-  * Docker Desktop for Windows/Mac includes Docker Compose
-```
-cd src/frontend
-npm install
-
-cd .. (/src)
-docker-compose build
-docker-compose up
-```
-
-
 ### Development Instructions
 * To add any new python packages you must do the following
   * Be in the virtual environment ("source venv/bin/activate (Mac/Linux), ".\venv\Scripts\activate" (Windows))

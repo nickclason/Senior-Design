@@ -1,1 +1,0 @@
-FROM node:16.11.1-alpine3.11
