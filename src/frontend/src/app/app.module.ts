@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +26,8 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { StockInfoComponent } from './stock-info/stock-info.component';
 import { CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService,
          StockChartModule, StockChartAllModule, CategoryService, LineSeriesService } from '@syncfusion/ej2-angular-charts';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { CandleSeriesService, LegendService, TooltipService, DataLabelService, D
     MatSlideToggleModule,
     StockChartModule,
     StockChartAllModule,
+    FlexLayoutModule,
   ],
   providers: [CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService, CategoryService, LineSeriesService],
   bootstrap: [AppComponent]

@@ -1,7 +1,4 @@
-import { BoundDirectivePropertyAst } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
