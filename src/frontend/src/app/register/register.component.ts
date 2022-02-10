@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-// User-defined imports
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from "@angular/router";
+
+
+// -----------------------------------------------------------------------------
+// Begin User Defined Imports
 import { AuthService } from '../services/auth.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+// End User Defined Imports
+// -----------------------------------------------------------------------------
 
 @Component({
   selector: 'app-register',
@@ -23,7 +27,7 @@ export class RegisterComponent implements OnInit {
     Validators.email
   ]);
 
-  constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) { }
+  constructor(private fb: FormBuilder, private auth: AuthService) { }
 
   ngOnInit(): void {
 
@@ -56,7 +60,6 @@ export class RegisterComponent implements OnInit {
     this.auth.registerUser(this.registerForm.get('firstName')!.value, this.registerForm.get('lastName')!.value, this.email, this.password).subscribe(
       () => {
         console.log("User registered successfully!");
-        this.router.navigate(['/login']);
       },
       (error) => {
         console.log(error);

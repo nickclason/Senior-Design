@@ -1,8 +1,12 @@
-@import '../../custom-styles.scss';
+$custom-pink: #ff006a;
+$custom-dark-pink: #db075f;
+
+$custom-lighter-grey: #EEEEEE;
+$custom-light-grey: #DDDDDD;
 
 .container {
-    width: 100%;
-    height: 100%;
+    width: 25%;
+    height: 25%;
     display: flex;
     justify-content: center;
     align-items: center;

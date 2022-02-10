@@ -1,22 +1,14 @@
-<!-- app/home/home.component.html -->
-<header>
-    <img class="fullBg" [src]="home.image">
-    <h1>{{home.title}}</h1>
-    <h2>{{home.subtitle}}</h2>
-    
-</header>
-<mat-card>
-<mat-card-content>
-    {{home.content}}
-</mat-card-content>
-<p>{{home.text}}</p>
-</mat-card>
+<!-- Home Component -->
+<!-- This serves as the main page of the application, as we are trying to keep the application to a single page.-->
+<!-- All components will be hosted from this "Super" component -->
 
-<mat-card>
-    <mat-card-header>
-        <mat-card-title></mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        
-    </mat-card-content>
+<!-- I think this should just consist of the sidebar and the dashboard components -->
+<!-- The sidebar will be the left side of the screen, and the dashboard will be the right side -->
+
+<div>
+    <app-sidebar></app-sidebar>
+</div>
+
+<div>
+    <app-dashboard></app-dashboard>
+</div>

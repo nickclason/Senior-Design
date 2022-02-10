@@ -1,8 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
-
 html, body { height: 100%; }
-
 body { margin: 0;
     font-family: 'Trebuchet MS', sans-serif;
     margin: 0;
@@ -11,7 +8,6 @@ body { margin: 0;
     background: var(--bg);
     transition: background 500ms ease-in-out, color 1000ms ease-in-out;
 }
-
 :root {
     --gray0: #f8f8f8;
     --gray1: #dbe1e8;
@@ -25,14 +21,12 @@ body { margin: 0;
     --custom-lighter-grey: #EEEEEE;
     --custom-light-grey: #DDDDDD;
 }
-
 .light{
     --bg: var(--gray0);
     --bg-dropdown: var(--gray0);
     --text: var(--gray6);
     --border-color: var(--custom-dark-pink);
 }
-
 .dark{
     --bg: var(--gray5);
     --bg-nav: linear-gradient(to right, var(--gray5), var(--gray6));
@@ -40,6 +34,4 @@ body { margin: 0;
     --text: var(--gray0);
     --border-color: var(--purple);
 }
-
-
 @import '~@angular/material/theming';

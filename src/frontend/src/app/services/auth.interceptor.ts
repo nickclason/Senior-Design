@@ -9,13 +9,12 @@ import { Observable, throwError} from 'rxjs';
 
 // User-defined imports
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
 import { mergeMap, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!/.*\/api\/auth\/.*/.test(request.url)) {
@@ -26,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError(err => {
           console.error(err);
-          this.router.navigate(['/login']);
+          // this.router.navigate(['/login']);
           return throwError(err);
         })
       );

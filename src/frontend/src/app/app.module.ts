@@ -3,66 +3,62 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { HttpClientModule } from '@angular/common/http';
 
+// -----------------------------------------------------------------------------
+// Begin User Defined Imports
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ListViewAllModule } from '@syncfusion/ej2-angular-lists';
+import { SidebarModule, MenuAllModule, TreeViewAllModule} from '@syncfusion/ej2-angular-navigations';
+import { RadioButtonModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { NavbarComponent } from './navbar/navbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from  '@angular/material/table'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileComponent } from './profile/profile.component';
-import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { StockInfoComponent } from './stock-info/stock-info.component';
-import { CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService,
-         StockChartModule, StockChartAllModule, CategoryService, LineSeriesService } from '@syncfusion/ej2-angular-charts';
-
-import { FlexLayoutModule } from '@angular/flex-layout';
-
-
+import { RegisterComponent } from './register/register.component';
+// End User Defined Imports
+// -----------------------------------------------------------------------------
 @NgModule({
   declarations: [
+    AccessDeniedComponent,
     AppComponent,
     HomeComponent,
+    SidebarComponent,
+    DashboardComponent,
     LoginComponent,
-    RegisterComponent,
-    NavbarComponent,
-    ProfileComponent,
-    AccessDeniedComponent,
-    StockInfoComponent
+    RegisterComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    ButtonModule,
+    DropDownListModule,
+    FlexLayoutModule,
+    FormsModule,
+    HttpClientModule,
+    ListViewAllModule,
     MatCardModule,
-    MatToolbarModule,
-    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    HttpClientModule,
-    FormsModule,
+    MenuAllModule,
+    RadioButtonModule,
     ReactiveFormsModule,
-    MatSelectModule,
-    MatTableModule,
-    MatSlideToggleModule,
-    StockChartModule,
-    StockChartAllModule,
-    FlexLayoutModule,
+    SidebarModule,
+    TreeViewAllModule,
   ],
-  providers: [CandleSeriesService, LegendService, TooltipService, DataLabelService, DateTimeService, CategoryService, LineSeriesService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+// SidebarModule, BrowserModule, RadioButtonModule, MenuAllModule, DropDownListModule, ButtonModule, TreeViewAllModule, ListViewAllModule

@@ -1,5 +1,3 @@
-<!-- <p>login works!</p> -->
-
 <div class="container">
     <div class="cardArea">
         <mat-card>
@@ -12,18 +10,23 @@
 
                 <mat-form-field class="inputField">
                     <mat-label>Password</mat-label>
-                    <input matInput type="password" placeholder="Enter Password" formControlName="password" >
+                    <input matInput type="password" placeholder="Enter Password" formControlName="password">
                 </mat-form-field>
 
                 <div class="submitOptions">
-                    <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid" (click)="onLogin()">Login</button>
-                    <mat-checkbox>Remember me!</mat-checkbox>
+                    <!-- this is the right idea but not 100% correct -->
+                    <!-- <div *ngIf="!this.loggedIn"> 
+                        <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid" (click)="onLogin()">Login</button>
+                    </div>
+                    
+                    <div *ngIf="this.loggedIn">
+                        <button mat-raised-button class="submitButton" color="primary" (click)="onLogout()">Logout</button>
+                    </div> -->
+                    <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid"(click)="onLogin()">Login</button>
+                    <button mat-raised-button class="submitButton" color="primary" (click)="onLogout()">Logout</button>
                 </div>
             </form>
         </mat-card>
-        <div class="otherLinks">
-            <a routerLink="/forgotPassword">Forgot Password?</a>
-            <a routerLink="/register">Create an Account</a>
-        </div>
+
     </div>
 </div>

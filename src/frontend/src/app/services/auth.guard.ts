@@ -16,10 +16,12 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
     if (this.auth.isAuthenticated()) {
       return true;
-    } else {
-      // this.router.navigate(['/login']);
-      return this.router.parseUrl('/login');
     }
+    //  else {
+    //   // this.router.navigate(['/login']);
+    //   return this.router.parseUrl('/login');
+    // }
+    return false;
   }
 
   canActivateChild(
@@ -28,9 +30,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     
     if (this.auth.isAuthenticated()) {
       return true;
-    } else {
-      // this.router.navigate(['/login']);
-      return this.router.parseUrl('/login');
-    }
+    } 
+    return false;
+    // else {
+    //   // this.router.navigate(['/login']);
+    //   return this.router.parseUrl('/login');
+    // }
   }
 }
