@@ -145,7 +145,7 @@ def timeseries():
             date1=datetime.datetime.strptime(start_date, '%Y-%m-%d')
             date2=datetime.datetime.strptime(end_date, '%Y-%m-%d')
             day = datetime.timedelta(days=1)
-            
+
             while date1 <= date2:
                 txs = transactions.filter(Transaction.timestamp == date1).all() 
                 
@@ -163,9 +163,6 @@ def timeseries():
                             holdings[tx.stock.symbol] -= tx.quantity  
 
                 date1 += day
-
-
-
 
             # no holdings, no point in processing further
             if len(holdings) == 0:
@@ -209,8 +206,7 @@ def timeseries():
                         'adj_close': entry['Adj Close']
                     }
                 data_cache[tickers[0]] = data
-
-                    
+    
             data=[]
             holdings = {}
             date1=datetime.datetime.strptime(start_date, '%Y-%m-%d')

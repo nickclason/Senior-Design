@@ -1,23 +1,50 @@
 <div class="control-section">
-    
+
     <!-- Define panels in .ts file -->
     <!-- <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [panels]='panels' [mediaQuery]='mediaQuery'> -->
-    
-        <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery'>
-        
-        <div id="login" class="e-panel" data-row="0" data-col="0" data-sizeX="1" data-sizeY="1">
-            <span id="close" class="e-template-icon e-clear-icon"></span>
-            <div class="e-panel-container">
-                <div><app-login></app-login></div>
-            </div>
-        </div>
 
-        <div id="register" class="e-panel" data-row="0" data-col="0" data-sizeX="1" data-sizeY="1">
-            <span id="close" class="e-template-icon e-clear-icon"></span>
-            <div class="e-panel-container">
-                <div><app-register></app-register>></div>
-            </div>
-        </div>
+    <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery'>
+        <e-panels>
+            <!-- Register Panel -->
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
+                <ng-template #header>
+                    <div>Register</div>
+                </ng-template>
+                <ng-template #content>
+                    <div id="column">
+                        <app-register></app-register>
+                    </div>
+                </ng-template>
+            </e-panel>
 
+            <!-- Login Panel -->
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
+                <ng-template #header>
+                    <div>Login</div>
+                </ng-template>
+                
+                <ng-template #content>
+                    <div id="column">
+                        <app-login></app-login>
+                    </div>
+                </ng-template>
+            
+            </e-panel>
+
+
+            <!-- Portfolio Chart Panel -->
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="0" [col]="0">
+                <ng-template #header>
+                    <div>Portfolio Value</div>
+                </ng-template>
+                
+                <ng-template #content>
+                    <div id="column">
+                        <app-portfolio-chart></app-portfolio-chart>
+                    </div>
+                </ng-template>
+            
+            </e-panel>
+        </e-panels>
     </ejs-dashboardlayout>
 </div>

@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
         console.log(`logging in: ${email}`);
         console.log(localStorage.getItem('accessToken'))
         this.loggedIn = true;
+        this.profileForm.reset();
       },
       (error) => {
         this.message = error;

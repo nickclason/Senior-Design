@@ -23,6 +23,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RegisterComponent } from './register/register.component';
+import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.component';
+
+import { CandleSeriesService, CategoryService, DataLabelService, DateTimeService, 
+  LegendService, LineSeriesService, TooltipService, StockChartModule, StockChartAllModule, } from '@syncfusion/ej2-angular-charts';
+
 // End User Defined Imports
 // -----------------------------------------------------------------------------
 @NgModule({
@@ -32,7 +37,8 @@ import { RegisterComponent } from './register/register.component';
     CustomSidebarComponent,
     DashboardComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PortfolioChartComponent
   ],
   imports: [
     AppRoutingModule,
@@ -52,9 +58,11 @@ import { RegisterComponent } from './register/register.component';
     RadioButtonModule,
     ReactiveFormsModule,
     SidebarModule,
+    StockChartAllModule,
+    StockChartModule,
     TreeViewAllModule,
   ],
-  providers: [],
+  providers: [CandleSeriesService, CategoryService, DataLabelService, DateTimeService, LegendService, LineSeriesService, TooltipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

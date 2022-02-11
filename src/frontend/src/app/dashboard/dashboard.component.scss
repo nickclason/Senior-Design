@@ -8,10 +8,37 @@
     padding: 10px;
 }
 
-#dashboard_default .e-panel .e-panel-container .content {
-    vertical-align: middle;
+  #defaultLayout .e-panel .e-panel-container .content {
     font-weight: 600;
-    font-size: 20px;
     text-align: center;
-    line-height: 90px;
-}
+    margin-top: 10px;
+    line-height: 100%;
+  }
+  
+  .e-dashboard-layout.e-control .e-panel .e-panel-container .e-panel-header {
+    color: rgba(0, 0, 0, 0.61);
+  }
+  
+  .e-panel .e-header-text {
+    padding: 12px 0 12px 0;
+  }
+  
+  .e-dashboard-layout.e-control .e-panel:hover {
+    border: 0px;
+  }
+  
+  .e-dashboard-layout.e-control .e-panel .e-panel-header {
+    font-size: 15px;
+    font-weight: 500;
+    height: 37px;
+    padding: 10px;
+    vertical-align: middle;
+    /* text-align: left; */
+    border-bottom: 0.5px solid rgba(0, 0, 0, .125);
+  }
+  
+  .e-panel-header {
+    padding: 10px;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, .03);
+  }
