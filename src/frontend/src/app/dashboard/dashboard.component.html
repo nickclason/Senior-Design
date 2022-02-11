@@ -1,1 +1,23 @@
-<p>dashboard works!</p>
+<div class="control-section">
+    
+    <!-- Define panels in .ts file -->
+    <!-- <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [panels]='panels' [mediaQuery]='mediaQuery'> -->
+    
+        <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery'>
+        
+        <div id="login" class="e-panel" data-row="0" data-col="0" data-sizeX="1" data-sizeY="1">
+            <span id="close" class="e-template-icon e-clear-icon"></span>
+            <div class="e-panel-container">
+                <div><app-login></app-login></div>
+            </div>
+        </div>
+
+        <div id="register" class="e-panel" data-row="0" data-col="0" data-sizeX="1" data-sizeY="1">
+            <span id="close" class="e-template-icon e-clear-icon"></span>
+            <div class="e-panel-container">
+                <div><app-register></app-register>></div>
+            </div>
+        </div>
+
+    </ejs-dashboardlayout>
+</div>

@@ -8,15 +8,15 @@ import { AppComponent } from './app.component';
 // Begin User Defined Imports
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule, RadioButtonModule } from '@syncfusion/ej2-angular-buttons';
+import { CustomSidebarComponent } from './sidebar/custom-sidebar.component';
+import { DashboardLayoutModule } from '@syncfusion/ej2-angular-layouts';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListViewAllModule } from '@syncfusion/ej2-angular-lists';
 import { SidebarModule, MenuAllModule, TreeViewAllModule} from '@syncfusion/ej2-angular-navigations';
-import { RadioButtonModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
@@ -29,8 +29,7 @@ import { RegisterComponent } from './register/register.component';
   declarations: [
     AccessDeniedComponent,
     AppComponent,
-    HomeComponent,
-    SidebarComponent,
+    CustomSidebarComponent,
     DashboardComponent,
     LoginComponent,
     RegisterComponent
@@ -40,6 +39,7 @@ import { RegisterComponent } from './register/register.component';
     BrowserAnimationsModule,
     BrowserModule,
     ButtonModule,
+    DashboardLayoutModule,
     DropDownListModule,
     FlexLayoutModule,
     FormsModule,
