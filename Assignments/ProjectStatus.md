@@ -58,3 +58,7 @@ Current state of the application: functioning backend to serve data to the front
 Improve the database structure, add more endpoints to the backend and more effectively process/serve data for the frontend. Work together on formulating ideas for the design of the frontend, specifics of what the application needs to do, etc.
 
 ## 02/08/22 - Submit User Guide assignment and work on application
+Submitted user guide assignment (can be found in our wiki) and fleshed out what the UI will look like for the application. Layout the basics and plan what needs to be implemented.
+
+## 02/15/22 - Work on developing and training ML models and application UI
+Start developing and testing models for machine learning to predict future prices. Implement the basic UI elements that are required for our project.
