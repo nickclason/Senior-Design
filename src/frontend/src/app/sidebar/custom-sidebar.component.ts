@@ -18,7 +18,7 @@ import { ViewChild } from '@angular/core';
 })
 export class CustomSidebarComponent {
   
-  @ViewChild('dockBar') dockBar: SidebarComponent;
+  @ViewChild('dockBar') dockBar!: SidebarComponent;
   public enableDock: boolean = true;
   public width: string = '220px';
   public dockSize: string = '72px';
@@ -26,6 +26,25 @@ export class CustomSidebarComponent {
 
   constructor(private auth: AuthService, private dialog: MatDialog) { }
   
+  
+  public hierarchicalData: Object[] = [
+    { id: '01', name: 'Components', expanded: true,
+         subChild: [
+             {id: '01-01', name: 'Gouttes.mp3'},
+                   ]
+     },
+ ];
+
+ public hierarchicalData2: Object[] = [
+  //will eventuall get around to adding the components in here? I think?
+ ];
+
+ public field:Object ={ dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild' };
+
+ public field2:Object ={
+   dataSource: this.hierarchicalData2, id: 'id', text: 'name', child: 'subChild'
+ }
+
   toggleClick() {
     this.dockBar.toggle();
   }
