@@ -29,10 +29,6 @@
     content: '\e102';
 }
 
-#dockSidebar .profile::before {
-    content: '\e10c';
-}
-
 #dockSidebar .info::before {
     content: '\e11b';
 }
@@ -41,6 +37,21 @@
     content: '\e10b';
 }
 
+#dockSidebar .login::before {
+    content: '\e10c';
+}
+
+#dockSidebar .register::before {
+    content: '\e10c';
+}
+
+#dockSidebar .logout::before {
+    content: '\e7e9';
+}
+
+#dockSidebar .theme::before {
+    content: '\ec13';
+}
 
 
 .e-sidebar .expand::before {
@@ -120,7 +131,23 @@ span.e-icons {
     background: #2d323e;
     overflow: hidden;
 }
+
+.sidebar_tree {
+    max-width: 500px;
+    margin: auto;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+}
+
 /* end of sidebar styles */
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    font-size: 20px;
+    padding: 15px;
+}
 
 @font-face {
    font-family: 'e-icons';

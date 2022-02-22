@@ -1,42 +1,59 @@
 <ejs-sidebar #dockBar id="dockSidebar" [enableDock]='enableDock' [width]='width' [dockSize]='dockSize'>
     <div class="dock">
-        <ul>
-            <li class="sidebar-item" id="toggle" (click)="toggleClick()">
-                <span class="e-icons expand"></span>
-                <span class="e-text" title="menu">Menu</span>
-            </li>
-            <li class="sidebar-item">
-                <span class="e-icons home"></span>
-                <span class="e-text" title="home">Home</span>
-            </li>
-            <li class="sidebar-item">
-                <span class="e-icons profile"></span>
-                <span class="e-text" title="profile">Profile</span>
-            </li>
-            <li class="sidebar-item">
-                <span class="e-icons info"></span>
-                <span class="e-text" title="info">Info</span>
-            </li>
-            <li class="sidebar-item">
-                <span class="e-icons settings"></span>
-                <span class="e-text" title="settings">Settings</span>
-            </li>
+        <div>
+            <ul>
+                <li class="sidebar-item" id="toggle" (click)="toggleClick()">
+                    <span class="e-icons expand"></span>
+                    <span class="e-text" title="menu">Menu</span>
+                </li>
 
+                <li class="sidebar-item" (click)="openRegister()">
+                    <span class="e-icons register"></span>
+                    <span class="e-text" title="register">Register</span>
+                </li>
+                <li class="sidebar-item" (click)="openLogin()">
+                    <span class="e-icons login"></span>
+                    <span class="e-text" title="login">Login</span>
+                </li>
+                <li class="sidebar-item" (click)="onLogout()">
+                    <span class="e-icons logout"></span>
+                    <span class="e-text" title="logout">Logout</span>
+                </li>
+                
+            </ul>
+            <div class="control-section" style="overflow:hidden;">
+                <div class="col-lg-12">
+                    <div class="sidebar_tree">
+                        <ejs-treeview id="default" [fields]='field'>
+                            <ul>
+                                <li class="sidebar-item">
+                                    <span class="e-icons home"></span>
+                                    <span class="e-text" title="home">Home</span>
+                                </li>
+                                <li class="sidebar-item">
+                                    <span class="e-icons info"></span>
+                                    <span class="e-text" title="info">Info</span>
+                                </li>
+                                <li class="sidebar-item">
+                                    <span class="e-icons settings"></span>
+                                    <span class="e-text" title="settings">Settings</span>
+                                </li>
+                            </ul>
+                        </ejs-treeview>
+                    </div>
+                </div>
+            </div>
+                <ejs-treeview>
+                    
+                </ejs-treeview>
+                
 
-            <li class="sidebar-item" (click)="openLogin()">
-                <span class="e-text" title="login">Login</span>
-            </li>
-            
-            <li class="sidebar-item" (click)="openRegister()">
-                <span class="e-text" title="register">Register</span>
-            </li>
-
-            <li class="sidebar-item" (click)="onLogout()">
-                <span class="e-text" title="logout">Logout</span>
-            </li>
-
-
-        </ul>
+        </div>
+        <div class="footer">
+            <span class="e-icons theme"></span>
+            <span><a href="#" >Dark Mode!</a></span>
+        </div>
+        
     </div>
 </ejs-sidebar>
 <div id="main-content container-fluid col-md-12 ">
