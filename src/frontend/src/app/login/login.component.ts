@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Input } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 // End User Defined Imports
 // -----------------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   loggedIn: boolean = false;
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, public dialogRef: MatDialogRef<LoginComponent>) { }
 
   ngOnInit(): void {
   }
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
         console.log(localStorage.getItem('accessToken'))
         this.loggedIn = true;
         this.profileForm.reset();
+        this.dialogRef.close();
       },
       (error) => {
         this.message = error;

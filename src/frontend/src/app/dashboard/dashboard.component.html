@@ -32,6 +32,20 @@
             </e-panel> -->
 
 
+            <e-panel [sizeX]="1" [sizeY]="2" [row]="0" [col]="0">
+                <ng-template #header>
+                    <div>Holdings</div>
+                </ng-template>
+                
+                <ng-template #content>
+                    <div id="column">
+                        <app-portfolio-holdings></app-portfolio-holdings>
+                    </div>
+                </ng-template>
+            
+            </e-panel>
+
+
             <!-- Portfolio Chart Panel -->
             <e-panel [sizeX]="3" [sizeY]="1" [row]="0" [col]="0">
                 <ng-template #header>

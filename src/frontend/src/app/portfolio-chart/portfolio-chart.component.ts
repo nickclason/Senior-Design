@@ -25,7 +25,7 @@ export class PortfolioChartComponent implements OnInit {
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
     
     // make the dates be inputs eventually
-    this.http.get<any>('http://localhost:5000/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-11&interval=1d', opts).subscribe(data => {
+    this.http.get<any>('http://localhost:5000/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-22&interval=1d', opts).subscribe(data => {
 
     console.log(data)
 

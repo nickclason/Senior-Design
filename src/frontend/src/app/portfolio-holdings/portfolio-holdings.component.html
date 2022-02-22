@@ -1,0 +1,28 @@
+<div>
+  <h1>Portfolio</h1>
+
+  <table>
+    <tr>
+
+      <th></th>
+
+      <th>Symbol</th>
+
+      <th>Quantity</th> 
+      
+      <th>Current Value</th>
+
+      <th>Total Value</th>
+    </tr>
+    
+    <tr *ngFor="let holding of holdings">
+      
+      <td><img class="my-img" src={{holding.logo_url}}></td>
+      <td>{{holding.symbol}}</td>
+      <td>{{holding.quantity}}</td>
+      <td>{{holding.current_value}}</td>
+      <td>{{holding.total_value}}</td>
+    </tr>
+  </table>
+
+</div>

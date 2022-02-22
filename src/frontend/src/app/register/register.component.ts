@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 // Begin User Defined Imports
 import { AuthService } from '../services/auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 // End User Defined Imports
 // -----------------------------------------------------------------------------
 
@@ -21,13 +22,13 @@ export class RegisterComponent implements OnInit {
   email: string;
   password: string;
   minPwLength: number = 8;
-  
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email
   ]);
 
-  constructor(private fb: FormBuilder, private auth: AuthService) { }
+  constructor(private fb: FormBuilder, private auth: AuthService, public dialogRef: MatDialogRef<RegisterComponent>) { }
 
   ngOnInit(): void {
 
@@ -36,12 +37,12 @@ export class RegisterComponent implements OnInit {
       lastName: new FormControl(''),
       password1: ['', [Validators.required, Validators.minLength(this.minPwLength)]],
       password2: ['', [Validators.required]]
-    }, {validator: this.passwordMatchValidator})
+    }, { validator: this.passwordMatchValidator })
   }
 
   passwordMatchValidator(g: FormGroup) {
     return g.get('password1')?.value === g.get('password2')?.value
-       ? null : {'mismatch': true};
+      ? null : { 'mismatch': true };
   }
 
   get password1() { return this.registerForm.get('password1'); }
@@ -49,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
   onPasswordInput() {
     if (this.registerForm.hasError('mismatch'))
-      this.password2?.setErrors([{'pwMatchError': true}]);
+      this.password2?.setErrors([{ 'pwMatchError': true }]);
     else
       this.password2?.setErrors(null);
   }
@@ -61,6 +62,7 @@ export class RegisterComponent implements OnInit {
       () => {
         console.log("User registered successfully!");
         this.registerForm.reset();
+        this.dialogRef.close();
       },
       (error) => {
         console.log(error);

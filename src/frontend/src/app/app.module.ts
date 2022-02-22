@@ -32,6 +32,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { CandleSeriesService, CategoryService, DataLabelService, DateTimeService, 
   LegendService, LineSeriesService, TooltipService, StockChartModule, StockChartAllModule, } from '@syncfusion/ej2-angular-charts';
+import { PortfolioHoldingsComponent } from './portfolio-holdings/portfolio-holdings.component';
 
 // End User Defined Imports
 // -----------------------------------------------------------------------------
@@ -43,7 +44,8 @@ import { CandleSeriesService, CategoryService, DataLabelService, DateTimeService
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
-    PortfolioChartComponent
+    PortfolioChartComponent,
+    PortfolioHoldingsComponent
   ],
   imports: [
     AppRoutingModule,

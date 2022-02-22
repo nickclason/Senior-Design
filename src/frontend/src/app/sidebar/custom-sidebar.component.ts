@@ -32,6 +32,7 @@ export class CustomSidebarComponent {
 
   openLogin() {
     const dialogRef = this.dialog.open(LoginComponent, {});
+    
     dialogRef.afterClosed().subscribe(result => {
       console.log('The login dialog was closed');
     });
