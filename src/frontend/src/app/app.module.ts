@@ -16,14 +16,19 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ListViewAllModule } from '@syncfusion/ej2-angular-lists';
-import { SidebarModule, MenuAllModule, TreeViewAllModule} from '@syncfusion/ej2-angular-navigations';
+import { SidebarModule, MenuAllModule, TreeViewModule, TreeViewAllModule} from '@syncfusion/ej2-angular-navigations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RegisterComponent } from './register/register.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.component';
+import { RegisterComponent } from './register/register.component';
+
 
 import { CandleSeriesService, CategoryService, DataLabelService, DateTimeService, 
   LegendService, LineSeriesService, TooltipService, StockChartModule, StockChartAllModule, } from '@syncfusion/ej2-angular-charts';
@@ -52,14 +57,18 @@ import { CandleSeriesService, CategoryService, DataLabelService, DateTimeService
     HttpClientModule,
     ListViewAllModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MenuAllModule,
+    OverlayModule,
     RadioButtonModule,
     ReactiveFormsModule,
     SidebarModule,
     StockChartAllModule,
     StockChartModule,
+    TreeViewAllModule,
     TreeViewAllModule,
   ],
   providers: [CandleSeriesService, CategoryService, DataLabelService, DateTimeService, LegendService, LineSeriesService, TooltipService],

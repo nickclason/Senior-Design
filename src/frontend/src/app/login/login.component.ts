@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 // Begin User Defined Imports
 import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Input } from '@angular/core';
 // End User Defined Imports
 // -----------------------------------------------------------------------------
 
@@ -13,6 +14,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  // @Input() showMePartially: boolean;
 
   message = '';
 
@@ -38,18 +41,6 @@ export class LoginComponent implements OnInit {
         console.log(localStorage.getItem('accessToken'))
         this.loggedIn = true;
         this.profileForm.reset();
-      },
-      (error) => {
-        this.message = error;
-      }
-    );
-  }
-
-  onLogout() {
-    this.auth.deauthenticate().subscribe(
-      () => {
-        console.log("logging out");
-        this.loggedIn = false;
       },
       (error) => {
         this.message = error;

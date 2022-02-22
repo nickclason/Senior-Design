@@ -21,6 +21,21 @@
                 <span class="e-icons settings"></span>
                 <span class="e-text" title="settings">Settings</span>
             </li>
+
+
+            <li class="sidebar-item" (click)="openLogin()">
+                <span class="e-text" title="login">Login</span>
+            </li>
+            
+            <li class="sidebar-item" (click)="openRegister()">
+                <span class="e-text" title="register">Register</span>
+            </li>
+
+            <li class="sidebar-item" (click)="onLogout()">
+                <span class="e-text" title="logout">Logout</span>
+            </li>
+
+
         </ul>
     </div>
 </ejs-sidebar>

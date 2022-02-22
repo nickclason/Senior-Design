@@ -1,3 +1,4 @@
+<!-- <div *ngIf="showMePartially"> -->
 <div class="container">
     <div class="cardArea">
         <mat-card>
@@ -14,19 +15,13 @@
                 </mat-form-field>
 
                 <div class="submitOptions">
-                    <!-- this is the right idea but not 100% correct -->
-                    <!-- <div *ngIf="!this.loggedIn"> 
-                        <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid" (click)="onLogin()">Login</button>
-                    </div>
-                    
-                    <div *ngIf="this.loggedIn">
-                        <button mat-raised-button class="submitButton" color="primary" (click)="onLogout()">Logout</button>
-                    </div> -->
-                    <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid"(click)="onLogin()">Login</button>
-                    <button mat-raised-button class="submitButton" color="primary" (click)="onLogout()">Logout</button>
+
+                    <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid"
+                        (click)="onLogin()">Login</button>
                 </div>
             </form>
         </mat-card>
 
     </div>
 </div>
+<!-- </div> -->
