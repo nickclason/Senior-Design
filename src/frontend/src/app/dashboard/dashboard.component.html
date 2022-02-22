@@ -5,34 +5,8 @@
 
     <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery'>
         <e-panels>
-            <!-- Register Panel -->
-            <!-- <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
-                <ng-template #header>
-                    <div>Register</div>
-                </ng-template>
-                <ng-template #content>
-                    <div id="column">
-                        <app-register></app-register>
-                    </div>
-                </ng-template>
-            </e-panel> -->
 
-            <!-- Login Panel -->
-            <!-- <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
-                <ng-template #header>
-                    <div>Login</div>
-                </ng-template>
-                
-                <ng-template #content>
-                    <div id="column">
-                        <app-login></app-login>
-                    </div>
-                </ng-template>
-            
-            </e-panel> -->
-
-
-            <e-panel [sizeX]="1" [sizeY]="2" [row]="0" [col]="0">
+            <e-panel [sizeX]="1" [sizeY]="2" [row]="0" [col]="1">
                 <ng-template #header>
                     <div>Holdings</div>
                 </ng-template>
@@ -42,12 +16,22 @@
                         <app-portfolio-holdings></app-portfolio-holdings>
                     </div>
                 </ng-template>
-            
             </e-panel>
 
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
+                <ng-template #header>
+                    <div>Add Transaction</div>
+                </ng-template>
+                
+                <ng-template #content>
+                    <div id="column">
+                        <app-add-transaction></app-add-transaction>
+                    </div>
+                </ng-template>
+            </e-panel>
 
             <!-- Portfolio Chart Panel -->
-            <e-panel [sizeX]="3" [sizeY]="1" [row]="0" [col]="0">
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="1" [col]="0">
                 <ng-template #header>
                     <div>Portfolio Value</div>
                 </ng-template>

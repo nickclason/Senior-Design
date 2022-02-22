@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { Observable, Subscription, switchMap, timer } from 'rxjs';
 
 export interface Stock {
   symbol: string;
@@ -23,14 +23,17 @@ export interface Stock {
 })
 export class PortfolioHoldingsComponent implements OnInit {
   
+  // holdings: Observable<Stock>;
+
   holdings: Stock[];
   displayedColumns: string[] = ['symbol', 'quantity', 'current_value', 'total_value']
-
+  realTimeDataSubscription$: Subscription;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.updateHoldings();
+
   }
 
   updateHoldings(){
@@ -43,4 +46,5 @@ export class PortfolioHoldingsComponent implements OnInit {
     
     });
   }
+
 }

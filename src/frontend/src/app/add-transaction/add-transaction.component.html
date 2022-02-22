@@ -1,0 +1,26 @@
+<div style="text-align:center">
+    <h1>Enter Transaction</h1>
+    <div>
+      <label for="symbol">Symbol:</label>
+      <input type="text"  [(ngModel)]="symbol">
+    </div>
+    
+    <div>
+      <label for="quantity">Quantity:</label>
+      <input type="number" [(ngModel)]="quantity">
+    </div>
+  
+    <div>
+      <label for="date">Date</label>
+      <input type="date" [(ngModel)]="date">
+    </div>
+  
+    <div>
+      <select [(ngModel)]="buy">
+        <option value=1>BUY</option>
+        <option value=0>SELL</option>
+        </select>
+    </div>
+    
+    <button  (click)="clickEvent()" >Add Transaction</button>
+  </div>
