@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DataService, TimePoint } from '../services/data.service';
 
 
 @Component({
@@ -11,27 +11,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PortfolioChartComponent implements OnInit {
 
-
-  stockChartData: Object[];
-
-  constructor(private http: HttpClient) {
-  }
+  stockChartData: TimePoint[] = []
+  constructor(private dataService: DataService) {}
   
   ngOnInit(): void {
-    this.updateChart();
+    this.getChartData();
   }
 
-  updateChart() {
-    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    
-    // make the dates be inputs eventually
-    this.http.get<any>('http://localhost:5000/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-22&interval=1d', opts).subscribe(data => {
-
-    console.log(data)
-
-    this.stockChartData = this.convert_unix_to_date(data['data'])  
-    
-    });
+  getChartData() {
+    this.dataService.getChartData().subscribe(stockChartData => this.stockChartData = this.convert_unix_to_date(stockChartData));
   }
 
   convert_unix_to_date(data: any) {
@@ -41,5 +29,4 @@ export class PortfolioChartComponent implements OnInit {
     }
     return new_data;
   }
-
 }

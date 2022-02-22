@@ -118,7 +118,8 @@ def get_holdings():
                     'website': s.website,
                 })
                 
-            return make_response(jsonify({'holdings': data, 'statusCode': 200}))
+            # return make_response(jsonify({'holdings': data, 'statusCode': 200}))
+            return jsonify(data)
         except Exception as error:
             print(error)
             abort(400)
@@ -253,7 +254,9 @@ def timeseries():
                 date1 = date1 + day
 
             
-            return make_response(jsonify(data=data, statusCode=200))
+            # return make_response(jsonify(data=data, statusCode=200))
+            return jsonify(data)
+
         except Exception as e:
             print(e)
             return make_response(jsonify(message='Something went wrong...', statusCode=400))

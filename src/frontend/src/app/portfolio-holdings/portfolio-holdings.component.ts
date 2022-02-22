@@ -1,20 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subscription, switchMap, timer } from 'rxjs';
+import { DataService, Stock } from '../services/data.service';
 
-export interface Stock {
-  symbol: string;
-  quantity: number;
-  current_value: number;
-  total_value: number;
-  website: string;
-  industry: string;
-  sector: string;
-  logo_url: string;
-  company_name: string;
-}
+
 
 @Component({
   selector: 'app-portfolio-holdings',
@@ -22,29 +11,17 @@ export interface Stock {
   styleUrls: ['./portfolio-holdings.component.scss']
 })
 export class PortfolioHoldingsComponent implements OnInit {
-  
-  // holdings: Observable<Stock>;
 
-  holdings: Stock[];
+  holdings: Stock[] = [];
   displayedColumns: string[] = ['symbol', 'quantity', 'current_value', 'total_value']
-  realTimeDataSubscription$: Subscription;
 
-  constructor(private http: HttpClient) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.updateHoldings();
-
+    this.getHoldings();
   }
 
-  updateHoldings(){
-    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    
-    this.http.get<any>('http://localhost:5000/portfolio/get_holdings', opts).subscribe(data => {
-      
-      this.holdings = data['holdings'];
-      console.log(this.holdings)
-    
-    });
+  getHoldings() {
+    this.dataService.getHoldings().subscribe(holdings => this.holdings = holdings);
   }
-
 }
