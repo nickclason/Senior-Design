@@ -15,13 +15,15 @@ class User(db.Model):
     lastName = db.Column("lastName", db.String(64), nullable=False)
 
     portfolio = db.relationship('Portfolio', backref='user', uselist=False) # uselist=False means that there is only one portfolio per user (1:1 relationship)
+    watchlist = db.relationship('Watchlist', backref='user', uselist=False) # just stocks the user wants to watch, but not actively hold
 
-    def __init__(self, email, password, firstName, lastName, portfolio):
+    def __init__(self, email, password, firstName, lastName, portfolio, watchlist):
         self.email = email
         self.password = password
         self.firstName = firstName
         self.lastName = lastName
         self.portfolio = portfolio
+        self.watchlist = watchlist
 
     def __repr__(self):
         return '<User %r>' % (self.email)

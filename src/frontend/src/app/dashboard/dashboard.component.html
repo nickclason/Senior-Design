@@ -6,6 +6,7 @@
     <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery'>
         <e-panels>
 
+            <!-- Portfolio Holdings -->
             <e-panel [sizeX]="1" [sizeY]="2" [row]="0" [col]="1">
                 <ng-template #header>
                     <div>Holdings</div>
@@ -18,6 +19,7 @@
                 </ng-template>
             </e-panel>
 
+            <!-- Add Transaction -->
             <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
                 <ng-template #header>
                     <div>Add Transaction</div>
@@ -42,6 +44,18 @@
                     </div>
                 </ng-template>
             
+            </e-panel>
+
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
+                <ng-template #header>
+                    <div>Watchlist</div>
+                </ng-template>
+                
+                <ng-template #content>
+                    <div id="column">
+                        <app-watchlist></app-watchlist>
+                    </div>
+                </ng-template>
             </e-panel>
         </e-panels>
     </ejs-dashboardlayout>

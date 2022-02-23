@@ -5,6 +5,7 @@ from app import db # Database
 from app.auth import * # Authentication
 from app.models.user import User # User model
 from app.models.portfolio import Portfolio # Portfolio model
+from app.models.watchlist import Watchlist # Watchlist model
 
 from hashlib import sha256 # Hashing
 
@@ -52,7 +53,7 @@ def register():
             h.update(plaintext_password.encode('utf-8'))
             password = h.hexdigest()
 
-            new_user = User(email, password, firstName, lastName, Portfolio())            
+            new_user = User(email, password, firstName, lastName, Portfolio(), Watchlist())            
             db.session.add(new_user)
             db.session.commit()
             

@@ -34,6 +34,7 @@ import { AccumulationChartAllModule, CandleSeriesService, CategoryService, Chart
         TooltipService, RangeNavigatorAllModule, StockChartModule, StockChartAllModule, } from '@syncfusion/ej2-angular-charts';
 import { PortfolioHoldingsComponent } from './portfolio-holdings/portfolio-holdings.component';
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 
 
@@ -56,7 +57,8 @@ import { AddTransactionComponent } from './add-transaction/add-transaction.compo
     RegisterComponent,
     PortfolioChartComponent,
     PortfolioHoldingsComponent,
-    AddTransactionComponent
+    AddTransactionComponent,
+    WatchlistComponent
   ],
   imports: [
     AppRoutingModule,
