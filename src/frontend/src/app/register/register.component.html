@@ -6,19 +6,19 @@
                 <table class="full-width" cellspacing="0"><tr>
 
                     <!-- Make Names required -->
-                    <td><mat-form-field class="full-width">
+                    <td><mat-form-field class="full-width" [floatLabel]="'never'">
                         <mat-label>First Name</mat-label>
                         <input matInput formControlName="firstName">
                     </mat-form-field></td>
 
-                    <td><mat-form-field class="full-width">
+                    <td><mat-form-field class="full-width" [floatLabel]="'never'">
                         <mat-label>Last Name</mat-label>
                         <input matInput formControlName="lastName">
                     </mat-form-field></td>
                 </tr></table>
 
                 <p>
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" [floatLabel]="'never'">
                     <mat-label>Email Address</mat-label>
                     <input type="email" matInput [formControl]="emailFormControl" placeholder="user@example.com" [(ngModel)]="email">
                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -30,7 +30,7 @@
                 </mat-form-field>
                 </p>
 
-                <mat-form-field class="full-width">
+                <mat-form-field class="full-width" [floatLabel]="'never'">
                     <input matInput type="password" placeholder="Password" formControlName="password1" (input)="onPasswordInput()" [(ngModel)]="password">
                     <mat-error *ngIf="password1?.hasError('required')">
                         Password is <strong>required</strong>.
@@ -40,7 +40,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field class="full-width">
+                <mat-form-field class="full-width" [floatLabel]="'never'">
                     <input matInput type="password" placeholder="Confirm Password" formControlName="password2" (input)="onPasswordInput()">
                     <mat-error *ngIf="password2?.hasError('required')">
                         Please confirm your password.

@@ -4,12 +4,12 @@
         <mat-card>
             <form class="loginForm" [formGroup]="profileForm">
                 <h1>Login</h1>
-                <mat-form-field class="inputField">
+                <mat-form-field class="inputField" [floatLabel]="'never'">
                     <mat-label>Email</mat-label>
                     <input matInput placeholder="Enter email" formControlName="email">
                 </mat-form-field>
 
-                <mat-form-field class="inputField">
+                <mat-form-field class="inputField" [floatLabel]="'never'">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" placeholder="Enter Password" formControlName="password">
                 </mat-form-field>
