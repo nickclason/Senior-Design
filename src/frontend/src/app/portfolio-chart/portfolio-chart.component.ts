@@ -25,7 +25,7 @@ export class PortfolioChartComponent implements OnInit {
 
   public primaryYAxis: Object = {
     labelFormat: '${value}',
-    rangePadding: 'None',
+    rangePadding: 'Auto',
     lineStyle: { width: 0 },
     majorTickLines: { width: 0 },
     minorTickLines: { width: 0 }
