@@ -40,30 +40,3 @@ def add_to_watchlist():
             abort(400)
 
 
-@watchlist_bp.route('/get', methods=['GET'])
-@auth_required
-def get_watchlist():
-    if request.method == 'GET':
-        try:
-            user = get_authenticated_user() # Get the user
-            watchlist = user.watchlist.watch_stocks # Get the user's portfolio
-
-            data = []
-            for stock in watchlist:
-                s = Stock.query.filter_by(id=stock.id).first() # TODO: (def not latest...) idk if this is the "latest" but for now its fine...
-
-                data.append({    
-                    'symbol': s.symbol,
-                    'current_value': s.latest_price,
-                    'logo_url': s.logo_url,
-                    'industry': s.industry,
-                    'sector': s.sector,
-                    'company_name': s.company_name,
-                    'website': s.website,
-                })
-
-            return jsonify(data)
-        except Exception as error:
-            print(error)
-            abort(400)
-
