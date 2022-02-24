@@ -46,6 +46,7 @@
             
             </e-panel>
 
+            <!-- Watchlist -->
             <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
                 <ng-template #header>
                     <div>Watchlist</div>
@@ -54,6 +55,19 @@
                 <ng-template #content>
                     <div id="column">
                         <app-watchlist></app-watchlist>
+                    </div>
+                </ng-template>
+            </e-panel>
+
+            <!-- Sector Treemap -->
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="0" [col]="0">
+                <ng-template #header>
+                    <div>Holdings by Sector</div>
+                </ng-template>
+                
+                <ng-template #content>
+                    <div id="column">
+                        <app-sector-chart></app-sector-chart>
                     </div>
                 </ng-template>
             </e-panel>

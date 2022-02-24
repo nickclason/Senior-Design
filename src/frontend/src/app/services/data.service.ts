@@ -19,7 +19,6 @@ export interface Stock {
   company_name: string;
 }
 
-
 export interface WatchStock {
   symbol: string;
   current_value: number;
@@ -49,11 +48,18 @@ export interface AddWatch {
   symbol: string;
 }
 
+export interface SectorData {
+  sector: string;
+  value: number;
+}
+
 const HOLDINGS_API = environment.apiServer + '/portfolio/get_holdings';
 const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-22&interval=1d';
 const CREATE_TRANSACTION_API = environment.apiServer + '/portfolio/create_transaction';
 const GET_WATCHLIST_API = environment.apiServer + '/watchlist/get';
 const ADD_WATCHLIST_API = environment.apiServer + '/watchlist/add';
+// const DELETE_WATCHLIST_API = environment.apiServer + '/watchlist/delete';
+const SECTOR_CHART_API = environment.apiServer + '/portfolio/holdings_by_sector';
 @Injectable({
   providedIn: 'root'
 })
@@ -61,7 +67,8 @@ export class DataService {
   
   private dataStore: { watchlist: WatchStock[], 
                        holdings: Stock[],
-                       portfolioChartData: TimePoint[] } = { watchlist: [], holdings: [] , portfolioChartData: []};
+                       portfolioChartData: TimePoint[],
+                       sectorChartData: SectorData[] } = { watchlist: [], holdings: [], portfolioChartData: [], sectorChartData: []};
 
 
   private _watchlist = new BehaviorSubject<WatchStock[]>([]);
@@ -72,6 +79,9 @@ export class DataService {
 
   private _portfolioChartData = new BehaviorSubject<TimePoint[]>([]);
   readonly portfolioChartData$ = this._portfolioChartData.asObservable();
+
+  private _sectorChartData = new BehaviorSubject<SectorData[]>([]);
+  readonly sectorChartData$ = this._sectorChartData.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -136,19 +146,39 @@ export class DataService {
       error => console.log('Could not load portfolio chart data.')
     );
   }
+
+  getSectorChartData() {
+    return this._sectorChartData.asObservable();
+  }
+
+  loadSectorChartData() {
+    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+
+    this.http.get<SectorData[]>(SECTOR_CHART_API, opts).subscribe(
+      data => {
+        this.dataStore.sectorChartData = data;
+        this._sectorChartData.next(Object.assign({}, this.dataStore).sectorChartData);
+      },
+      error => console.log('Could not load sector chart data.')
+    );
+  }
   
   clearAll() {
     this.dataStore.watchlist = [];
     this.dataStore.holdings = [];
     this.dataStore.portfolioChartData = [];
+    this.dataStore.sectorChartData = [];
+
     this._watchlist.next(Object.assign({}, this.dataStore).watchlist);
     this._holdings.next(Object.assign({}, this.dataStore).holdings);
     this._portfolioChartData.next(Object.assign({}, this.dataStore).portfolioChartData);
+    this._sectorChartData.next(Object.assign({}, this.dataStore).sectorChartData);
   }
 
   loadAll() {
     this.loadWatchlist();
     this.loadHoldings();
     this.loadPortfolioChartData();
+    this.loadSectorChartData();
   }
 }

@@ -76,50 +76,8 @@ def create_transaction():
 def get_holdings():
     if request.method == 'GET':
         try:
-            user = get_authenticated_user() # Get the user
-            portfolio = user.portfolio # Get the user's portfolio
-            transactions = portfolio.transactions # Get the user's transactions
-
-            # no transactions, no point in processing further
-            if transactions.count() == 0:
-                return make_response(jsonify(holdings=[], statusCode=200))
-
-            # time to do it the dirty way
-            holdings={}
-            for tx in transactions:
-                if tx.buy:
-                    if tx.stock.symbol in holdings:
-                        holdings[tx.stock.symbol] += tx.quantity
-                    else:
-                        holdings[tx.stock.symbol] = tx.quantity
-                else: # sell
-                    if tx.stock.symbol in holdings:
-                        holdings[tx.stock.symbol] -= tx.quantity
-                        if holdings[tx.stock.symbol] == 0: # shouldn't every allow them to sell more than they own so this is "fine"
-                            holdings.pop(tx.stock.symbol)
-
-            # no holdings, no point in processing further
-            if len(holdings) == 0:
-                return make_response(jsonify(holdings=[], statusCode=200))
-            
-            data = []
-            for stock in holdings:
-                s = Stock.query.filter_by(symbol=stock).first() # TODO: (def not latest...) idk if this is the "latest" but for now its fine...
-
-                data.append({    
-                    'symbol': stock,
-                    'quantity': holdings[stock],
-                    'current_value': s.latest_price,
-                    'total_value': s.latest_price*holdings[stock],
-                    'logo_url': s.logo_url,
-                    'industry': s.industry,
-                    'sector': s.sector,
-                    'company_name': s.company_name,
-                    'website': s.website,
-                })
-                
-            # return make_response(jsonify({'holdings': data, 'statusCode': 200}))
-            return jsonify(data)
+            resp = get_holdings_logic()
+            return jsonify(resp.json)
         except Exception as error:
             print(error)
             abort(400)
@@ -262,6 +220,80 @@ def timeseries():
             return make_response(jsonify(message='Something went wrong...', statusCode=400))
 
 
+@portfolio_bp.route('/holdings_by_sector', methods=['GET'])
+@auth_required
+def holdings_by_sector():
+    if request.method == 'GET':
+        try:
+            holdings = get_holdings_logic()
+            holdings = holdings.json
 
+            sector_data = {}
+            for holding in holdings:
+                if holding['sector'] not in sector_data:
+                    sector_data[holding['sector']] = {
+                        'sector': holding['sector'],
+                        'value': holding['total_value']
+                    }
+                else:
+                    sector_data[holding['sector']]['value'] += holding['total_value']
+
+
+            data = []
+            for sector in sector_data:
+                data.append(sector_data[sector])
+
+            return jsonify(data)
+        except Exception as error:
+            print(error)
+            abort(400)
+
+
+def get_holdings_logic():
+    user = get_authenticated_user()  # Get the user
+    portfolio = user.portfolio  # Get the user's portfolio
+    transactions = portfolio.transactions  # Get the user's transactions
+
+    # no transactions, no point in processing further
+    if transactions.count() == 0:
+        return make_response(jsonify(holdings=[], statusCode=200))
+
+    # time to do it the dirty way
+    holdings = {}
+    for tx in transactions:
+        if tx.buy:
+            if tx.stock.symbol in holdings:
+                holdings[tx.stock.symbol] += tx.quantity
+            else:
+                holdings[tx.stock.symbol] = tx.quantity
+        else:  # sell
+            if tx.stock.symbol in holdings:
+                holdings[tx.stock.symbol] -= tx.quantity
+                # shouldn't every allow them to sell more than they own so this is "fine"
+                if holdings[tx.stock.symbol] == 0:
+                    holdings.pop(tx.stock.symbol)
+
+    # no holdings, no point in processing further
+    if len(holdings) == 0:
+        return make_response(jsonify(holdings=[], statusCode=200))
+
+    data = []
+    for stock in holdings:
+        # TODO: (def not latest...) idk if this is the "latest" but for now its fine...
+        s = Stock.query.filter_by(symbol=stock).first()
+
+        data.append({
+            'symbol': stock,
+            'quantity': holdings[stock],
+            'current_value': s.latest_price,
+            'total_value': s.latest_price*holdings[stock],
+            'logo_url': s.logo_url,
+            'industry': s.industry,
+            'sector': s.sector,
+            'company_name': s.company_name,
+            'website': s.website,
+        })
+
+    return jsonify(data)
 
 

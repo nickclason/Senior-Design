@@ -35,7 +35,9 @@ import { AccumulationChartAllModule, CandleSeriesService, CategoryService, Chart
 import { PortfolioHoldingsComponent } from './portfolio-holdings/portfolio-holdings.component';
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { SectorChartComponent } from './sector-chart/sector-chart.component';
 
+import { TreeMapModule, TreeMapLegendService, TreeMapTooltipService, TreeMapAllModule } from '@syncfusion/ej2-angular-treemap';
 
 
 
@@ -58,7 +60,8 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
     PortfolioChartComponent,
     PortfolioHoldingsComponent,
     AddTransactionComponent,
-    WatchlistComponent
+    WatchlistComponent,
+    SectorChartComponent
   ],
   imports: [
     AppRoutingModule,
@@ -86,13 +89,14 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
     SidebarModule,
     StockChartAllModule,
     StockChartModule,
+    TreeMapAllModule,
+    TreeMapModule,
     TreeViewAllModule,
     TreeViewModule,
   ],
-  providers: [CandleSeriesService, CategoryService, DataLabelService, DateTimeService, LegendService, LineSeriesService, TooltipService],
+  providers: [CandleSeriesService, CategoryService, DataLabelService, DateTimeService, LegendService, LineSeriesService, 
+              TreeMapLegendService, TreeMapTooltipService, TooltipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-
-// SidebarModule, BrowserModule, RadioButtonModule, MenuAllModule, DropDownListModule, ButtonModule, TreeViewAllModule, ListViewAllModule
