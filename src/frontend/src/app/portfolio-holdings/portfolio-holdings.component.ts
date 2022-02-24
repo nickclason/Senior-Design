@@ -18,10 +18,9 @@ export class PortfolioHoldingsComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.getHoldings();
+
+    this.dataService.holdings$.subscribe(holdings => this.holdings = holdings);
+    this.dataService.loadHoldings()
   }
 
-  getHoldings() {
-    this.dataService.getHoldings().subscribe(holdings => this.holdings = holdings);
-  }
 }

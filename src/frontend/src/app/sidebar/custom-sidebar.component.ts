@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { RegisterComponent } from '../register/register.component';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
 // End User Defined Imports
 // -----------------------------------------------------------------------------
 
@@ -24,7 +25,7 @@ export class CustomSidebarComponent {
   public dockSize: string = '72px';
 
 
-  constructor(private auth: AuthService, private dialog: MatDialog) { }
+  constructor(private auth: AuthService, private dataService: DataService, private dialog: MatDialog) { }
   
   
   public hierarchicalData: Object[] = [
@@ -68,6 +69,7 @@ export class CustomSidebarComponent {
     this.auth.deauthenticate().subscribe(
       () => {
         console.log("logging out");
+        this.dataService.clearAll();
       },
       (error) => {
         console.log(error);

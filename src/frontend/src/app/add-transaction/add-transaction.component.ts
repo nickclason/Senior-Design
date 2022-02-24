@@ -25,5 +25,8 @@ export class AddTransactionComponent implements OnInit {
    
     const transaction: Transaction = { symbol: this.symbol.toUpperCase(), quantity: this.quantity, buy: this.buy, date: epochNow };
     this.dataService.postTransaction(transaction).subscribe();
+
+    setTimeout(() => this.dataService.loadHoldings(), 1000) // wait 1 second so the POST has time to be updated in the backend
+    setTimeout(() => this.dataService.loadPortfolioChartData(), 1000)
   }
 }

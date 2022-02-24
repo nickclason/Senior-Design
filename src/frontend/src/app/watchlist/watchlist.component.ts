@@ -16,15 +16,13 @@ export class WatchlistComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.getWatchlist();
-  }
-
-  getWatchlist() {
-    this.dataService.getWatchlist().subscribe(watchlist => this.watchlist = watchlist);
+    this.dataService.watchlist$.subscribe(watchlist => this.watchlist = watchlist);
+    this.dataService.loadWatchlist()
   }
 
   clickEvent() {
     const watch: AddWatch = { symbol: this.symbol.toUpperCase() };
     this.dataService.addToWatchlist(watch).subscribe();
+    setTimeout(() => this.dataService.loadWatchlist(), 1000) // wait 1 second before making this call so the POST has time to be updated in the backend
   }
 }

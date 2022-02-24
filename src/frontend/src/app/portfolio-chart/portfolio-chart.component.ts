@@ -34,12 +34,11 @@ export class PortfolioChartComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.getChartData();
+    
+    this.dataService.portfolioChartData$.subscribe(data => this.stockChartData = this.convert_unix_to_date(data));
+    this.dataService.loadPortfolioChartData()
   }
 
-  getChartData() {
-    this.dataService.getChartData().subscribe(stockChartData => this.stockChartData = this.convert_unix_to_date(stockChartData));
-  }
 
   convert_unix_to_date(data: any) {
     var new_data = data

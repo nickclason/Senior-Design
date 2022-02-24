@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { WatchlistComponent } from '../watchlist/watchlist.component';
-
+import { map } from 'rxjs/operators';
 
 export interface Stock {
   symbol: string;
@@ -58,21 +58,60 @@ const ADD_WATCHLIST_API = environment.apiServer + '/watchlist/add';
   providedIn: 'root'
 })
 export class DataService {
+  
+  private dataStore: { watchlist: WatchStock[], 
+                       holdings: Stock[],
+                       portfolioChartData: TimePoint[] } = { watchlist: [], holdings: [] , portfolioChartData: []};
+
+
+  private _watchlist = new BehaviorSubject<WatchStock[]>([]);
+  readonly watchlist$ = this._watchlist.asObservable();
+
+  private _holdings = new BehaviorSubject<Stock[]>([]);
+  readonly holdings$ = this._holdings.asObservable();
+
+  private _portfolioChartData = new BehaviorSubject<TimePoint[]>([]);
+  readonly portfolioChartData$ = this._portfolioChartData.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  getHoldings(): Observable<Stock[]> {
-    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    const holdings = this.http.get<Stock[]>(HOLDINGS_API, opts);
 
-    return holdings;
+
+  getWatchlistData() {
+    return this._watchlist.asObservable();
   }
 
-  getChartData(): Observable<TimePoint[]> {
+  loadWatchlist() {
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    const chartData = this.http.get<TimePoint[]>(PORTFOLIO_CHART_API, opts);
 
-    return chartData;
+    this.http.get<WatchStock[]>(GET_WATCHLIST_API, opts).subscribe(
+      data => {
+        this.dataStore.watchlist = data;
+        this._watchlist.next(Object.assign({}, this.dataStore).watchlist);
+      },
+      error => console.log('Could not load watchlist.')
+    );
+  }
+
+  addToWatchlist(watch: AddWatch): Observable<AddWatch> {
+    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+    return this.http.post<AddWatch>(ADD_WATCHLIST_API, watch, opts);
+  }
+
+  getHoldingsData() {
+    return this._holdings.asObservable();
+  }
+
+  loadHoldings() {
+    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+
+    this.http.get<Stock[]>(HOLDINGS_API, opts).subscribe(
+      data => {
+        this.dataStore.holdings = data;
+        this._holdings.next(Object.assign({}, this.dataStore).holdings);
+      },
+      error => console.log('Could not load holdings.')
+    );
   }
 
   postTransaction(transaction: Transaction): Observable<Transaction> {
@@ -82,15 +121,34 @@ export class DataService {
     return this.http.post<Transaction>(CREATE_TRANSACTION_API, transaction, opts);
   }
 
-  getWatchlist(): Observable<WatchStock[]> {
-    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    const watchlist = this.http.get<WatchStock[]>(GET_WATCHLIST_API, opts);
+  getPortfolioChartData() {
+    return this._portfolioChartData.asObservable();
+  }
 
-    return watchlist;
+  loadPortfolioChartData() {
+    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+
+    this.http.get<TimePoint[]>(PORTFOLIO_CHART_API, opts).subscribe(
+      data => {
+        this.dataStore.portfolioChartData = data;
+        this._portfolioChartData.next(Object.assign({}, this.dataStore).portfolioChartData);
+      },
+      error => console.log('Could not load portfolio chart data.')
+    );
   }
   
-  addToWatchlist(watch: AddWatch): Observable<AddWatch> {
-    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    return this.http.post<AddWatch>(ADD_WATCHLIST_API, watch, opts);
+  clearAll() {
+    this.dataStore.watchlist = [];
+    this.dataStore.holdings = [];
+    this.dataStore.portfolioChartData = [];
+    this._watchlist.next(Object.assign({}, this.dataStore).watchlist);
+    this._holdings.next(Object.assign({}, this.dataStore).holdings);
+    this._portfolioChartData.next(Object.assign({}, this.dataStore).portfolioChartData);
+  }
+
+  loadAll() {
+    this.loadWatchlist();
+    this.loadHoldings();
+    this.loadPortfolioChartData();
   }
 }
