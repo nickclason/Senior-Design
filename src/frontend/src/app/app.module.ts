@@ -38,8 +38,7 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
 import { SectorChartComponent } from './sector-chart/sector-chart.component';
 
 import { TreeMapModule, TreeMapLegendService, TreeMapTooltipService, TreeMapAllModule } from '@syncfusion/ej2-angular-treemap';
-
-
+import { GridModule } from '@syncfusion/ej2-angular-grids';
 
 
 
@@ -74,6 +73,7 @@ import { TreeMapModule, TreeMapLegendService, TreeMapTooltipService, TreeMapAllM
     DropDownListModule,
     FlexLayoutModule,
     FormsModule,
+    GridModule,
     HttpClientModule,
     ListViewAllModule,
     MatCardModule,

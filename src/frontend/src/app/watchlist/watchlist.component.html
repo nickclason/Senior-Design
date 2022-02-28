@@ -1,25 +1,18 @@
-<div>
-    <h1>Watchlist</h1>
-    
-    <input type="symbol" [(ngModel)]="symbol">
-    <button (click)="clickEvent()">Add to Watchlist</button>
-    <table>
-      <tr>
-  
-        <th></th>
-  
-        <th>Symbol</th>
-  
-        <th>Current Value</th>
-  
-      </tr>
-      
-      <tr *ngFor="let watch of watchlist">
-        
-        <td><img class="my-img" src={{watch.logo_url}}></td>
-        <td>{{watch.symbol}}</td>
-        <td>{{watch.current_value}}</td>
-      </tr>
-    </table>
-  
-  </div>
+<input type="symbol" [(ngModel)]="symbol">
+<button (click)="clickEvent()">Add to Watchlist</button>
+
+<div class="watchlistContainer">
+  <table>
+    <tr>
+      <th></th>
+      <th>Symbol</th>
+      <th>Current Value</th>
+    </tr>
+
+    <tr *ngFor="let watch of watchlist">
+      <td><img class="my-img" src={{watch.logo_url}}></td>
+      <td>{{watch.symbol}}</td>
+      <td>{{watch.current_value}}</td>
+    </tr>
+  </table>
+</div>

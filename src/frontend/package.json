@@ -32,6 +32,7 @@
     "@syncfusion/ej2-angular-lists": "^19.4.48",
     "@syncfusion/ej2-angular-navigations": "^19.4.50",
     "@syncfusion/ej2-angular-treemap": "^19.4.50",
+    "@syncfusion/ej2-angular-grids": "^19.4.50",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

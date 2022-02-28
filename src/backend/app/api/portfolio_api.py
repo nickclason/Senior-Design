@@ -286,7 +286,7 @@ def get_holdings_logic():
             'symbol': stock,
             'quantity': holdings[stock],
             'current_value': s.latest_price,
-            'total_value': s.latest_price*holdings[stock],
+            'total_value': round(s.latest_price*holdings[stock], 2),
             'logo_url': s.logo_url,
             'industry': s.industry,
             'sector': s.sector,

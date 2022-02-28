@@ -19,7 +19,7 @@ export class SectorChartComponent implements OnInit {
     labelPath: 'sector',
     colorMapping: [
       {
-        from: 500, // theres gotta be a better way to do this
+        from: 100, // theres gotta be a better way to do this, its hardcoded for specific ranges/colors
         to:  10000,
         minOpacity: 0.1,
         maxOpacity: 1,

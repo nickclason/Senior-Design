@@ -5,7 +5,7 @@
 </ejs-stockchart> -->
 
 <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' 
-    [tooltip]='tooltip' (load)='load($event)'><e-series-collection>
+    [tooltip]='tooltip' (load)='load($event)' height="300px"><e-series-collection>
 
         <e-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' name='My Portfolio' [marker]='marker' width=2></e-series>
     </e-series-collection>
