@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
 
-import { DataService, TimePoint } from '../services/data.service';
+import { DataService, PredictionData } from '../services/data.service';
 
 import { ILoadedEventArgs, ChartTheme } from '@syncfusion/ej2-angular-charts';
 
-
 @Component({
-  selector: 'app-portfolio-chart',
-  templateUrl: './portfolio-chart.component.html',
-  styleUrls: ['./portfolio-chart.component.scss']
+  selector: 'app-prediction-chart',
+  templateUrl: './prediction-chart.component.html',
+  styleUrls: ['./prediction-chart.component.scss']
 })
-export class PortfolioChartComponent implements OnInit {
+export class PredictionChartComponent implements OnInit {
 
-  stockChartData: TimePoint[] = [];
+  predictionData: PredictionData[] = [];
+  symbol: string = 'AAPL';
 
 
   public primaryXAxis: Object = {
@@ -33,8 +33,14 @@ export class PortfolioChartComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.portfolioChartData$.subscribe(data => this.stockChartData = this.convert_unix_to_date(data));
-    this.dataService.loadPortfolioChartData()
+    this.dataService.predictionData$.subscribe(data => this.predictionData = this.convert_unix_to_date(data));
+    this.dataService.loadPredictionData(this.symbol); // PoC it works; load apple prediction on page load for test data
+
+    // console.log(this.predictionData)
+  }
+
+  newPrediction() {
+    this.dataService.loadPredictionData(this.symbol);
   }
 
 
@@ -42,7 +48,6 @@ export class PortfolioChartComponent implements OnInit {
     var new_data = data
     for (var i = 0; i < data.length; i++) {
       new_data[i]['x'] = new Date(data[i]['date'] * 1000);;
-      new_data[i]['y'] = data[i]['close'];
     }
     return new_data;
   }
@@ -66,7 +71,7 @@ export class PortfolioChartComponent implements OnInit {
 
   public chartArea: Object = {
     border: {
-        width: 0
+      width: 0
     }
-};
+  };
 }

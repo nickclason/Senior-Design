@@ -39,6 +39,7 @@ import { SectorChartComponent } from './sector-chart/sector-chart.component';
 
 import { TreeMapModule, TreeMapLegendService, TreeMapTooltipService, TreeMapAllModule } from '@syncfusion/ej2-angular-treemap';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { PredictionChartComponent } from './prediction-chart/prediction-chart.component';
 
 
 
@@ -60,7 +61,8 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
     PortfolioHoldingsComponent,
     AddTransactionComponent,
     WatchlistComponent,
-    SectorChartComponent
+    SectorChartComponent,
+    PredictionChartComponent
   ],
   imports: [
     AppRoutingModule,

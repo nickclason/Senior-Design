@@ -43,7 +43,6 @@
                         <app-portfolio-chart></app-portfolio-chart>
                     </div>
                 </ng-template>
-            
             </e-panel>
 
             <!-- Watchlist -->
@@ -71,6 +70,22 @@
                     </div>
                 </ng-template>
             </e-panel>
+
+            <!-- Prediction Chart -->
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="1" [col]="0">
+                <ng-template #header>
+                    <div>Prediction</div>
+                </ng-template>
+                
+                <ng-template #content>
+                    <div id="column">
+                        <app-prediction-chart></app-prediction-chart>
+                    </div>
+                </ng-template>
+            
+            </e-panel>
+                
+
         </e-panels>
     </ejs-dashboardlayout>
 </div>

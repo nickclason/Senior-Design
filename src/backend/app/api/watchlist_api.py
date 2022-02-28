@@ -5,11 +5,7 @@ from app.auth import *
 from app.env import *
 from app.helper import *
 
-from app.models.user import User
 from app.models.stock import Stock
-from app.models.watchlist import Watchlist
-
-import yfinance as yf
 
 
 

@@ -53,13 +53,25 @@ export interface SectorData {
   value: number;
 }
 
+
+export interface PredictionData {
+  date: number;
+  actual: number;
+  past_prediction: number;
+  future_prediction: number;
+}
+
+
 const HOLDINGS_API = environment.apiServer + '/portfolio/get_holdings';
-const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-22&interval=1d';
+const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?start_date=2022-01-01&end_date=2022-02-28&interval=1d';
 const CREATE_TRANSACTION_API = environment.apiServer + '/portfolio/create_transaction';
 const GET_WATCHLIST_API = environment.apiServer + '/watchlist/get';
 const ADD_WATCHLIST_API = environment.apiServer + '/watchlist/add';
 const DELETE_WATCHLIST_API = environment.apiServer + '/watchlist/remove';
 const SECTOR_CHART_API = environment.apiServer + '/portfolio/holdings_by_sector';
+const PREDICTION_API = environment.apiServer + '/prediction/get_prediction?symbol=';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -68,7 +80,8 @@ export class DataService {
   private dataStore: { watchlist: WatchStock[], 
                        holdings: Stock[],
                        portfolioChartData: TimePoint[],
-                       sectorChartData: SectorData[] } = { watchlist: [], holdings: [], portfolioChartData: [], sectorChartData: []};
+                       sectorChartData: SectorData[],
+                       predictionData: PredictionData[] } = { watchlist: [], holdings: [], portfolioChartData: [], sectorChartData: [], predictionData: []};
 
 
   private _watchlist = new BehaviorSubject<WatchStock[]>([]);
@@ -82,6 +95,9 @@ export class DataService {
 
   private _sectorChartData = new BehaviorSubject<SectorData[]>([]);
   readonly sectorChartData$ = this._sectorChartData.asObservable();
+  
+  private _predictionData = new BehaviorSubject<PredictionData[]>([]);
+  readonly predictionData$ = this._predictionData.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -126,7 +142,6 @@ export class DataService {
 
   postTransaction(transaction: Transaction): Observable<Transaction> {
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
-    // this.http.post(CREATE_TRANSACTION_API, transaction, opts);
 
     return this.http.post<Transaction>(CREATE_TRANSACTION_API, transaction, opts);
   }
@@ -168,6 +183,23 @@ export class DataService {
     return this.http.post(DELETE_WATCHLIST_API, watch, opts).subscribe();
   }
 
+
+  getPredictionData() {
+    return this._predictionData.asObservable();
+  }
+
+  loadPredictionData(symbol: string) {
+    // const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+
+    this.http.get<PredictionData[]>(PREDICTION_API+symbol.toUpperCase()).subscribe(
+      data => {
+        this.dataStore.predictionData = data;
+        this._predictionData.next(Object.assign({}, this.dataStore).predictionData);
+        console.log(data)
+      },
+      error => console.log('Could not load prediction.')
+    );
+  }
   
   clearAll() {
     this.dataStore.watchlist = [];

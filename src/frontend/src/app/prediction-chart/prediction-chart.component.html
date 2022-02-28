@@ -1,0 +1,12 @@
+<ejs-chart id="predictionChartContainer" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' title='Prediction for {{symbol}}'
+    [tooltip]='tooltip' (load)='load($event)' height="300px">
+    <e-series-collection>
+
+        <e-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' name='Actual' [marker]='marker' width=2></e-series>
+        <e-series [dataSource]='predictionData' type='Line' xName='x' yName='past_pred' name='Training Pred' [marker]='marker' width=2></e-series>
+        <e-series [dataSource]='predictionData' type='Line' xName='x' yName='future_pred' name='Future Pred' [marker]='marker' width=2></e-series>
+    </e-series-collection>
+</ejs-chart>
+
+<input type="symbol" [(ngModel)]="symbol">
+<button (click)="newPrediction()">Get Price Prediction</button>
