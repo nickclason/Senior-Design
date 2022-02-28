@@ -66,3 +66,25 @@ def get_watchlist():
             print(error)
             abort(400)
 
+
+@watchlist_bp.route('/remove', methods=['POST'])
+@auth_required
+def remove_from_watchlist():
+    if request.method == 'POST':
+        try:
+            json_data = request.get_json()  # get data from POST 
+            symbol = json_data['symbol'].upper()
+
+            user = get_authenticated_user() # Get the user
+            watchlist = user.watchlist # Get the user's watchlist
+
+            stock = Stock.query.filter_by(symbol=symbol).first() # Get the stock from the database
+
+            watchlist.watch_stocks.remove(stock) # Remove the stock from the user's watchlist
+
+            db.session.commit() # Commit the changes to the database
+
+            return make_response(jsonify({'message': 'Watch Removed', 'statusCode': 200}))
+        except Exception as error:
+            print(error)
+            abort(400)

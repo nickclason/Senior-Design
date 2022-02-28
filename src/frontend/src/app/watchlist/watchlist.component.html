@@ -13,6 +13,7 @@
       <td><img class="my-img" src={{watch.logo_url}}></td>
       <td>{{watch.symbol}}</td>
       <td>{{watch.current_value}}</td>
+      <td><button (click)="removeFromWatchlist(watch.symbol)">Remove</button></td>
     </tr>
   </table>
 </div>

@@ -25,4 +25,11 @@ export class WatchlistComponent implements OnInit {
     this.dataService.addToWatchlist(watch).subscribe();
     setTimeout(() => this.dataService.loadWatchlist(), 1000) // wait 1 second before making this call so the POST has time to be updated in the backend
   }
+
+  removeFromWatchlist(symbol: string) {
+    const watch: AddWatch = { symbol: symbol.toUpperCase() };
+    this.dataService.removeFromWatchlist(watch);
+
+    setTimeout(() => this.dataService.loadWatchlist(), 750)
+  }
 }

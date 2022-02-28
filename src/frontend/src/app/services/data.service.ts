@@ -58,7 +58,7 @@ const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?start
 const CREATE_TRANSACTION_API = environment.apiServer + '/portfolio/create_transaction';
 const GET_WATCHLIST_API = environment.apiServer + '/watchlist/get';
 const ADD_WATCHLIST_API = environment.apiServer + '/watchlist/add';
-// const DELETE_WATCHLIST_API = environment.apiServer + '/watchlist/delete';
+const DELETE_WATCHLIST_API = environment.apiServer + '/watchlist/remove';
 const SECTOR_CHART_API = environment.apiServer + '/portfolio/holdings_by_sector';
 @Injectable({
   providedIn: 'root'
@@ -162,6 +162,12 @@ export class DataService {
       error => console.log('Could not load sector chart data.')
     );
   }
+
+  removeFromWatchlist(watch: AddWatch) {
+    const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')})};
+    return this.http.post(DELETE_WATCHLIST_API, watch, opts).subscribe();
+  }
+
   
   clearAll() {
     this.dataStore.watchlist = [];
