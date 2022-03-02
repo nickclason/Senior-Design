@@ -50,6 +50,14 @@
     content: '\ec13';
 }
 
+#dockSidebar .home::before {
+    content: '\e92b';
+}
+
+#dockSidebar .dashboard::before {
+    content: '\e714';
+}
+
 
 .e-sidebar .expand::before {
     content: '\e10f';

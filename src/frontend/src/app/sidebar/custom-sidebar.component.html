@@ -7,20 +7,32 @@
                     <span class="e-text" title="menu">Menu</span>
                 </li>
 
-                <li class="sidebar-item" (click)="openRegister()">
-                    <span class="e-icons register"></span>
-                    <span class="e-text" title="register">Register</span>
+                <li class="sidebar-item" (click)="onHome()">
+                    <span class="e-icons home"></span>
+                    <span class="e-text" title="home">Home</span>
+                </li>                
+
+                <li class="sidebar-item" (click)="onDashboard()">
+                    <span class="e-icons dashboard"></span>
+                    <span class="e-text" title="dashboard">Dashboard</span>
                 </li>
+
                 <li class="sidebar-item" (click)="openLogin()">
                     <span class="e-icons login"></span>
                     <span class="e-text" title="login">Login</span>
                 </li>
+
+                <li class="sidebar-item" (click)="openRegister()">
+                    <span class="e-icons register"></span>
+                    <span class="e-text" title="register">Register</span>
+                </li>
+  
                 <li class="sidebar-item" (click)="onLogout()">
                     <span class="e-icons logout"></span>
                     <span class="e-text" title="logout">Logout</span>
-                </li>
-                
+                </li>                                
             </ul>
+            
             <div class="control-section" style="overflow:hidden;">
                 <div class="col-lg-12">
                     <div class="sidebar_tree">
@@ -43,11 +55,9 @@
                     </div>
                 </div>
             </div>
-                <ejs-treeview>
-                    
-                </ejs-treeview>
-                
 
+                <ejs-treeview>        
+                </ejs-treeview>
         </div>
         <div class="footer">
             <span class="e-icons theme"></span>
@@ -58,6 +68,6 @@
 </ejs-sidebar>
 
 <div id="main-content container-fluid col-md-12 ">
-    <app-home *ngIf="!isAuthenticated"></app-home>
-    <app-dashboard *ngIf="isAuthenticated"></app-dashboard>
+    <app-home *ngIf="!isAuthenticated || (displayHome && !displayDashboard)"></app-home>
+    <app-dashboard *ngIf="isAuthenticated && displayDashboard"></app-dashboard>
 </div>

@@ -26,10 +26,24 @@ export class CustomSidebarComponent implements OnInit {
 
   public isAuthenticated: boolean = false;
 
+  public displayDashboard: boolean = true;
+  public displayHome: boolean = false;
+
+
   constructor(private auth: AuthService, private dataService: DataService, private dialog: MatDialog) { }
   
   ngOnInit() {
-    this.auth.subscribe(resp => this.isAuthenticated = resp);
+    this.auth.subscribe(resp => {
+      this.isAuthenticated = resp; 
+      if (resp) {
+        this.displayDashboard=true; 
+        this.displayHome=false;
+      } 
+      else {
+        this.displayDashboard=false;
+        this.displayHome=true
+      }
+    });
   }
 
   
@@ -80,5 +94,18 @@ export class CustomSidebarComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  onHome() {
+    console.log("home");
+    this.displayDashboard = false;
+    this.displayHome = true;
+
+  }
+
+  onDashboard() {
+    console.log('dashboard');
+    this.displayDashboard = true;
+    this.displayHome = false;
   }
 }
