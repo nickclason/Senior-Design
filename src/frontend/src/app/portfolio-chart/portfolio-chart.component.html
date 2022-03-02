@@ -1,9 +1,7 @@
-<div class="my-portfolio-chart">
-    <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' [tooltip]='tooltip'
-        (load)='load($event)'> <!-- height="300"> -->
-        <e-series-collection>
-            <e-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' name='My Portfolio'
-                [marker]='marker' width=2></e-series>
-        </e-series-collection>
-    </ejs-chart>
-</div>
+<ejs-chart [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' [tooltip]='tooltip' (load)='load($event)'>
+
+    <e-series-collection>
+        <e-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' name='My Portfolio' [marker]='marker'
+            width=2></e-series>
+    </e-series-collection>
+</ejs-chart>

@@ -14,7 +14,7 @@
 // $custom-lighter-grey: #eeeeee;
 // $custom-light-grey: #dddddd;
 // $custom-grey: #aaaaaa;
-$github-ebony: #2e333b;
+// $github-ebony: #2e333b;
 
 
 // Creating my color palette
@@ -99,5 +99,16 @@ body {
     color: none;
 }
 */
+
+
+.chart-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    e-control e-treemap e-lib {
+        width: 1920px;
+    }
+}
 
 
