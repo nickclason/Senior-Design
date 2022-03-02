@@ -23,7 +23,7 @@ export class SectorChartComponent implements OnInit {
         to:  10000,
         minOpacity: 0.1,
         maxOpacity: 1,
-        color: 'orange'
+        color: 'pink'
     },
     ]
   };
