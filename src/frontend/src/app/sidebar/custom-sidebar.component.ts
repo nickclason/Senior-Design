@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // -----------------------------------------------------------------------------
 // Begin User Defined Imports
@@ -17,16 +17,21 @@ import { DataService } from '../services/data.service';
   templateUrl: './custom-sidebar.component.html',
   styleUrls: ['./custom-sidebar.component.scss']
 })
-export class CustomSidebarComponent {
+export class CustomSidebarComponent implements OnInit {
   
   @ViewChild('dockBar') dockBar!: SidebarComponent;
   public enableDock: boolean = true;
   public width: string = '220px';
   public dockSize: string = '72px';
 
+  public isAuthenticated: boolean = false;
 
   constructor(private auth: AuthService, private dataService: DataService, private dialog: MatDialog) { }
   
+  ngOnInit() {
+    this.auth.subscribe(resp => this.isAuthenticated = resp);
+  }
+
   
   public hierarchicalData: Object[] = [
     { id: '01', name: 'Components', expanded: true,

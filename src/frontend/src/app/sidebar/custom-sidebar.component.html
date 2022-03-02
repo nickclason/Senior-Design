@@ -56,6 +56,8 @@
         
     </div>
 </ejs-sidebar>
+
 <div id="main-content container-fluid col-md-12 ">
-    <app-dashboard></app-dashboard>
+    <app-home *ngIf="!isAuthenticated"></app-home>
+    <app-dashboard *ngIf="isAuthenticated"></app-dashboard>
 </div>
