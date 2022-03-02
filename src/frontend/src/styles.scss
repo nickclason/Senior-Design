@@ -9,22 +9,27 @@
 
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 
-$custom-pink: #ff006a;
-$custom-dark-pink: #db075f;
-$custom-lighter-grey: #eeeeee;
-$custom-light-grey: #dddddd;
-$custom-grey: #aaaaaa;
+// $custom-pink: #ff006a;
+// $custom-pink: #db075f;
+// $custom-lighter-grey: #eeeeee;
+// $custom-light-grey: #dddddd;
+// $custom-grey: #aaaaaa;
 $github-ebony: #2e333b;
-$github-black-pearl: #23272e;
 
-$font-family: Nunito Sans;
+
+// Creating my color palette
+$custom-pink: #b4256c;          // Chaotic Roses 
+$custom-middle-pink: #c51866;
+$custom-bright-pink: #db075f;   // Magna Cum Laude
+
+
+$github-black-pearl: #23272e;
 
 body {
     font-family: "Trebuchet MS";
     background-color: $github-black-pearl;
     margin: 0;
 }
-
 
 // Styling for login/register modals
 .auth-container {
@@ -57,8 +62,8 @@ body {
         padding: 15px;
         margin-top: 20px;
         margin-right: 1em;
-        background-color: $custom-dark-pink;
-        color: $custom-lighter-grey;
+        background-color: $custom-pink;
+        color: white;
         border-radius: 25px;
 
         &:hover {
@@ -68,7 +73,7 @@ body {
 
     a {
         text-decoration: none;
-        color: $custom-dark-pink;
+        color: $custom-pink;
     }
 
     mat-form-field {
@@ -81,16 +86,18 @@ body {
     }
 }
 
-// This actually looks worse
-// .mat-dialog-container {
-//     background: none;
-//     display: none;
-//     padding: none;
-//     border-radius: none;
-//     box-sizing: none;
-//     outline: none;
-//     box-shadow: none;
-//     background: none;
-//     color: none;
-// }
+/* This actually looks worse
+.mat-dialog-container {
+    background: none;
+    display: none;
+    padding: none;
+    border-radius: none;
+    box-sizing: none;
+    outline: none;
+    box-shadow: none;
+    background: none;
+    color: none;
+}
+*/
+
 

@@ -1,7 +1,7 @@
 <div class="my-prediction-chart">
 
 <ejs-chart id="predictionChartContainer" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' title='Prediction for {{symbol}}'
-    [tooltip]='tooltip' (load)='load($event)' height="300px">
+    [tooltip]='tooltip' (load)='load($event)'> <!-- height="300px"> -->
     <e-series-collection>
 
         <e-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' name='Actual' [marker]='marker' width=2></e-series>

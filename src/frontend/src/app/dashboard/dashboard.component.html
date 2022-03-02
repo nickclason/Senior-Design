@@ -1,89 +1,57 @@
-<div class="control-section">
-
-    <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery'
-        [allowResizing]='true'>
+<div class="dashboard-container">
+    <ejs-dashboardlayout  [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery' [allowResizing]='true'>
+        
         <e-panels>
 
-            <!-- Portfolio Holdings -->
-            <e-panel [sizeX]="1" [sizeY]="2" [row]="0" [col]="1">
-                <ng-template #header>
-                    <div>Holdings</div>
-                </ng-template>
-
+            <e-panel [sizeX]="1" [sizeY]="2" [row]="0" [col]="0">
                 <ng-template #content>
-                    <div>
+                    <div class="widget-container">
                         <app-portfolio-holdings></app-portfolio-holdings>
                     </div>
                 </ng-template>
             </e-panel>
 
-            <!-- Add Transaction -->
-            <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
-                <ng-template #header>
-                    <div>Add Transaction</div>
-                </ng-template>
-
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="1" [col]="1">
                 <ng-template #content>
-                    <div>
+                    <div class="widget-container">
                         <app-add-transaction></app-add-transaction>
                     </div>
                 </ng-template>
             </e-panel>
 
-            <!-- Portfolio Chart Panel -->
-            <e-panel [sizeX]="3" [sizeY]="1" [row]="1" [col]="0">
-                <ng-template #header>
-                    <div>Portfolio Value</div>
-                </ng-template>
-
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="2" [col]="1">
                 <ng-template #content>
-                    <div>
-                        <app-portfolio-chart></app-portfolio-chart>
+                    <div class="widget-container">
+                       <app-watchlist></app-watchlist>
                     </div>
                 </ng-template>
             </e-panel>
 
-            <!-- Watchlist -->
-            <e-panel [sizeX]="1" [sizeY]="1" [row]="0" [col]="0">
-                <ng-template #header>
-                    <div>Watchlist</div>
-                </ng-template>
-
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="1" [col]="2">
                 <ng-template #content>
-                    <div>
-                        <app-watchlist></app-watchlist>
+                    <div class="widget-container">
+                       <app-portfolio-chart></app-portfolio-chart>
                     </div>
                 </ng-template>
             </e-panel>
 
-            <!-- Sector Treemap -->
-            <e-panel [sizeX]="3" [sizeY]="1" [row]="0" [col]="0">
-
-                <ng-template #header>
-                    <div>Holdings by Sector</div>
-                </ng-template>
-
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="2" [col]="2">
                 <ng-template #content>
-                    <app-sector-chart></app-sector-chart>
-                </ng-template>
-
-            </e-panel>
-
-            <!-- Prediction Chart -->
-            <e-panel [sizeX]="3" [sizeY]="1" [row]="1" [col]="0">
-                <ng-template #header>
-                    <div>Prediction</div>
-                </ng-template>
-
-                <ng-template #content>
-                    <div>
-                        <app-prediction-chart></app-prediction-chart>
+                    <div class="widget-container">
+                       <app-sector-chart></app-sector-chart>
                     </div>
                 </ng-template>
-
             </e-panel>
-
+            
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="3" [col]="2">
+                <ng-template #content>
+                    <div class="widget-container">
+                       <app-prediction-chart></app-prediction-chart>
+                    </div>
+                </ng-template>
+            </e-panel>
 
         </e-panels>
+
     </ejs-dashboardlayout>
 </div>
