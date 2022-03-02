@@ -1,3 +1,5 @@
+<div class="my-prediction-chart">
+
 <ejs-chart id="predictionChartContainer" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' title='Prediction for {{symbol}}'
     [tooltip]='tooltip' (load)='load($event)' height="300px">
     <e-series-collection>
@@ -10,3 +12,5 @@
 
 <input type="symbol" [(ngModel)]="symbol">
 <button (click)="newPrediction()">Get Price Prediction</button>
+
+</div>

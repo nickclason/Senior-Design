@@ -49,7 +49,7 @@ def get_watchlist():
 
                 data.append({    
                     'symbol': s.symbol,
-                    'current_value': s.latest_price,
+                    'current_value': round(s.latest_price, 2),
                     'logo_url': s.logo_url,
                     'industry': s.industry,
                     'sector': s.sector,

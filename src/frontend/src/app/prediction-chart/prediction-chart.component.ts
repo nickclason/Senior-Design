@@ -13,13 +13,14 @@ import { ILoadedEventArgs, ChartTheme } from '@syncfusion/ej2-angular-charts';
 export class PredictionChartComponent implements OnInit {
 
   predictionData: PredictionData[] = [];
-  symbol: string = 'AAPL';
+  symbol: string = '';
 
 
   public primaryXAxis: Object = {
     valueType: 'DateTime',
     intervalType: 'Days',
-    interval: 3,
+    rangePadding: 'Auto',
+    interval: 1,
   };
 
   public primaryYAxis: Object = {
@@ -34,8 +35,8 @@ export class PredictionChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.predictionData$.subscribe(data => this.predictionData = this.convert_unix_to_date(data));
-    this.dataService.loadPredictionData(this.symbol); // PoC it works; load apple prediction on page load for test data
-
+    
+    // this.dataService.loadPredictionData(this.symbol); // PoC it works; load apple prediction on page load for test data
     // console.log(this.predictionData)
   }
 

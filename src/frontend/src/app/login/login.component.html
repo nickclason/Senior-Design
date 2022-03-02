@@ -1,27 +1,19 @@
-<!-- <div *ngIf="showMePartially"> -->
-<div class="container">
-    <div class="cardArea">
-        <mat-card>
-            <form class="loginForm" [formGroup]="profileForm">
-                <h1>Login</h1>
-                <mat-form-field class="inputField" [floatLabel]="'never'">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="Enter email" formControlName="email">
-                </mat-form-field>
+<div class="auth-container">
 
-                <mat-form-field class="inputField" [floatLabel]="'never'">
-                    <mat-label>Password</mat-label>
-                    <input matInput type="password" placeholder="Enter Password" formControlName="password">
-                </mat-form-field>
+    <form [formGroup]="profileForm">
 
-                <div class="submitOptions">
+        <mat-form-field [floatLabel]="'never'">
+            <input matInput placeholder="Enter email" formControlName="email">
+        </mat-form-field>
 
-                    <button mat-raised-button class="submitButton" color="primary" [disabled]="profileForm.invalid"
-                        (click)="onLogin()">Login</button>
-                </div>
-            </form>
-        </mat-card>
 
-    </div>
+        <mat-form-field [floatLabel]="'never'">
+            <input matInput type="password" placeholder="Enter Password" formControlName="password">
+        </mat-form-field>
+
+
+        <button mat-raised-button color="primary" [disabled]="profileForm.invalid" (click)="onLogin()">Login</button>
+
+    </form>
+
 </div>
-<!-- </div> -->

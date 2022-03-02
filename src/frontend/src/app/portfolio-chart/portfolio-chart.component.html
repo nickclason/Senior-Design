@@ -1,12 +1,9 @@
-<!-- <ejs-stockchart id="chart-container">
-    <e-stockchart-series-collection>
-        <e-stockchart-series [dataSource]='stockChartData' type='Line' xName='date' yName='close' Name='Portfolio'></e-stockchart-series>
-    </e-stockchart-series-collection>
-</ejs-stockchart> -->
-
-<ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' 
-    [tooltip]='tooltip' (load)='load($event)' height="300px"><e-series-collection>
-
-        <e-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' name='My Portfolio' [marker]='marker' width=2></e-series>
-    </e-series-collection>
-</ejs-chart>
+<div class="my-portfolio-chart">
+    <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' [tooltip]='tooltip'
+        (load)='load($event)' height="300">
+        <e-series-collection>
+            <e-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' name='My Portfolio'
+                [marker]='marker' width=2></e-series>
+        </e-series-collection>
+    </ejs-chart>
+</div>

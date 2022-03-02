@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 // End User Defined Imports
 // -----------------------------------------------------------------------------
@@ -16,8 +15,6 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  // @Input() showMePartially: boolean;
 
   message = '';
 

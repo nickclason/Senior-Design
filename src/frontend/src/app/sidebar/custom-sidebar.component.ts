@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 // Begin User Defined Imports
 import { AuthService } from '../services/auth.service';
 import { LoginComponent } from '../login/login.component';
-import { MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { RegisterComponent } from '../register/register.component';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { ViewChild } from '@angular/core';

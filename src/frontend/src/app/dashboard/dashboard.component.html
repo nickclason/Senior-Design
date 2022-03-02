@@ -1,9 +1,7 @@
 <div class="control-section">
 
-    <!-- Define panels in .ts file -->
-    <!-- <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [panels]='panels' [mediaQuery]='mediaQuery'> -->
-
-    <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery' [allowResizing]='true'>
+    <ejs-dashboardlayout id='dashboard_default' [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery'
+        [allowResizing]='true'>
         <e-panels>
 
             <!-- Portfolio Holdings -->
@@ -11,9 +9,9 @@
                 <ng-template #header>
                     <div>Holdings</div>
                 </ng-template>
-                
+
                 <ng-template #content>
-                    <div id="column">
+                    <div>
                         <app-portfolio-holdings></app-portfolio-holdings>
                     </div>
                 </ng-template>
@@ -24,9 +22,9 @@
                 <ng-template #header>
                     <div>Add Transaction</div>
                 </ng-template>
-                
+
                 <ng-template #content>
-                    <div id="column">
+                    <div>
                         <app-add-transaction></app-add-transaction>
                     </div>
                 </ng-template>
@@ -37,9 +35,9 @@
                 <ng-template #header>
                     <div>Portfolio Value</div>
                 </ng-template>
-                
+
                 <ng-template #content>
-                    <div id="column">
+                    <div>
                         <app-portfolio-chart></app-portfolio-chart>
                     </div>
                 </ng-template>
@@ -50,9 +48,9 @@
                 <ng-template #header>
                     <div>Watchlist</div>
                 </ng-template>
-                
+
                 <ng-template #content>
-                    <div id="column">
+                    <div>
                         <app-watchlist></app-watchlist>
                     </div>
                 </ng-template>
@@ -60,15 +58,15 @@
 
             <!-- Sector Treemap -->
             <e-panel [sizeX]="3" [sizeY]="1" [row]="0" [col]="0">
+
                 <ng-template #header>
                     <div>Holdings by Sector</div>
                 </ng-template>
-                
+
                 <ng-template #content>
-                    <div id="column">
-                        <app-sector-chart></app-sector-chart>
-                    </div>
+                    <app-sector-chart></app-sector-chart>
                 </ng-template>
+
             </e-panel>
 
             <!-- Prediction Chart -->
@@ -76,15 +74,15 @@
                 <ng-template #header>
                     <div>Prediction</div>
                 </ng-template>
-                
+
                 <ng-template #content>
-                    <div id="column">
+                    <div>
                         <app-prediction-chart></app-prediction-chart>
                     </div>
                 </ng-template>
-            
+
             </e-panel>
-                
+
 
         </e-panels>
     </ejs-dashboardlayout>
