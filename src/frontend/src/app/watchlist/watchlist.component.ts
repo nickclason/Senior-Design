@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+
 import { DataService, WatchStock, AddWatch } from '../services/data.service';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-watchlist',
@@ -10,8 +12,12 @@ import { DataService, WatchStock, AddWatch } from '../services/data.service';
 export class WatchlistComponent implements OnInit {
   
   watchlist: WatchStock[] = [];
-  displayedColumns: string[] = ['symbol', 'current_value']
-  symbol: string;
+  displayedColumns: string[] = ['logo_url', 'symbol', 'current_value', 'remove'];
+  
+  addToWatchForm = new FormGroup({
+    symbol: new FormControl('', Validators.required),
+  });
+
 
   constructor(private dataService: DataService) { }
 
@@ -21,8 +27,11 @@ export class WatchlistComponent implements OnInit {
   }
 
   clickEvent() {
-    const watch: AddWatch = { symbol: this.symbol.toUpperCase() };
+    const watch: AddWatch  ={ symbol: this.addToWatchForm.get('symbol')!.value };
+
     this.dataService.addToWatchlist(watch).subscribe();
+    this.addToWatchForm.reset();
+    
     setTimeout(() => this.dataService.loadWatchlist(), 1000) // wait 1 second before making this call so the POST has time to be updated in the backend
   }
 

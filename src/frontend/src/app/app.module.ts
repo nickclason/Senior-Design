@@ -37,13 +37,19 @@ import { AddTransactionComponent } from './add-transaction/add-transaction.compo
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { SectorChartComponent } from './sector-chart/sector-chart.component';
 
+
+
 import { TreeMapModule, TreeMapLegendService, TreeMapTooltipService, TreeMapAllModule } from '@syncfusion/ej2-angular-treemap';
-import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { PredictionChartComponent } from './prediction-chart/prediction-chart.component';
 import { HomeComponent } from './home/home.component';
 
 
 
+import { MatTableModule } from '@angular/material/table';
+// import { MatSelectModule } from '@angular/material/select';
+
+// import { MatDatepickerModule } from '@angular/material/datepicker';
+// import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -77,14 +83,17 @@ import { HomeComponent } from './home/home.component';
     DropDownListModule,
     FlexLayoutModule,
     FormsModule,
-    GridModule,
     HttpClientModule,
     ListViewAllModule,
     MatCardModule,
+    // MatDatepickerModule,
+    // MatNativeDateModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatTableModule,
+    // MatSelectModule,
     MenuAllModule,
     OverlayModule,
     RadioButtonModule,

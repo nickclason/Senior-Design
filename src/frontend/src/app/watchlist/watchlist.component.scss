@@ -1,19 +1,47 @@
+$custom-pink: #b4256c; // Chaotic Roses
+$custom-middle-pink: #c51866;
+$custom-bright-pink: #db075f; // Magna Cum Laude
+$github-black-pearl: #23272e;
 
-.my-img {
-    width: 30px;
-    height: 30px;
+.watchlist {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
 }
 
-// .watchlistContainer {
-//     overflow: auto; // you can use 'overflow: scroll;' and always have reserved space for scrollabar
-//     // width: 40vw;
-//     height: 200px;
-//     // height: 60%;
-//     border: 1px solid black; // just for debug to see where the container is i guess
-//     margin: auto;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     bottom: 0;
-//     right: 0;
-//   }
+table {
+    width: 100%;
+}
+
+.watchlist-container {
+    height: 90%;
+    overflow: auto;
+    width: 100%;
+    display: flex;
+    border-radius: 25px;
+}
+
+button {
+    font-size: 10px;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    padding: 5px;
+    background-color: $custom-pink;
+    color: white;
+    border-radius: 25px;
+    justify-content: center;
+
+    &:hover {
+        background-color: $custom-bright-pink;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
