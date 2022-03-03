@@ -13,7 +13,7 @@ import { DataService, Stock } from '../services/data.service';
 export class PortfolioHoldingsComponent implements OnInit {
 
   holdings: Stock[] = [];
-  displayedColumns: string[] = ['symbol', 'quantity', 'current_value', 'total_value']
+  displayedColumns: string[] = ['logo_url', 'symbol', 'quantity', 'current_value', 'total_value']
 
   constructor(private dataService: DataService) { }
 

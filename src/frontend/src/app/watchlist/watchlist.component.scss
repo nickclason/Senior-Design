@@ -13,6 +13,16 @@ $github-black-pearl: #23272e;
 
 table {
     width: 100%;
+    
+    td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        padding: 10px;
+        text-align: center;
+    }
 }
 
 .watchlist-container {

@@ -1,28 +1,32 @@
-<div class="my-holdings">
-  <h1>Portfolio</h1>
+<div class="holdings-container">
+    <table mat-table [dataSource]="holdings" class="mat-elevation-z8">
 
-  <table>
-    <tr>
+      <ng-container matColumnDef="current_value">
+        <th mat-header-cell *matHeaderCellDef> Current Value</th>
+        <td mat-cell *matCellDef="let element"> {{element.current_value}} </td>
+      </ng-container>
 
-      <th></th>
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Stock </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
 
-      <th>Stock</th>
+      <ng-container matColumnDef="logo_url">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> <img class="ticker-pic" [src]="element.logo_url" /> </td>
+      </ng-container>
 
-      <th>Quantity</th> 
-      
-      <th>Latest Price</th>
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      </ng-container>
 
-      <th>Value</th>
-    </tr>
-    
-    <tr *ngFor="let holding of holdings">
-      
-      <td><img class="ticker-pic" src={{holding.logo_url}}></td>
-      <td>{{holding.symbol}}</td>
-      <td>{{holding.quantity}}</td>
-      <td>{{holding.current_value}}</td>
-      <td>{{holding.total_value}}</td>
-    </tr>
-  </table>
+      <ng-container matColumnDef="total_value">
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td mat-cell *matCellDef="let element"> {{element.total_value}} </td>
+      </ng-container>
 
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </div>
