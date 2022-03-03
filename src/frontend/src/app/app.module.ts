@@ -46,10 +46,10 @@ import { HomeComponent } from './home/home.component';
 
 
 import { MatTableModule } from '@angular/material/table';
-// import { MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
-// import { MatDatepickerModule } from '@angular/material/datepicker';
-// import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -86,14 +86,14 @@ import { MatTableModule } from '@angular/material/table';
     HttpClientModule,
     ListViewAllModule,
     MatCardModule,
-    // MatDatepickerModule,
-    // MatNativeDateModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatTableModule,
-    // MatSelectModule,
+    MatSelectModule,
     MenuAllModule,
     OverlayModule,
     RadioButtonModule,

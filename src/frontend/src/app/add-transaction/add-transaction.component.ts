@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DataService, Transaction } from '../services/data.service';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+
+
 @Component({
   selector: 'app-add-transaction',
   templateUrl: './add-transaction.component.html',
@@ -8,23 +11,39 @@ import { DataService, Transaction } from '../services/data.service';
 })
 export class AddTransactionComponent implements OnInit {
 
-  symbol: string;
-  quantity: number;
-  buy: number = 1; // 1=buy, 0 (or anything besides 1)=sell
-  date: Date = new Date();
+  transactionForm = new FormGroup({
+    symbol: new FormControl('', Validators.required),
+    quantity: new FormControl('', Validators.required),
+    buy: new FormControl('', Validators.required),
+    date: new FormControl(new Date(), Validators.required),
+  });
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
   }
 
-  clickEvent(){
-    let d = new Date(this.date);
-    d.setHours(d.getHours() + 24);
+  clickEvent() {
+
+    let d = this.transactionForm.get('date')!.value
     const epochNow = d.getTime();
-   
-    const transaction: Transaction = { symbol: this.symbol.toUpperCase(), quantity: this.quantity, buy: this.buy, date: epochNow };
+
+    const symbol = this.transactionForm.get('symbol')!.value;
+    const quantity = this.transactionForm.get('quantity')!.value;
+    const buy = this.transactionForm.get('buy')!.value;
+
+    const transaction: Transaction =
+    {
+      symbol: symbol.toUpperCase(),
+      quantity: quantity,
+      buy: parseInt(buy),
+      date: epochNow
+    };
+    
+    // console.log(transaction);
+
     this.dataService.postTransaction(transaction).subscribe();
+    this.transactionForm.reset();
 
     setTimeout(() => this.dataService.loadHoldings(), 1000) // wait 1 second so the POST has time to be updated in the backend
     setTimeout(() => this.dataService.loadPortfolioChartData(), 1000)
