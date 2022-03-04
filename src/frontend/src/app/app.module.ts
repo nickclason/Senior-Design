@@ -31,7 +31,8 @@ import { PortfolioChartComponent } from './portfolio-chart/portfolio-chart.compo
 import { RegisterComponent } from './register/register.component';
 import { AccumulationChartAllModule, CandleSeriesService, CategoryService, ChartAllModule,
          DataLabelService, DateTimeService, LegendService, LineSeriesService,
-        TooltipService, RangeNavigatorAllModule, StockChartModule, StockChartAllModule, } from '@syncfusion/ej2-angular-charts';
+        TooltipService, RangeNavigatorAllModule, StockChartModule, StockChartAllModule, 
+        ChartAnnotationService} from '@syncfusion/ej2-angular-charts';
 import { PortfolioHoldingsComponent } from './portfolio-holdings/portfolio-holdings.component';
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
@@ -50,8 +51,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
-
+import { StockInfoComponent } from './stock-info/stock-info.component';
 
 
 // End User Defined Imports
@@ -70,7 +70,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     WatchlistComponent,
     SectorChartComponent,
     PredictionChartComponent,
-    HomeComponent
+    HomeComponent,
+    StockInfoComponent
   ],
   imports: [
     AppRoutingModule,

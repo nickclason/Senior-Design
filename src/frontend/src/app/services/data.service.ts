@@ -70,6 +70,7 @@ const ADD_WATCHLIST_API = environment.apiServer + '/watchlist/add';
 const DELETE_WATCHLIST_API = environment.apiServer + '/watchlist/remove';
 const SECTOR_CHART_API = environment.apiServer + '/portfolio/holdings_by_sector';
 const PREDICTION_API = environment.apiServer + '/prediction/get_prediction?symbol=';
+const STOCK_HISTORY_API = environment.apiServer + '/data/get_timeseries?ticker=';
 
 
 @Injectable({
@@ -189,7 +190,6 @@ export class DataService {
   }
 
   loadPredictionData(symbol: string) {
-    // const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
 
     this.http.get<PredictionData[]>(PREDICTION_API+symbol.toUpperCase()).subscribe(
       data => {
@@ -219,4 +219,12 @@ export class DataService {
     this.loadPortfolioChartData();
     this.loadSectorChartData();
   }
+
+
+  // getStockHistory(symbol: string): Observable<any> {
+    
+  //   this.http.get<any[]>(STOCK_HISTORY_API+symbol.toUpperCase()+'&period=max').subscribe(
+  //     // data => { console.log(data); }
+  //   );
+  // }
 }

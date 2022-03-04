@@ -66,7 +66,7 @@ export class PortfolioChartComponent implements OnInit {
 
   public chartArea: Object = {
     border: {
-        width: 0
+      width: 0
     }
-};
+  };
 }

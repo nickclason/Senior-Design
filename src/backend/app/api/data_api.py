@@ -43,19 +43,22 @@ def get_timeseries():
                 raw = yf.download(ticker, period=period, interval=interval)
                 raw.reset_index(level=0, inplace=True)
                 raw = raw.to_dict(orient='records')
-                
-                data={}
+                # print(raw)
+                # data={}
+                data = []
                 for entry in raw:
-                    data[entry['Date'].to_pydatetime().date().strftime('%Y-%m-%d')] = {
+                    data.append({
+                            'date': entry['Date'].to_pydatetime().date().strftime('%Y-%m-%d'),
                             'open': entry['Open'],
                             'high': entry['High'],
                             'low': entry['Low'],
                             'close': entry['Close'],
                             'volume': entry['Volume'],
                             'adj_close': entry['Adj Close']
-                        }
-
+                        })
                 return make_response(jsonify(data=data, statusCode=200))
+
+                # return make_response(jsonify(data=data, statusCode=200))
             elif start_date and end_date: # If start and end date are specified, use them
                 interval='1d' if not interval else interval
                 raw = yf.download(ticker, start=start_date, end=end_date, interval=interval)
