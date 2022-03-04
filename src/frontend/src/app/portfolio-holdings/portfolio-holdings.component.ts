@@ -18,8 +18,11 @@ export class PortfolioHoldingsComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-
-    this.dataService.holdings$.subscribe(holdings => this.holdings = holdings);
+    this.dataService.holdings$.subscribe( holdings => {
+      if (holdings.length > 0) {
+        this.holdings = holdings;
+      }
+    });
     this.dataService.loadHoldings()
   }
 
