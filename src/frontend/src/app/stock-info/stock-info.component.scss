@@ -1,0 +1,69 @@
+$custom-pink: #b4256c;          // Chaotic Roses 
+$custom-middle-pink: #c51866;
+$custom-bright-pink: #db075f;   // Magna Cum Laude
+
+$github-black-pearl: #23272e;
+$onyx: #424242;
+
+.stock-info-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid #ccc;
+        gap: 25px;
+        // margin: auto; centers perfectly
+
+        .img-container {
+            border: 1px solid #ccc;
+            align-self: center;
+            
+            .stock-pic {
+                width: 60;
+                height: 60px;
+            }
+        }
+        
+        .title-container {
+            border: 1px solid #ccc;
+            color: $custom-bright-pink;
+        }
+
+
+    }
+
+    .chart-container {
+        // border: 1px solid #ccc;
+        display: flex;
+
+        .stock-chart {
+            width: 95%;
+            height: 80%;
+            margin: auto;
+
+        }
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+        // margin: auto; centers perfectly
+        .info-container {
+            border: 1px solid #ccc;
+            flex-grow: 1;
+        }
+    
+        .news-container {
+            border: 1px solid #ccc;
+            flex-grow: 1;
+        }
+    }
+
+
+}

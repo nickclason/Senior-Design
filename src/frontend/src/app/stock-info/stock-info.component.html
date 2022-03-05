@@ -1,24 +1,58 @@
-<div class="control-section">
-    <div>
-        <ejs-stockchart id='StockChartCandle' [chartArea]='chartArea' [primaryXAxis]='primaryXAxis'
-            style="display:block;" [primaryYAxis]='primaryYAxis' [crosshair]='crosshair' [title]='title'
+<div class="stock-info-container">
+    <div class="header">
+
+        <div class="img-container">
+            <img class="stock-pic" [src]="logo_url" />
+        </div>
+
+        <div class="title-container">
+            <h1>{{name}}</h1>
+        </div>
+
+    </div>
+
+
+    <!-- Chart -->
+    <div class="chart-container">
+        <ejs-stockchart class="stock-chart" id='StockChartCandle' [chartArea]='chartArea' [primaryXAxis]='primaryXAxis'
+            [primaryYAxis]='primaryYAxis' [crosshair]='crosshair' [title]='title'
             [tooltip]='tooltip' (tooltipRender)='tooltipRender($event)' (axisLabelRender)='axisLabelRender($event)'
             (load)='load($event)'>
+
             <e-stockchart-axes>
                 <e-stockchart-axis rowIndex=1 name='yAxis1' opposedPosition=true labelPosition='Inside'
                     tickPosition='Inside'>
                 </e-stockchart-axis>
             </e-stockchart-axes>
+  
             <e-stockchart-rows>
                 <e-stockchart-row height=30%></e-stockchart-row>
                 <e-stockchart-row height=70%></e-stockchart-row>
             </e-stockchart-rows>
+  
             <e-stockchart-series-collection>
                 <e-stockchart-series [dataSource]='chartData' type='Candle' xName='date' yName='high' yAxisName='yAxis1'
                     high='high' low='low'> </e-stockchart-series>
                 <e-stockchart-series [dataSource]='chartData' type='Column' xName='date' yName='volume' high='high'
                     low='low' [enableTooltip]='columnTooltip'> </e-stockchart-series>
             </e-stockchart-series-collection>
+  
         </ejs-stockchart>
     </div>
+
+
+    <div class="container">
+
+        <div class="info-container">
+            <p>Info</p>
+        </div>
+
+        <div class="news-container">
+            <p>News Links</p>
+        </div>
+
+    </div>
+
+
+
 </div>

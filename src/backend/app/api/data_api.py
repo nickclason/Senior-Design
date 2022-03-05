@@ -171,8 +171,24 @@ def price_on_day():
 
             return make_response(jsonify(statusCode = 200, price=None))
 
-        
-        return make_response(jsonify(price='price', statusCode=200))
+    except Exception as e:
+        print(e)
+        return make_response(jsonify(error=str(e), statusCode=400))
+
+
+@data_bp.route("/get", methods=['GET'])
+def get():
+    try:
+        symbol = request.args.get('symbol').upper() # Ex. MSFT, AAPL, etc.
+        ticker = yf.Ticker(symbol)
+        stats = ticker.stats()
+
+        stock = Stock.query.filter_by(symbol=symbol).first()
+
+        data = {'stats': stats, 'name': stock.company_name, 'logo_url': stock.logo_url}
+
+        return jsonify(data)
+
     except Exception as e:
         print(e)
         return make_response(jsonify(error=str(e), statusCode=400))

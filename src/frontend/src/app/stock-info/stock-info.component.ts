@@ -16,7 +16,9 @@ export class StockInfoComponent implements OnInit {
 
     stock: string;
     chartData: any;
-
+    info: any;
+    name: string;
+    logo_url: string;
 
     public primaryXAxis: Object = {
         valueType: 'DateTime', majorGridLines: { width: 0 }, crosshairTooltip: { enable: true }
@@ -71,10 +73,19 @@ export class StockInfoComponent implements OnInit {
         this.http.get<any>('http://localhost:5000/data/get_timeseries?ticker='+this.stock.toUpperCase()+'&period=max').subscribe(
             data => {
                 this.chartData = data["data"];
-                console.log(this.chartData);
+                // console.log(this.chartData);
                 this.title = this.stock + ' Historical';
             }
         );
+
+        this.http.get<any>('http://localhost:5000/data/get?symbol='+this.stock.toUpperCase()).subscribe(
+            data => {
+                this.info = data["stats"];
+                this.name = data["name"];
+                this.logo_url = data["logo_url"];
+            }
+        );
+
     }
 
 }
