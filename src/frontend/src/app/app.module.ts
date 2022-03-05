@@ -52,6 +52,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { StockInfoComponent } from './stock-info/stock-info.component';
+import { MarketNewsComponent } from './market-news/market-news.component';
 
 
 // End User Defined Imports
@@ -71,7 +72,8 @@ import { StockInfoComponent } from './stock-info/stock-info.component';
     SectorChartComponent,
     PredictionChartComponent,
     HomeComponent,
-    StockInfoComponent
+    StockInfoComponent,
+    MarketNewsComponent
   ],
   imports: [
     AppRoutingModule,
