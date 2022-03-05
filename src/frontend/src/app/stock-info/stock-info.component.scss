@@ -31,7 +31,7 @@ $onyx: #424242;
         
         .title-container {
             border: 1px solid #ccc;
-            color: $custom-bright-pink;
+            // color: $custom-bright-pink;
         }
 
 
@@ -53,10 +53,12 @@ $onyx: #424242;
         display: flex;
         flex-direction: row;
         gap: 50px;
+        max-height: 30%;
         // margin: auto; centers perfectly
         .info-container {
             border: 1px solid #ccc;
             flex-grow: 1;
+            overflow: auto;
         }
     
         .news-container {

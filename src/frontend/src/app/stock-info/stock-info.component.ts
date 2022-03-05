@@ -19,6 +19,19 @@ export class StockInfoComponent implements OnInit {
     info: any;
     name: string;
     logo_url: string;
+    sector: string;
+    mkt_cap: number
+    price: number;
+    dayChange: number;
+    yearChange: number;
+    heldPctInsider: number;
+    heldPctInst: number;
+    shortRatio: number;
+    volume: number;
+    avg_volume: number;
+
+
+
 
     public primaryXAxis: Object = {
         valueType: 'DateTime', majorGridLines: { width: 0 }, crosshairTooltip: { enable: true }
@@ -83,7 +96,18 @@ export class StockInfoComponent implements OnInit {
                 this.info = data["stats"];
                 this.name = data["name"];
                 this.logo_url = data["logo_url"];
+                this.sector = this.info["summaryProfile"]["sector"];
+                this.mkt_cap = this.info["price"]["marketCap"];
+                this.yearChange = this.info["defaultKeyStatistics"]["52WeekChange"];
+                this.heldPctInsider = this.info["defaultKeyStatistics"]["heldPercentInsiders"];
+                this.heldPctInst = this.info["defaultKeyStatistics"]["heldPercentInstitutions"];
+                this.shortRatio = this.info["defaultKeyStatistics"]["shortRatio"]; // How many days it would take for all shares short to be covered. how bearish wall street is on the stock
+                this.price = this.info["financialData"]["currentPrice"];
+                this.volume = this.info["summaryDetail"]["volume"];
+                this.avg_volume = this.info["summaryDetail"]["averageVolume"];
+                this.dayChange = this.info["price"]["regularMarketChangePercent"]; // i think this is right
             }
+
         );
 
     }

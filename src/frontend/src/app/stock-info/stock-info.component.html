@@ -6,7 +6,7 @@
         </div>
 
         <div class="title-container">
-            <h1>{{name}}</h1>
+            <h1>{{name}} ({{stock}})</h1>
         </div>
 
     </div>
@@ -44,7 +44,17 @@
     <div class="container">
 
         <div class="info-container">
-            <p>Info</p>
+            <h2>Info</h2>
+            <p>Sector: {{sector}}</p>
+            <p>Market Cap: {{mkt_cap}}</p>
+            <p>Price: {{price}}</p>
+            <p>24hr Change: {{dayChange}}</p>
+            <p>52wk Change: {{yearChange}}</p>
+            <p>Shares held by insiders: {{heldPctInsider}}</p>
+            <p>Shares held by institutions: {{heldPctInst}}</p>
+            <p>Short Ratio: {{shortRatio}}</p>
+            <p>Volume: {{volume}}</p>
+            <p>Average Volume: {{avg_volume}}</p>
         </div>
 
         <div class="news-container">
