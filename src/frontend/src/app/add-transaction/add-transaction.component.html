@@ -1,33 +1,28 @@
-<div class="transaction-container">
-  <div class="transaction-form-container">
-    <form [formGroup]="transactionForm">
+<div class="form-container">
+  <form [formGroup]="transactionForm">
+    <mat-form-field [floatLabel]="'never'">
+      <input matInput placeholder="Enter stock" formControlName="symbol">
+    </mat-form-field>
 
-      <mat-form-field [floatLabel]="'never'">
-        <input matInput placeholder="Enter stock" formControlName="symbol">
-      </mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
+      <input matInput placeholder="Enter quantity" formControlName="quantity" type="number">
+    </mat-form-field>
 
-      <mat-form-field [floatLabel]="'never'">
-        <input matInput placeholder="Enter quantity" formControlName="quantity" type="number">
-      </mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
+      <mat-select placeholder="Buy/Sell" matInput formControlName="buy">
+        <mat-option value=1>Buy</mat-option>
+        <mat-option value=0>Sell</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <mat-form-field [floatLabel]="'never'">
-        <mat-select placeholder="Buy/Sell" matInput formControlName="buy">
-          <mat-option value=1>Buy</mat-option>
-          <mat-option value=0>Sell</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field [floatLabel]="'never'">
+      <input matInput [matDatepicker]="picker" placeholder="Select date" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
 
-      <mat-form-field [floatLabel]="'never'">
-        <input matInput [matDatepicker]="picker" placeholder="Select date" formControlName="date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </form>
-  </div>
-
-  <div class="transaction-button-container">
-    <button mat-raised-button color="primary" (click)="clickEvent()">Add Transaction</button>
-  </div>
-  <!-- <button (click)="clickEvent()">Add Transaction</button> -->
-
+<div class="button-container">
+  <button mat-raised-button class="submit-button" color="primary" (click)="clickEvent()">Add Transaction</button>
 </div>

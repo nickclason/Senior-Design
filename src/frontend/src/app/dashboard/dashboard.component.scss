@@ -1,49 +1,133 @@
-// $custom-pink: #ff006a;
-// $custom-dark-pink: #db075f;
-// $custom-lighter-grey: #eeeeee;
-// $custom-light-grey: #dddddd;
-// $custom-grey: #aaaaaa;
-// $github-ebony: #2e333b;
+$custom-pink: #b4256c; // Chaotic Roses
+$custom-middle-pink: #c51866;
+$custom-bright-pink: #db075f; // Magna Cum Laude
 $github-black-pearl: #23272e;
-
-
-
-// $master-pink: #b10c5e;
-$chaotic-roses: #b4256c;
+$onyx: #424242;
 
 .dashboard-container {
     width: 100%;
     height: 100%;
-    display: flex;
-    background-color: none;
     padding: 10px;
-    
+
     .e-dashboardlayout.e-control .e-panel {
-        background-color: $chaotic-roses;
+        background-color: $custom-pink;
         border-radius: 25px;
         border: none;
-        padding: 1em 1em;
-        
+
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+
         .widget-container {
             width: 100%;
             height: 100%;
             display: flex;
-            background-color: $github-black-pearl;
-            border-radius: 25px;
-            color: white;
-            justify-content: center;
+            flex-direction: column;
 
-
-            .custom-chart {
+            // Portfolio Holdings Widget
+            .holdings {
                 width: 100%;
                 height: 100%;
                 display: flex;
-                top: 50%;
-                left: 50%;
-                margin-right: -25%;
+                flex-direction: column;
+                overflow: auto;
+                border-radius: 25px;
+
+                table {
+                    width: 100%;
+                    height: 100%;
+
+                    td {
+                        padding: 10px;
+                        text-align: center;
+                    }
+
+                    th {
+                        padding: 10px;
+                        text-align: center;
+                    }
+                }
+            }
+
+            // Transaction Widget
+            .transaction {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+
+                border-radius: 25px;
+                background-color: $onyx;
+
+                .form-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-grow: 3;
+
+                    // border: 1px solid #ccc;
+
+                    form {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+
+                .button-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-grow: 1;
+
+                    // border: 1px solid #ccc;
+
+                    button {
+                        width: 50%;
+                        outline: none;
+                        border: none;
+                        padding: 15px;
+                        margin-top: 20px;
+                        margin-right: 1em;
+                        background-color: $custom-pink;
+                        color: white;
+                        border-radius: 25px;
+
+                        &:hover {
+                            background-color: $custom-bright-pink;
+                        }
+                    }
+                }
+            }
+
+            // Watchlist Widget
+            .watchlist {
+                
             }
 
         }
+
+
+        mat-form-field {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 75%;
+            margin: auto;
+
+            input {
+                box-sizing: border-box;
+                outline: none;
+                border: none;
+                line-height: 2;
+            }
+        }
+
+
     }
 }
-
