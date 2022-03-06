@@ -34,21 +34,6 @@ $onyx: #424242;
                 flex-direction: column;
                 overflow: auto;
                 border-radius: 25px;
-
-                table {
-                    width: 100%;
-                    height: 100%;
-
-                    td {
-                        padding: 10px;
-                        text-align: center;
-                    }
-
-                    th {
-                        padding: 10px;
-                        text-align: center;
-                    }
-                }
             }
 
             // Transaction Widget
@@ -59,6 +44,7 @@ $onyx: #424242;
                 flex-direction: column;
 
                 border-radius: 25px;
+                color: white;
                 background-color: $onyx;
 
                 .form-container {
@@ -67,8 +53,6 @@ $onyx: #424242;
                     justify-content: space-between;
                     align-items: center;
                     flex-grow: 3;
-
-                    // border: 1px solid #ccc;
 
                     form {
                         width: 100%;
@@ -85,33 +69,104 @@ $onyx: #424242;
                     align-items: center;
                     flex-grow: 1;
 
-                    // border: 1px solid #ccc;
-
                     button {
                         width: 50%;
-                        outline: none;
-                        border: none;
                         padding: 15px;
                         margin-top: 20px;
                         margin-right: 1em;
-                        background-color: $custom-pink;
-                        color: white;
-                        border-radius: 25px;
-
-                        &:hover {
-                            background-color: $custom-bright-pink;
-                        }
                     }
                 }
             }
 
             // Watchlist Widget
             .watchlist {
-                
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow: auto;
+                border-radius: 25px;
+                gap: 2%;
+
+                .table-container {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: auto;
+                    border-radius: 25px;
+
+                    button {
+                        width: 100%;
+                        height: 100%;
+                        outline: none;
+                        border: none;
+                        padding: 5px;
+                        background-color: $custom-pink;
+                        color: white;
+                        border-radius: 25px;
+                        justify-content: center;
+
+                        &:hover {
+                            background-color: $custom-bright-pink;
+                        }
+                    }
+
+                    .remove-btn {
+                        background: none;
+                        font-size: 14px;
+
+                        &:hover {
+                            background-color: $custom-bright-pink;
+                        }
+
+                        .remove::before {
+                            content: "\e7e9";
+                        }
+
+                        span.e-icons {
+                            color: #c0c2c5;
+                            line-height: 2;
+                        }
+                    }
+
+                    .stock-btn {
+                        width: 100%;
+                        height: 100%;
+                        font-size: 14px;
+                        background-color: $onyx;
+                        border: none;
+                        padding: 0 !important;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: $custom-bright-pink;
+                        }
+                    }
+                }
+
+                .submit-form-container {
+                    width: 100%;
+                    border-radius: 25px;
+                    display: flex;
+                    flex-direction: row;
+                    color: white;
+                    background-color: $onyx;
+
+                    .custom-form {
+                        flex-grow: 2;
+                        margin: auto;
+
+                    }
+
+                    .custom-button {
+                        flex-grow: 1;
+                        margin: auto;
+                        font-size: 14px;
+                    }
+                }
             }
-
         }
-
 
         mat-form-field {
             display: flex;
@@ -128,6 +183,31 @@ $onyx: #424242;
             }
         }
 
+        table {
+            width: 100%;
+            height: 100%;
 
+            td {
+                padding: 10px;
+                text-align: center;
+            }
+
+            th {
+                padding: 10px;
+                text-align: center;
+            }
+        }
+
+        .custom-button {
+            outline: none;
+            border: none;
+            background-color: $custom-pink;
+            color: white;
+            border-radius: 25px;
+
+            &:hover {
+                background-color: $custom-bright-pink;
+            }
+        }
     }
 }
