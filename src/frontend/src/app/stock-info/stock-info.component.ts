@@ -99,7 +99,7 @@ export class StockInfoComponent implements OnInit {
                 this.sector = this.info["summaryProfile"]["sector"];
                 this.mkt_cap = this.info["price"]["marketCap"];
                 this.yearChange = this.info["defaultKeyStatistics"]["52WeekChange"];
-                this.heldPctInsider = this.info["defaultKeyStatistics"]["heldPercentInsiders"];
+                this.heldPctInsider = this.info["defaultKeyStatistics"]["heldPercentInsiders"]; // An insider is a director, senior officer, or any person or entity of a company that beneficially owns more than 10% of a company's voting share
                 this.heldPctInst = this.info["defaultKeyStatistics"]["heldPercentInstitutions"];
                 this.shortRatio = this.info["defaultKeyStatistics"]["shortRatio"]; // How many days it would take for all shares short to be covered. how bearish wall street is on the stock
                 this.price = this.info["financialData"]["currentPrice"];
