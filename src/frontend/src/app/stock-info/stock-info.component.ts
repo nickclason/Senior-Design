@@ -17,18 +17,18 @@ export class StockInfoComponent implements OnInit {
     stock: string;
     chartData: any;
     info: any;
-    name: string;
-    logo_url: string;
-    sector: string;
-    mkt_cap: number
-    price: number;
-    dayChange: number;
-    yearChange: number;
-    heldPctInsider: number;
-    heldPctInst: number;
-    shortRatio: number;
-    volume: number;
-    avg_volume: number;
+    name!: string;
+    logo_url!: string;
+    sector!: string;
+    mkt_cap!: number
+    price!: number;
+    dayChange!: number;
+    yearChange!: number;
+    heldPctInsider!: number;
+    heldPctInst!: number;
+    shortRatio!: number;
+    volume!: number;
+    avg_volume!: number;
 
 
 
