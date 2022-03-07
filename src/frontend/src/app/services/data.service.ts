@@ -63,7 +63,7 @@ export interface PredictionData {
 
 
 const HOLDINGS_API = environment.apiServer + '/portfolio/get_holdings';
-const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?start_date=2022-01-01&end_date=2022-03-01&interval=1d';
+const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?start_date=2022-01-01&end_date=2022-03-06&interval=1d';
 const CREATE_TRANSACTION_API = environment.apiServer + '/portfolio/create_transaction';
 const GET_WATCHLIST_API = environment.apiServer + '/watchlist/get';
 const ADD_WATCHLIST_API = environment.apiServer + '/watchlist/add';

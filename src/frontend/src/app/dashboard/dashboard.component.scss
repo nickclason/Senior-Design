@@ -156,13 +156,43 @@ $onyx: #424242;
                     .custom-form {
                         flex-grow: 2;
                         margin: auto;
-
                     }
 
                     .custom-button {
                         flex-grow: 1;
                         margin: auto;
                         font-size: 14px;
+                    }
+                }
+            }
+
+            // Chart Widgets
+            .chart-widget {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+
+                background-color: $onyx;
+                border-radius: 25px;
+
+                .chart-container {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+
+                    color: white;
+                    // border: 1px solid white;
+
+                    .custom-chart {
+                        display: flex;
+                        flex-direction: column;
+                        width: 90%;
+                        height: 90%;
+                        margin: auto;
+                        color: white;
+
+                        // border: 1px solid white;
                     }
                 }
             }

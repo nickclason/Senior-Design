@@ -1,7 +1,15 @@
-<ejs-chart [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' [tooltip]='tooltip' (load)='load($event)'>
+<div class="chart-container">
+    <ejs-stockchart class="custom-chart" [enableSelector]='false' [enableCustomRange]="false"
+        [enablePeriodSelector]="false">
+        <e-stockchart-series-collection>
+            <e-stockchart-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' width=2>
+            </e-stockchart-series>
+        </e-stockchart-series-collection>
+    </ejs-stockchart>
+</div>
 
-    <e-series-collection>
-        <e-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' name='My Portfolio' [marker]='marker'
-            width=2></e-series>
-    </e-series-collection>
-</ejs-chart>
+<!-- [tooltip]='tooltip' (tooltipRender)='tooltipRender($event)' (axisLabelRender)='axisLabelRender($event)' -->
+<!-- (load)='load($event)' -->
+
+<!-- [enableSelector]='true' [enableCustomRange]="false"
+        [enablePeriodSelector]="false" (load)='load($event)' -->

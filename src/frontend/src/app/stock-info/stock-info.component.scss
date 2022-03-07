@@ -36,9 +36,9 @@ $onyx: #424242;
     }
 
     .chart-container {
-        // border: 1px solid #ccc;
         display: flex;
-
+        flex-direction: column;
+        
         .stock-chart {
             width: 95%;
             height: 80%;

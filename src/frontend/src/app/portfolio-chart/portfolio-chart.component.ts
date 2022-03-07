@@ -14,6 +14,7 @@ import { ILoadedEventArgs, ChartTheme } from '@syncfusion/ej2-angular-charts';
 export class PortfolioChartComponent implements OnInit {
 
   stockChartData: TimePoint[] = [];
+  title = 'Portfolio Value';
 
 
   public primaryXAxis: Object = {
@@ -37,7 +38,6 @@ export class PortfolioChartComponent implements OnInit {
     this.dataService.loadPortfolioChartData()
   }
 
-
   convert_unix_to_date(data: any) {
     var new_data = data
     for (var i = 0; i < data.length; i++) {
@@ -49,7 +49,8 @@ export class PortfolioChartComponent implements OnInit {
 
   public load(args: ILoadedEventArgs): void {
     let selectedTheme: string = location.hash.split('/')[1];
-    selectedTheme = selectedTheme ? selectedTheme : 'Material';
+    // selectedTheme = selectedTheme ? selectedTheme : 'Material';
+    selectedTheme = 'HighContast';
     args.chart.theme = <ChartTheme>(selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/-dark/i, "Dark");
   };
 
@@ -69,4 +70,5 @@ export class PortfolioChartComponent implements OnInit {
       width: 0
     }
   };
+
 }

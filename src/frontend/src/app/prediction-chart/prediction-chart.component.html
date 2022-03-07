@@ -1,16 +1,18 @@
-<ejs-chart [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' title='Prediction for {{symbol}}'
-    [tooltip]='tooltip' (load)='load($event)'>
-    <e-series-collection>
-        <e-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' name='Actual' [marker]='marker'
-            width=2></e-series>
-        <e-series [dataSource]='predictionData' type='Line' xName='x' yName='past_pred' name='Training Pred'
-            [marker]='marker' width=2></e-series>
-        <e-series [dataSource]='predictionData' type='Line' xName='x' yName='future_pred' name='Future Pred'
-            [marker]='marker' width=2></e-series>
-    </e-series-collection>
+<div class="chart-container">
+    <ejs-chart class="custom-chart" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'
+        title='Prediction for {{symbol}}' [tooltip]='tooltip' (load)='load($event)'>
+        <e-series-collection>
+            <e-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' name='Actual' [marker]='marker'
+                width=2></e-series>
+            <e-series [dataSource]='predictionData' type='Line' xName='x' yName='past_pred' name='Training Pred'
+                [marker]='marker' width=2></e-series>
+            <e-series [dataSource]='predictionData' type='Line' xName='x' yName='future_pred' name='Future Pred'
+                [marker]='marker' width=2></e-series>
+        </e-series-collection>
     </ejs-chart>
 
     <div>
         <input type="symbol" [(ngModel)]="symbol">
         <button (click)="newPrediction()">Get Price Prediction</button>
     </div>
+</div>
