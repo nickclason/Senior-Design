@@ -29,7 +29,13 @@ export class StockInfoComponent implements OnInit {
     shortRatio!: number;
     volume!: number;
     avg_volume!: number;
+    news!: any;
 
+    public border!: Object;
+    public theme!: string;
+    public fill!: string;
+    public title!: string;
+    public titleStyle!: Object;
 
 
 
@@ -64,26 +70,34 @@ export class StockInfoComponent implements OnInit {
             args.text = text / 100000000 + 'B';
         }
     };
-    public load(args: IStockChartEventArgs): void {
-        let selectedTheme: string = location.hash.split('/')[1];
-        selectedTheme = selectedTheme ? selectedTheme : 'Material';
-        args.stockChart.theme = <ChartTheme>(selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/-dark/i, "Dark");
-    };
-    //   public title: string = this.stock + ' Historical';
-    public title: string = "";
 
 
     constructor(private dataService: DataService,
         private http: HttpClient,
-        @Inject(MAT_DIALOG_DATA) public data: any, 
+        @Inject(MAT_DIALOG_DATA) public data: any,
         private dialogRef: MatDialogRef<StockInfoComponent>) {
-        
-            this.stock = data.symbol
+
+        this.stock = data.symbol
     }
 
     ngOnInit(): void {
+        this.theme = 'MaterialDark';
+        
+        this.border = {
+            color: '#424242',
+            width: 0
+        }
 
-        this.http.get<any>('http://localhost:5000/data/get_timeseries?ticker='+this.stock.toUpperCase()+'&period=max').subscribe(
+        this.fill = '#b4256c';
+
+        this.titleStyle = {
+            fontFamily: "Trebuchet MS",
+            fontWeight: 'regular',
+            color: "#FFFFFF",
+            size: '16pt'
+        };
+
+        this.http.get<any>('http://localhost:5000/data/get_timeseries?ticker=' + this.stock.toUpperCase() + '&period=max').subscribe(
             data => {
                 this.chartData = data["data"];
                 // console.log(this.chartData);
@@ -91,7 +105,7 @@ export class StockInfoComponent implements OnInit {
             }
         );
 
-        this.http.get<any>('http://localhost:5000/data/get?symbol='+this.stock.toUpperCase()).subscribe(
+        this.http.get<any>('http://localhost:5000/data/get?symbol=' + this.stock.toUpperCase()).subscribe(
             data => {
                 this.info = data["stats"];
                 this.name = data["name"];
@@ -106,6 +120,7 @@ export class StockInfoComponent implements OnInit {
                 this.volume = this.info["summaryDetail"]["volume"];
                 this.avg_volume = this.info["summaryDetail"]["averageVolume"];
                 this.dayChange = this.info["price"]["regularMarketChangePercent"]; // i think this is right
+                this.news = data["news"];
             }
 
         );

@@ -23,13 +23,13 @@ export class DashboardComponent {
 
   public afterResize(args: ResizeEventArgs): void {
     this.updateEventLog(args);
-    console.log(this.eventTrace);
+    // console.log(this.eventTrace);
 
     // This is probably not the best way to do this, as it happens when ANY tile is resized....
     // But it works!
-    this.portfolioChart.ngOnInit()
-    this.sectorChart.ngOnInit()
-    this.predictionChart.ngOnInit()
+    this.portfolioChart.ngOnInit();
+    this.sectorChart.ngOnInit();
+    this.predictionChart.ngOnInit();
   }
 
   private updateEventLog(args: any): void {

@@ -15,12 +15,11 @@ $onyx: #424242;
     .header {
         display: flex;
         flex-direction: row;
-        border: 1px solid #ccc;
         gap: 25px;
         // margin: auto; centers perfectly
 
         .img-container {
-            border: 1px solid #ccc;
+
             align-self: center;
             
             .stock-pic {
@@ -30,18 +29,20 @@ $onyx: #424242;
         }
         
         .title-container {
-            border: 1px solid #ccc;
             // color: $custom-bright-pink;
         }
     }
 
     .chart-container {
+        // display: flex;
+        // flex-direction: column;
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
         
         .stock-chart {
-            width: 95%;
-            height: 80%;
+            width: 100%;
+            height: 95%;
             margin: auto;
 
         }
@@ -53,17 +54,64 @@ $onyx: #424242;
         gap: 50px;
         max-height: 30%;
         // margin: auto; centers perfectly
+
         
-        .info-container {
-            border: 1px solid #ccc;
+        .container-container {
+            background-color: $github-black-pearl;
+            border-radius: 25px;
+            display: flex;
             flex-grow: 1;
-            overflow: auto;
+            justify-content: space-around;
+
+            .info-container {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                overflow: auto;
+                
+                padding-left: 25px;
+                padding-right: 25px;
+                padding-bottom: 25px;
+                
+                .header-container
+                {
+                    display: flex;
+                    margin: auto;
+                    
+                    h2 {
+                        text-align: center;
+                    }
+                }
+                
+                .content-container {
+                    display: flex;
+                    flex-direction: row;
+                    flex-grow: 1;
+
+                    .content {
+                        display: flex;
+                        flex-direction: column;
+                        flex-grow: 1;
+
+                        a {
+                            color: white;
+                        }
+
+                    }
+                }
+                
+            }
+        
+            .news-container {
+                border: 1px solid #ccc;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                overflow: auto;
+            }
         }
-    
-        .news-container {
-            border: 1px solid #ccc;
-            flex-grow: 1;
-        }
+
+        
     }
 
 

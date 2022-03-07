@@ -182,10 +182,11 @@ def get():
         symbol = request.args.get('symbol').upper() # Ex. MSFT, AAPL, etc.
         ticker = yf.Ticker(symbol)
         stats = ticker.stats()
+        news = ticker.news
 
         stock = Stock.query.filter_by(symbol=symbol).first()
 
-        data = {'stats': stats, 'name': stock.company_name, 'logo_url': stock.logo_url}
+        data = {'stats': stats, 'name': stock.company_name, 'logo_url': stock.logo_url, 'news': news}
 
         return jsonify(data)
 

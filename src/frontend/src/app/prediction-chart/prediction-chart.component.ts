@@ -22,9 +22,12 @@ export class PredictionChartComponent implements OnInit {
     width: 5
   };
   
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) { 
+    console.log('PredictionChartComponent.constructor()');
+  }
 
   ngOnInit(): void {
+    console.log('PredictionChartComponent.ngOnInit()');
     this.dataService.predictionData$.subscribe(data => this.predictionData = this.convert_unix_to_date(data));
   }
 

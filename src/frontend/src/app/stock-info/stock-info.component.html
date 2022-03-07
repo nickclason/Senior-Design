@@ -14,55 +14,101 @@
 
     <!-- Chart -->
     <div class="chart-container">
-        <ejs-stockchart class="stock-chart" id='StockChartCandle' [chartArea]='chartArea' [primaryXAxis]='primaryXAxis'
-            [primaryYAxis]='primaryYAxis' [crosshair]='crosshair' [title]='title'
+        <ejs-stockchart class="stock-chart" id='stockInfoChart_1' [chartArea]='chartArea' [primaryXAxis]='primaryXAxis'
+            [primaryYAxis]='primaryYAxis' [crosshair]='crosshair' [title]='title' [titleStyle]="titleStyle"
             [tooltip]='tooltip' (tooltipRender)='tooltipRender($event)' (axisLabelRender)='axisLabelRender($event)'
-            (load)='load($event)'>
+            [border]="border" [theme]="theme">
 
             <e-stockchart-axes>
                 <e-stockchart-axis rowIndex=1 name='yAxis1' opposedPosition=true labelPosition='Inside'
                     tickPosition='Inside'>
                 </e-stockchart-axis>
             </e-stockchart-axes>
-  
+
             <e-stockchart-rows>
                 <e-stockchart-row height=30%></e-stockchart-row>
                 <e-stockchart-row height=70%></e-stockchart-row>
             </e-stockchart-rows>
-  
+
             <e-stockchart-series-collection>
                 <e-stockchart-series [dataSource]='chartData' type='Candle' xName='date' yName='high' yAxisName='yAxis1'
-                    high='high' low='low'> </e-stockchart-series>
+                    high='high' low='low' [fill]="fill"> </e-stockchart-series>
                 <e-stockchart-series [dataSource]='chartData' type='Column' xName='date' yName='volume' high='high'
                     low='low' [enableTooltip]='columnTooltip'> </e-stockchart-series>
             </e-stockchart-series-collection>
-  
+
         </ejs-stockchart>
     </div>
 
 
     <div class="container">
+        <div class="container-container">
+            <div class="info-container">
+                <div class="header-container">
+                    <h2>Info</h2>
+                </div>
 
-        <div class="info-container">
-            <h2>Info</h2>
-            <p>Sector: {{sector}}</p>
-            <p>Market Cap: {{mkt_cap}}</p>
-            <p>Price: {{price}}</p>
-            <p>24hr Change: {{dayChange}}</p>
-            <p>52wk Change: {{yearChange}}</p>
-            <p>Shares held by insiders: {{heldPctInsider}}</p>
-            <p>Shares held by institutions: {{heldPctInst}}</p>
-            <p>Short Ratio: {{shortRatio}}</p>
-            <p>Volume: {{volume}}</p>
-            <p>Average Volume: {{avg_volume}}</p>
+                <div class="content-container">
+                    <div class="content">
+                        <p>Price: {{price}}</p>
+                        <p>Market Cap: {{mkt_cap}}</p>
+
+                        <p>24hr Change: {{dayChange}}</p>
+                        <p>52wk Change: {{yearChange}}</p>
+
+                        <p>Volume: {{volume}}</p>
+                        <p>Average Volume: {{avg_volume}}</p>
+                    </div>
+
+                    <div class="content">
+                        <p>Sector: {{sector}}</p>
+
+                        <p>Shares held by insiders: {{heldPctInsider}}</p>
+
+                        <p>Shares held by institutions: {{heldPctInst}}</p>
+
+                        <p>Short Ratio: {{shortRatio}}</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-        <div class="news-container">
-            <p>News Links</p>
-        </div>
+        <div class="container-container">
+            <div class="info-container">
+                <div class="header-container">
+                    <h2>News</h2>
+                </div>
 
+                <div class="content-container">
+                    <div class="content">
+                        <ul *ngFor="let story of news">
+                            <li><a href={{story.link}} target="_blank" rel="noopener">{{story.title}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-
-
 </div>
+
+
+<!-- <div class="container">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.firstName}} {{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
