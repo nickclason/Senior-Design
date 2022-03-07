@@ -1,9 +1,9 @@
 <div class="chart-container">
     <ejs-stockchart class="custom-chart" [enableSelector]='false' [enableCustomRange]="false"
         [enablePeriodSelector]="false" [title]='title' [titleStyle]="titleStyle" [chartArea]='chartArea' 
-        [background]="background" [border]="border" [theme]="theme">
+        [background]="background" [border]="border" [theme]="theme" [tooltip]="tooltip">
         <e-stockchart-series-collection>
-            <e-stockchart-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' width=2 [fill]="fill"></e-stockchart-series>
+            <e-stockchart-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' width=2 [fill]="fill" [marker]="marker"></e-stockchart-series>
         </e-stockchart-series-collection>
     </ejs-stockchart>
 </div>

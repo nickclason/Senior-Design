@@ -28,14 +28,14 @@ export class PortfolioChartComponent implements OnInit {
     valueType: 'DateTime',
     intervalType: 'Days',
     interval: 3,
-    majorTickLines : {
-      color : '#FFFFFF',
-      width : 5
-   },
-   minorTickLines : {
-      color : '#FFFFFF',
-      width : 0
-   }
+    majorTickLines: {
+      color: '#FFFFFF',
+      width: 5
+    },
+    minorTickLines: {
+      color: '#FFFFFF',
+      width: 0
+    }
   };
 
   public primaryYAxis: Object = {
@@ -43,20 +43,21 @@ export class PortfolioChartComponent implements OnInit {
     rangePadding: 'Auto',
     lineStyle: { width: 0 },
     color: '#FFFFFF',
-    majorTickLines: { 
-      color : '#FFFFFF',
-      width: 0 
+    majorTickLines: {
+      color: '#FFFFFF',
+      width: 0
     },
-    minorTickLines: { 
-      color : '#FFFFFF',
-      width: 0 
+    minorTickLines: {
+      color: '#FFFFFF',
+      width: 0
     },
     axisLine: {
       color: '#FF0000',
     }
   };
 
-
+  public tooltip: Object;
+  public marker: Object;
 
 
 
@@ -83,6 +84,13 @@ export class PortfolioChartComponent implements OnInit {
     }
     this.theme = 'MaterialDark';
     this.fill = '#b4256c';
+
+    this.tooltip = { enable: true };
+    this.marker = {
+      visible: true,
+      height: 2,
+      width: 2
+    };
   }
 
   convert_unix_to_date(data: any) {
@@ -93,15 +101,4 @@ export class PortfolioChartComponent implements OnInit {
     }
     return new_data;
   }
-
-  public tooltip: Object = {
-    enable: true
-  };
-
-  // Dots on the line
-  public marker: Object = {
-    visible: true,
-    height: 5,
-    width: 5
-  };
 }
