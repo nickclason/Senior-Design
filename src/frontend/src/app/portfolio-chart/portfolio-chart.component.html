@@ -1,6 +1,6 @@
 <div class="chart-container">
     <ejs-stockchart class="custom-chart" [enableSelector]='false' [enableCustomRange]="false"
-        [enablePeriodSelector]="false">
+        [enablePeriodSelector]="false" [title]='title' [titleStyle]="titleStyle" [chartArea]='chartArea'>
         <e-stockchart-series-collection>
             <e-stockchart-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' width=2>
             </e-stockchart-series>

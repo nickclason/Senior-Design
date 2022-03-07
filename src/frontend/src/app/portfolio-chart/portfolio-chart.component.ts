@@ -14,21 +14,38 @@ import { ILoadedEventArgs, ChartTheme } from '@syncfusion/ej2-angular-charts';
 export class PortfolioChartComponent implements OnInit {
 
   stockChartData: TimePoint[] = [];
-  title = 'Portfolio Value';
+  public title!: String;
+  public titleStyle!: Object;
+  public chartArea!: Object;
 
 
   public primaryXAxis: Object = {
     valueType: 'DateTime',
     intervalType: 'Days',
     interval: 3,
+    majorTickLines : {
+      color : '#FFFFFF',
+      width : 5
+   },
+   minorTickLines : {
+      color : '#FFFFFF',
+      width : 0
+   }
   };
 
   public primaryYAxis: Object = {
     labelFormat: '${value}',
     rangePadding: 'Auto',
     lineStyle: { width: 0 },
-    majorTickLines: { width: 0 },
-    minorTickLines: { width: 0 }
+    color: '#FFFFFF',
+    majorTickLines: { 
+      color : '#FFFFFF',
+      width: 0 
+    },
+    minorTickLines: { 
+      color : '#FFFFFF',
+      width: 0 
+    }
   };
 
   constructor(private dataService: DataService) { }
@@ -36,6 +53,17 @@ export class PortfolioChartComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.portfolioChartData$.subscribe(data => this.stockChartData = this.convert_unix_to_date(data));
     this.dataService.loadPortfolioChartData()
+
+    this.title = 'Portfolio Value';
+    this.titleStyle = {
+      fontFamily: "Trebuchet MS",
+      fontWeight: 'bold',
+      color: "#b4256c",
+      size: '20pt'
+    }
+    this.chartArea = {
+      background: '#424242'
+  };
   }
 
   convert_unix_to_date(data: any) {
@@ -63,12 +91,6 @@ export class PortfolioChartComponent implements OnInit {
     visible: true,
     height: 5,
     width: 5
-  };
-
-  public chartArea: Object = {
-    border: {
-      width: 0
-    }
   };
 
 }
