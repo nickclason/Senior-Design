@@ -50,11 +50,11 @@
 
                 <div class="content-container">
                     <div class="content">
-                        <p>Price: {{price}}</p>
-                        <p>Market Cap: {{mkt_cap}}</p>
+                        <p>Price: ${{price | number}}</p>
+                        <p>Market Cap: ${{mkt_cap}}</p>
 
-                        <p>24hr Change: {{dayChange}}</p>
-                        <p>52wk Change: {{yearChange}}</p>
+                        <p>24hr Change: {{dayChange * 100 | number}}%</p>
+                        <p>52wk Change: {{yearChange * 100 | number}}%</p>
 
                         <p>Volume: {{volume}}</p>
                         <p>Average Volume: {{avg_volume}}</p>
@@ -63,14 +63,14 @@
                     <div class="content">
                         <p>Sector: {{sector}}</p>
 
-                        <p>Shares held by insiders: {{heldPctInsider}}</p>
+                        <p>Shares held by insiders: {{heldPctInsider * 100 | number}}%</p>
 
-                        <p>Shares held by institutions: {{heldPctInst}}</p>
+                        <p>Shares held by institutions: {{heldPctInst * 100| number}}%</p>
 
                         <p>Short Ratio: {{shortRatio}}</p>
                     </div>
                 </div>
-
+<!-- {{value | number:'1.0-0'}} -->
             </div>
         </div>
 
@@ -94,21 +94,3 @@
 </div>
 
 
-<!-- <div class="container">
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td>{{user.firstName}} {{user.lastName}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.role}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div> -->
