@@ -14,6 +14,7 @@ import { ILoadedEventArgs, ChartTheme } from '@syncfusion/ej2-angular-charts';
 export class PortfolioChartComponent implements OnInit {
 
   stockChartData: TimePoint[] = [];
+
   public title!: String;
   public titleStyle!: Object;
   public chartArea!: Object;
@@ -48,6 +49,8 @@ export class PortfolioChartComponent implements OnInit {
     }
   };
 
+
+
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -75,6 +78,7 @@ export class PortfolioChartComponent implements OnInit {
     return new_data;
   }
 
+
   public load(args: ILoadedEventArgs): void {
     let selectedTheme: string = location.hash.split('/')[1];
     // selectedTheme = selectedTheme ? selectedTheme : 'Material';
@@ -92,5 +96,4 @@ export class PortfolioChartComponent implements OnInit {
     height: 5,
     width: 5
   };
-
 }

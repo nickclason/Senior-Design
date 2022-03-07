@@ -1,15 +1,16 @@
 <div class="chart-container">
-    <ejs-chart class="custom-chart" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'
-        title='Prediction for {{symbol}}' [tooltip]='tooltip' (load)='load($event)'>
-        <e-series-collection>
-            <e-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' name='Actual' [marker]='marker'
-                width=2></e-series>
-            <e-series [dataSource]='predictionData' type='Line' xName='x' yName='past_pred' name='Training Pred'
-                [marker]='marker' width=2></e-series>
-            <e-series [dataSource]='predictionData' type='Line' xName='x' yName='future_pred' name='Future Pred'
-                [marker]='marker' width=2></e-series>
-        </e-series-collection>
-    </ejs-chart>
+    <ejs-stockchart id="predictionChart" class="custom-chart" [enableSelector]='false' [enableCustomRange]="false" [enablePeriodSelector]="false">
+        <e-stockchart-series-collection>
+            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' width=2 [marker]="marker">
+            </e-stockchart-series>
+
+            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='past_pred' width=2 [marker]="marker">
+            </e-stockchart-series>
+
+            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='future_pred' width=2 [marker]="marker">
+            </e-stockchart-series>
+        </e-stockchart-series-collection>
+    </ejs-stockchart>
 
     <div>
         <input type="symbol" [(ngModel)]="symbol">

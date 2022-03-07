@@ -16,34 +16,21 @@ export class PredictionChartComponent implements OnInit {
   symbol: string = '';
 
 
-  public primaryXAxis: Object = {
-    valueType: 'DateTime',
-    intervalType: 'Days',
-    rangePadding: 'Auto',
-    interval: 1,
+  public marker: Object = {
+    visible: true,
+    height: 5,
+    width: 5
   };
-
-  public primaryYAxis: Object = {
-    labelFormat: '${value}',
-    rangePadding: 'Auto',
-    lineStyle: { width: 0 },
-    majorTickLines: { width: 0 },
-    minorTickLines: { width: 0 }
-  };
-
+  
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.dataService.predictionData$.subscribe(data => this.predictionData = this.convert_unix_to_date(data));
-    
-    // this.dataService.loadPredictionData(this.symbol); // PoC it works; load apple prediction on page load for test data
-    // console.log(this.predictionData)
   }
 
   newPrediction() {
     this.dataService.loadPredictionData(this.symbol);
   }
-
 
   convert_unix_to_date(data: any) {
     var new_data = data
@@ -52,27 +39,4 @@ export class PredictionChartComponent implements OnInit {
     }
     return new_data;
   }
-
-  public load(args: ILoadedEventArgs): void {
-    let selectedTheme: string = location.hash.split('/')[1];
-    selectedTheme = selectedTheme ? selectedTheme : 'Material';
-    args.chart.theme = <ChartTheme>(selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/-dark/i, "Dark");
-  };
-
-  public tooltip: Object = {
-    enable: true
-  };
-
-  // Dots on the line
-  public marker: Object = {
-    visible: true,
-    height: 5,
-    width: 5
-  };
-
-  public chartArea: Object = {
-    border: {
-      width: 0
-    }
-  };
 }
