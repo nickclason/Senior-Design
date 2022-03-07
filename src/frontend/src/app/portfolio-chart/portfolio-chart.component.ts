@@ -18,6 +18,10 @@ export class PortfolioChartComponent implements OnInit {
   public title!: String;
   public titleStyle!: Object;
   public chartArea!: Object;
+  public background!: string;
+  public border!: Object;
+  public theme!: string;
+  public fill!: Object;
 
 
   public primaryXAxis: Object = {
@@ -46,8 +50,13 @@ export class PortfolioChartComponent implements OnInit {
     minorTickLines: { 
       color : '#FFFFFF',
       width: 0 
+    },
+    axisLine: {
+      color: '#FF0000',
     }
   };
+
+
 
 
 
@@ -60,13 +69,20 @@ export class PortfolioChartComponent implements OnInit {
     this.title = 'Portfolio Value';
     this.titleStyle = {
       fontFamily: "Trebuchet MS",
-      fontWeight: 'bold',
-      color: "#b4256c",
-      size: '20pt'
+      fontWeight: 'regular',
+      color: "#FFFFFF",
+      size: '16pt'
+    };
+    // this.chartArea = {
+    //   background: '#424242'
+    // };
+    this.background = '#424242';
+    this.border = {
+      color: '#424242',
+      width: 0
     }
-    this.chartArea = {
-      background: '#424242'
-  };
+    this.theme = 'MaterialDark';
+    this.fill = '#b4256c';
   }
 
   convert_unix_to_date(data: any) {
@@ -77,14 +93,6 @@ export class PortfolioChartComponent implements OnInit {
     }
     return new_data;
   }
-
-
-  public load(args: ILoadedEventArgs): void {
-    let selectedTheme: string = location.hash.split('/')[1];
-    // selectedTheme = selectedTheme ? selectedTheme : 'Material';
-    selectedTheme = 'HighContast';
-    args.chart.theme = <ChartTheme>(selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/-dark/i, "Dark");
-  };
 
   public tooltip: Object = {
     enable: true
