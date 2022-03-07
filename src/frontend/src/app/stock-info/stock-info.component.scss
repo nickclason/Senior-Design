@@ -61,6 +61,7 @@ $onyx: #424242;
             border-radius: 25px;
             display: flex;
             flex-grow: 1;
+            width: 50%;
             justify-content: space-around;
 
             .info-container {
@@ -86,7 +87,7 @@ $onyx: #424242;
                 .content-container {
                     display: flex;
                     flex-direction: row;
-                    flex-grow: 1;
+                    // flex-grow: 1;
 
                     .content {
                         display: flex;
