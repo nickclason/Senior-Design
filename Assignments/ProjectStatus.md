@@ -62,3 +62,22 @@ Submitted user guide assignment (can be found in our wiki) and fleshed out what 
 
 ## 02/15/22 - Work on developing and training ML models and application UI
 Start developing and testing models for machine learning to predict future prices. Implement the basic UI elements that are required for our project.
+
+## 02/22/22 - Redesign UI based on previous discussions
+Modify existing login/register and other widgets in the application to follow the design that we have layed out for the application.
+
+## 03/01/22 - Implement various features
+Implemented watchlist, sector chart, predicted prices chart, created a DataService to handle all requests. Various css style changes.
+
+## 03/08/22 - Work on making the application look presentable
+Style all components and make them responsive.
+
+## 03/15/22 -
+
+## 03/22/22 - 
+
+## 03/29/22 -
+
+## 04/05/22 -
+
+## 04/12/22 - Senior Design Expo
