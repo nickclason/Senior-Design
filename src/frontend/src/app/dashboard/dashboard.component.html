@@ -38,7 +38,7 @@
             <e-panel [sizeX]="2" [sizeY]="1" [row]="1" [col]="2">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-portfolio-chart class="chart-widget"></app-portfolio-chart>
+                       <app-portfolio-chart #portfolioChart class="chart-widget"></app-portfolio-chart>
                     </div>
                 </ng-template>
             </e-panel>
@@ -46,7 +46,7 @@
             <e-panel [sizeX]="2" [sizeY]="1" [row]="2" [col]="2">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-sector-chart class="chart-widget"></app-sector-chart>
+                       <app-sector-chart #sectorChart class="chart-widget"></app-sector-chart>
                     </div>
                 </ng-template>
             </e-panel>
@@ -54,7 +54,7 @@
             <e-panel [sizeX]="2" [sizeY]="1" [row]="3" [col]="0">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-prediction-chart class="chart-widget"></app-prediction-chart>
+                       <app-prediction-chart #predictionChart class="chart-widget"></app-prediction-chart>
                     </div>
                 </ng-template>
             </e-panel>
