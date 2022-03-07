@@ -1,6 +1,7 @@
 <div class="dashboard-container">
     <!-- for our own sake, i am disabling resizing of widgets, creates less work, doesn't impact functionality -->
-    <ejs-dashboardlayout  [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery' [allowResizing]='true' (resizeStop)="afterResize($event)">
+    <ejs-dashboardlayout [columns]='5' [cellSpacing]='cellSpacing' [mediaQuery]='mediaQuery' [allowResizing]='true'
+        (resizeStop)="afterResize($event)">
         <e-panels>
 
             <e-panel [sizeX]="1" [sizeY]="2" [row]="0" [col]="0">
@@ -11,7 +12,7 @@
                 </ng-template>
             </e-panel>
 
-           <e-panel [sizeX]="1" [sizeY]="1" [row]="1" [col]="1">
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="1" [col]="1">
                 <ng-template #content>
                     <div class="widget-container">
                         <app-add-transaction class="transaction"></app-add-transaction>
@@ -22,7 +23,7 @@
             <e-panel [sizeX]="1" [sizeY]="1" [row]="2" [col]="1">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-watchlist class="watchlist"></app-watchlist>
+                        <app-watchlist class="watchlist"></app-watchlist>
                     </div>
                 </ng-template>
             </e-panel>
@@ -38,7 +39,7 @@
             <e-panel [sizeX]="2" [sizeY]="1" [row]="1" [col]="2">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-portfolio-chart #portfolioChart class="chart-widget"></app-portfolio-chart>
+                        <app-portfolio-chart #portfolioChart class="chart-widget"></app-portfolio-chart>
                     </div>
                 </ng-template>
             </e-panel>
@@ -46,23 +47,18 @@
             <e-panel [sizeX]="2" [sizeY]="1" [row]="2" [col]="2">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-sector-chart #sectorChart class="chart-widget"></app-sector-chart>
+                        <app-sector-chart #sectorChart class="chart-widget"></app-sector-chart>
                     </div>
                 </ng-template>
             </e-panel>
-            
-            <!-- <e-panel [sizeX]="2" [sizeY]="1" [row]="3" [col]="0">
-                <ng-template #content>
-                    <div class="widget-container">
-                       <app-prediction-chart #predictionChart class="chart-widget"></app-prediction-chart>
-                    </div>
-                </ng-template>
-            </e-panel> -->
+
+
 
             <e-panel [sizeX]="2" [sizeY]="1" [row]="3" [col]="0">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-prediction-chart #predictionChart class="chart-widget"></app-prediction-chart>
+                        <!-- <app-prediction-chart #predictionChart class="chart-widget"></app-prediction-chart> -->
+                        <app-prediction-chart *ngIf="enabled" class="chart-widget"></app-prediction-chart>
                     </div>
                 </ng-template>
             </e-panel>

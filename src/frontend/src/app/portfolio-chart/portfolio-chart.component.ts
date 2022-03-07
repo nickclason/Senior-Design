@@ -56,8 +56,8 @@ export class PortfolioChartComponent implements OnInit {
     }
   };
 
-  public tooltip: Object;
-  public marker: Object;
+  public tooltip!: Object;
+  public marker!: Object;
 
 
 

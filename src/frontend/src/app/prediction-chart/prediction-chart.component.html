@@ -1,19 +1,24 @@
 <div class="chart-container">
-    <ejs-stockchart id="predictionChart_1" class="custom-chart" [enableSelector]='false' [enableCustomRange]="false" [enablePeriodSelector]="false">
+    <ejs-stockchart id="predictionChart_1" class="custom-chart" [enableSelector]='false' [enableCustomRange]="false"
+        [enablePeriodSelector]="false" [title]='title' [titleStyle]="titleStyle" 
+        [background]="background" [border]="border" [theme]="theme" [tooltip]="tooltip">
         <e-stockchart-series-collection>
-            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' width=2 [marker]="marker">
+            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='actual' width=2
+                [marker]="marker">
             </e-stockchart-series>
 
-            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='past_pred' width=2 [marker]="marker">
+            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='past_pred' width=2
+                [marker]="marker">
             </e-stockchart-series>
 
-            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='future_pred' width=2 [marker]="marker">
+            <e-stockchart-series [dataSource]='predictionData' type='Line' xName='x' yName='future_pred' width=2
+                [marker]="marker">
             </e-stockchart-series>
         </e-stockchart-series-collection>
     </ejs-stockchart>
-</div>
-    <!-- <div>
+
+    <div>
         <input type="symbol" [(ngModel)]="symbol">
         <button (click)="newPrediction()">Get Price Prediction</button>
     </div>
-</div> -->
+</div>

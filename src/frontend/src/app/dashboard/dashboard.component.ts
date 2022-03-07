@@ -13,26 +13,27 @@ import { SectorChartComponent } from '../sector-chart/sector-chart.component';
 export class DashboardComponent {
   public cellSpacing: number[] = [10, 10];
   public mediaQuery: string = 'max-width: 700px';
+  enabled: boolean = true;
 
 
   @ViewChild('portfolioChart') portfolioChart: PortfolioChartComponent;
   @ViewChild('sectorChart') sectorChart: SectorChartComponent;
   @ViewChild('predictionChart') predictionChart: PredictionChartComponent;
 
-  private eventTrace: string = '';
-
   public afterResize(args: ResizeEventArgs): void {
-    this.updateEventLog(args);
-    // console.log(this.eventTrace);
 
-    // This is probably not the best way to do this, as it happens when ANY tile is resized....
-    // But it works!
     this.portfolioChart.ngOnInit();
     this.sectorChart.ngOnInit();
-    this.predictionChart.ngOnInit();
+    // this.predictionChart.ngOnInit();
+    this.reloadTree();
   }
 
-  private updateEventLog(args: any): void {
-    this.eventTrace = this.eventTrace + args.name + ' Event triggered. <br />'
-}
+  reloadTree(){
+    this.enabled = false;
+    const self = this;
+    setTimeout(function(){
+      self.enabled = true;
+    }, 1);
+  }
+
 }
