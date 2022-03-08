@@ -1,1 +1,14 @@
-<p>market-news works!</p>
+<div class="info-container">
+
+    <div class="header-container">
+        <h2>Market News</h2>
+    </div>
+
+    <div class="content-container">
+        <div class="content">
+            <ul *ngFor="let story of news">
+                <li><a href={{story.url}} target="_blank" rel="noopener">{{story.description}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

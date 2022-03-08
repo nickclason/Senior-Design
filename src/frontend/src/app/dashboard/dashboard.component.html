@@ -28,13 +28,13 @@
                 </ng-template>
             </e-panel>
 
-            <!-- <e-panel [sizeX]="1" [sizeY]="1" [row]="3" [col]="0">
+            <e-panel [sizeX]="1" [sizeY]="1" [row]="3" [col]="1">
                 <ng-template #content>
                     <div class="widget-container">
-                       <app-market-news></app-market-news>
+                       <app-market-news class="news"></app-market-news>
                     </div>
                 </ng-template>
-            </e-panel> -->
+            </e-panel>
 
             <e-panel [sizeX]="2" [sizeY]="1" [row]="1" [col]="2">
                 <ng-template #content>
@@ -52,12 +52,9 @@
                 </ng-template>
             </e-panel>
 
-
-
-            <e-panel [sizeX]="2" [sizeY]="1" [row]="3" [col]="0">
+            <e-panel [sizeX]="3" [sizeY]="1" [row]="3" [col]="0">
                 <ng-template #content>
                     <div class="widget-container">
-                        <!-- <app-prediction-chart #predictionChart class="chart-widget"></app-prediction-chart> -->
                         <app-prediction-chart *ngIf="enabled" class="chart-widget"></app-prediction-chart>
                     </div>
                 </ng-template>

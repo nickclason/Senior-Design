@@ -196,6 +196,59 @@ $onyx: #424242;
                     }
                 }
             }
+
+            .news {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+
+                border-radius: 25px;
+                color: white;
+                background-color: $onyx;
+
+    
+                .info-container {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    overflow: auto;
+                    
+                    padding-left: 25px;
+                    padding-right: 25px;
+                    padding-bottom: 25px;
+                    
+                    .header-container
+                    {
+                        display: flex;
+                        margin: auto;
+                        
+                        h2 {
+                            text-align: center;
+                        }
+                    }
+                    
+                    .content-container {
+                        display: flex;
+                        flex-direction: row;
+                        // flex-grow: 1;
+    
+                        .content {
+                            display: flex;
+                            flex-direction: column;
+                            flex-grow: 1;
+                            font-size: larger;
+                            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+                            a {
+                                color: white;
+                            }
+    
+                        }
+                    }
+                    
+                }
+            }
         }
 
         mat-form-field {

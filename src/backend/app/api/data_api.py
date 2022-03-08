@@ -14,7 +14,6 @@ from datetime import datetime, timedelta
 # This file should contain any requests made to get data from outside sources
 # any internal operations should be handled in api/portfolio_api.py
 
-
 # '''
 # Description:
 #     Input: 
@@ -116,7 +115,6 @@ def current_price():
             return make_response(jsonify(error=str(e), statusCode=400))
 
 
-
 @data_bp.route("/search", methods=['GET'])
 def search():
     '''
@@ -189,6 +187,17 @@ def get():
         data = {'stats': stats, 'name': stock.company_name, 'logo_url': stock.logo_url, 'news': news}
 
         return jsonify(data)
+
+    except Exception as e:
+        print(e)
+        return make_response(jsonify(error=str(e), statusCode=400))
+
+
+@data_bp.route("/get_news", methods=['GET'])
+def get_news():
+    try:
+        resp = make_request('https://api.marketaux.com/v1/news/all?api_token=f4FMt1n7cSE463zCwcviLS5SdDt3VuXFp9LrvBEn&countries=us')
+        return jsonify(resp)
 
     except Exception as e:
         print(e)
