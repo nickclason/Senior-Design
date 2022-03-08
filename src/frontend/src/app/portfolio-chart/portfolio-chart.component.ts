@@ -60,7 +60,6 @@ export class PortfolioChartComponent implements OnInit {
   public marker!: Object;
 
 
-
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -85,7 +84,15 @@ export class PortfolioChartComponent implements OnInit {
     this.theme = 'MaterialDark';
     this.fill = '#b4256c';
 
-    this.tooltip = { enable: true };
+    this.tooltip = { 
+      enable: true,
+      format: '${series.name} Value : $${point.y}',
+      // fill: '#7bb4eb',
+      border: {
+         width: 2,
+         color: 'grey'
+      }
+    };
     this.marker = {
       visible: true,
       height: 2,

@@ -23,40 +23,12 @@ export class PredictionChartComponent implements OnInit {
   fill!: string;
   tooltip!: Object;
   marker!: Object;
+  predMarker!: Object;
+  legendSettings!: Object;
+  primaryXAxis!: Object;
+  primaryYAxis!: Object;
 
-  public primaryXAxis: Object = {
-    valueType: 'DateTime',
-    intervalType: 'Days',
-    interval: 3,
-    majorTickLines: {
-      color: '#FFFFFF',
-      width: 5
-    },
-    minorTickLines: {
-      color: '#FFFFFF',
-      width: 0
-    }
-  };
-
-  public primaryYAxis: Object = {
-    labelFormat: '${value}',
-    rangePadding: 'Auto',
-    lineStyle: { width: 0 },
-    color: '#FFFFFF',
-    majorTickLines: {
-      color: '#FFFFFF',
-      width: 0
-    },
-    minorTickLines: {
-      color: '#FFFFFF',
-      width: 0
-    },
-    axisLine: {
-      color: '#FF0000',
-    }
-  };
-  
-  constructor(private dataService: DataService) { 
+  constructor(private dataService: DataService) {
     console.log('PredictionChartComponent.constructor()');
   }
 
@@ -80,17 +52,47 @@ export class PredictionChartComponent implements OnInit {
     this.theme = 'MaterialDark';
     this.fill = '#b4256c';
 
-    this.tooltip = { enable: true };
+    this.tooltip = {
+      enable: true,
+      format: '${series.name}: ${point.y}',
+      // fill: '#7bb4eb',
+      border: {
+        width: 2,
+        color: 'grey'
+      }
+    };
     this.marker = {
       visible: true,
       height: 2,
       width: 2
     };
+    this.predMarker = {
+      visible: true,
+      height: 10,
+      width: 10
+    };
+
+    this.legendSettings = {
+      visible: true,
+      //Legend position as top
+      position: 'Top'
+    };
+
+    this.primaryXAxis = {
+      valueType: 'DateTime',
+      intervalType: 'Days',
+      // opposedPosition: true
+    };
+    this.primaryYAxis = {
+      rangePadding: 'Auto',
+      labelFormat: '${value}',
+      // opposedPosition: true // Doesn't work
+    };
   }
 
   newPrediction() {
     this.dataService.loadPredictionData(this.symbol);
-    this.title = "Prediction for " + this.symbol;
+    this.title = "Prediction for " + this.symbol.toUpperCase();
   }
 
   convert_unix_to_date(data: any) {
