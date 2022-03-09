@@ -202,3 +202,35 @@ def get_news():
     except Exception as e:
         print(e)
         return make_response(jsonify(error=str(e), statusCode=400))
+
+#new function that will query the database for all the stocks, will grab day change, symbol, name, 
+@data_bp.route("/get_daily_data", methods=['GET'])
+def get_daily_data():
+    try:
+        stocks = Stock.query.all()
+        data = {}
+        for stock in stocks:
+            ticker = yf.Ticker(stock.symbol)
+            stats = ticker.stats()
+            data[stock.symbol] = {'daily_change': stats['price']['regularMarketChangePercent'], 'logo_url': stock.logo_url}
+
+        items = sorted(data.items(), reverse=True, key=sort_daily)
+        
+        new_items = []
+        for item in items:
+            new_items.append({'symbol': item[0], 'chg': item[1]['daily_change'], 'logo_url': item[1]['logo_url']})
+
+        winners = new_items[0:5]
+        losers = new_items[-5:]
+        
+        losers = sorted(losers, key=lambda loser: loser['chg'])
+
+        return jsonify(winners=winners, losers=losers)
+    except Exception as e:
+        print(e)
+        return make_response(jsonify(error=str(e), statusCode=400))
+
+def sort_daily(e):
+    key, d = e
+    return d['daily_change']
+
