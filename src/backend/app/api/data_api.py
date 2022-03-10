@@ -214,7 +214,7 @@ def get_daily_data():
             stats = ticker.stats()
             data[stock.symbol] = {'daily_change': stats['price']['regularMarketChangePercent'], 'logo_url': stock.logo_url}
 
-        items = sorted(data.items(), reverse=True, key=sort_daily)
+        items = sorted(data.items(), reverse=True, key=lambda tup: (tup[1]["daily_change"]))
         
         new_items = []
         for item in items:
@@ -229,8 +229,4 @@ def get_daily_data():
     except Exception as e:
         print(e)
         return make_response(jsonify(error=str(e), statusCode=400))
-
-def sort_daily(e):
-    key, d = e
-    return d['daily_change']
 
