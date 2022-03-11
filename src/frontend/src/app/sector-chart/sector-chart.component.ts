@@ -20,13 +20,19 @@ export class SectorChartComponent implements OnInit {
     colorMapping: [
       {
         from: 100, // theres gotta be a better way to do this, its hardcoded for specific ranges/colors
-        to:  10000,
+        to: 10000,
         minOpacity: 0.1,
         maxOpacity: 1,
-        color: 'pink'
-    },
-    ]
+        color: '#b4256c'
+      }],
+    textColor: "black",
   };
+
+  public tooltipSettings: object = {
+    visible: true,
+  };
+
+  background: string = 'none';
 
 
   constructor(private dataService: DataService) { }
