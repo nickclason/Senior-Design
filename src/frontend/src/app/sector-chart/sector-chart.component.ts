@@ -25,14 +25,18 @@ export class SectorChartComponent implements OnInit {
         maxOpacity: 1,
         color: '#b4256c'
       }],
-    textColor: "black",
+    labelStyle: {
+      color: 'black', //  text color
+    }
+
   };
 
   public tooltipSettings: object = {
     visible: true,
   };
 
-  background: string = 'none';
+  background: string = 'white';
+  margin: Object = { left: 0, right: 0, top: 0, bottom: 0 };
 
 
   constructor(private dataService: DataService) { }
