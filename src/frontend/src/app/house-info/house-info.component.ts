@@ -27,7 +27,7 @@ export class HouseInfoComponent implements OnInit {
       }
 
       this.transactions = resp;
-      console.log(this.transactions);
+      // console.log(this.transactions);
 
     });
   }

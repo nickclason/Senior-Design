@@ -14,7 +14,7 @@ export class MarketNewsComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<any>('http://localhost:5000/data/get_news').subscribe(data => {
       this.news = data['data'];
-      console.log(this.news);
+      // console.log(this.news);
     });
   }
 

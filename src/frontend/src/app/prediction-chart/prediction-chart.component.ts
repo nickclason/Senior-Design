@@ -29,11 +29,11 @@ export class PredictionChartComponent implements OnInit {
   primaryYAxis!: Object;
 
   constructor(private dataService: DataService) {
-    console.log('PredictionChartComponent.constructor()');
+    // console.log('PredictionChartComponent.constructor()');
   }
 
   ngOnInit(): void {
-    console.log('PredictionChartComponent.ngOnInit()');
+    // console.log('PredictionChartComponent.ngOnInit()');
     this.dataService.predictionData$.subscribe(data => this.predictionData = this.convert_unix_to_date(data));
 
     this.title = 'Prediction';

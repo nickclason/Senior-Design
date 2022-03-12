@@ -33,7 +33,7 @@ export class SenateInfoComponent implements OnInit {
 
   displayInfo(symbol: string) {
 
-    console.log(symbol);
+    // console.log(symbol);
     const dialogRef = this.dialog.open(StockInfoComponent,
       {
         width: "80%",
@@ -43,7 +43,7 @@ export class SenateInfoComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The stock dialog was closed');
+      // console.log('The stock dialog was closed');
     });
   }
 

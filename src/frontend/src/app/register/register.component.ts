@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
   onRegister() {
     this.auth.registerUser(this.registerForm.get('firstName')!.value, this.registerForm.get('lastName')!.value, this.email, this.password).subscribe(
       () => {
-        console.log("User registered successfully!");
+        // console.log("User registered successfully!");
         this.registerForm.reset();
         this.dialogRef.close();
       },

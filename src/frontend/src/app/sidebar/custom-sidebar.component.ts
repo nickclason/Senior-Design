@@ -73,21 +73,21 @@ export class CustomSidebarComponent implements OnInit {
     const dialogRef = this.dialog.open(LoginComponent, {});
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The login dialog was closed');
+      // console.log('The login dialog was closed');
     });
   }
 
   openRegister() {
     const dialogRef = this.dialog.open(RegisterComponent, {});
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The register dialog was closed');
+      // console.log('The register dialog was closed');
     });
   }
 
   onLogout() {
     this.auth.deauthenticate().subscribe(
       () => {
-        console.log("logging out");
+        // console.log("logging out");
         this.dataService.clearAll();
       },
       (error) => {
@@ -97,14 +97,14 @@ export class CustomSidebarComponent implements OnInit {
   }
 
   onHome() {
-    console.log("home");
+    // console.log("home");
     this.displayDashboard = false;
     this.displayHome = true;
 
   }
 
   onDashboard() {
-    console.log('dashboard');
+    // console.log('dashboard');
     this.displayDashboard = true;
     this.displayHome = false;
   }

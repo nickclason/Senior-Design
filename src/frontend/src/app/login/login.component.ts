@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
 
     this.auth.authenticate(email, password).subscribe(
       () => {
-        console.log(`logging in: ${email}`);
-        console.log(localStorage.getItem('accessToken'))
+        // console.log(`logging in: ${email}`);
+        // console.log(localStorage.getItem('accessToken'))
         this.loggedIn = true;
         this.profileForm.reset();
         this.dataService.loadAll();

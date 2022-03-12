@@ -195,7 +195,7 @@ export class DataService {
       data => {
         this.dataStore.predictionData = data;
         this._predictionData.next(Object.assign({}, this.dataStore).predictionData);
-        console.log(data)
+        // console.log(data)
       },
       error => console.log('Could not load prediction.')
     );

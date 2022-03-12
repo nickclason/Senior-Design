@@ -56,7 +56,7 @@ export class WatchlistComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The stock dialog was closed');
+      // console.log('The stock dialog was closed');
     });
 
   }
