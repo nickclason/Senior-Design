@@ -82,7 +82,7 @@ export class StockInfoComponent implements OnInit {
 
     ngOnInit(): void {
         this.theme = 'MaterialDark';
-        
+
         this.border = {
             color: '#424242',
             width: 0
@@ -105,25 +105,28 @@ export class StockInfoComponent implements OnInit {
             }
         );
 
-        this.http.get<any>('http://localhost:5000/data/get?symbol=' + this.stock.toUpperCase()).subscribe(
-            data => {
-                this.info = data["stats"];
-                this.name = data["name"];
-                this.logo_url = data["logo_url"];
-                this.sector = this.info["summaryProfile"]["sector"];
-                this.mkt_cap = this.info["price"]["marketCap"];
-                this.yearChange = this.info["defaultKeyStatistics"]["52WeekChange"];
-                this.heldPctInsider = this.info["defaultKeyStatistics"]["heldPercentInsiders"]; // An insider is a director, senior officer, or any person or entity of a company that beneficially owns more than 10% of a company's voting share
-                this.heldPctInst = this.info["defaultKeyStatistics"]["heldPercentInstitutions"];
-                this.shortRatio = this.info["defaultKeyStatistics"]["shortRatio"]; // How many days it would take for all shares short to be covered. how bearish wall street is on the stock
-                this.price = this.info["financialData"]["currentPrice"];
-                this.volume = this.info["summaryDetail"]["volume"];
-                this.avg_volume = this.info["summaryDetail"]["averageVolume"];
-                this.dayChange = this.info["price"]["regularMarketChangePercent"]; // i think this is right
-                this.news = data["news"];
-            }
+        this.http.get<any>('http://localhost:5000/data/add_to_db?ticker=' + this.stock.toUpperCase()).subscribe();
 
-        );
+        setTimeout(() => {
+            this.http.get<any>('http://localhost:5000/data/get?symbol=' + this.stock.toUpperCase()).subscribe(
+                data => {
+                    this.info = data["stats"];
+                    this.name = data["name"];
+                    this.logo_url = data["logo_url"];
+                    this.sector = this.info["summaryProfile"]["sector"];
+                    this.mkt_cap = this.info["price"]["marketCap"];
+                    this.yearChange = this.info["defaultKeyStatistics"]["52WeekChange"];
+                    this.heldPctInsider = this.info["defaultKeyStatistics"]["heldPercentInsiders"]; // An insider is a director, senior officer, or any person or entity of a company that beneficially owns more than 10% of a company's voting share
+                    this.heldPctInst = this.info["defaultKeyStatistics"]["heldPercentInstitutions"];
+                    this.shortRatio = this.info["defaultKeyStatistics"]["shortRatio"]; // How many days it would take for all shares short to be covered. how bearish wall street is on the stock
+                    this.price = this.info["financialData"]["currentPrice"];
+                    this.volume = this.info["summaryDetail"]["volume"];
+                    this.avg_volume = this.info["summaryDetail"]["averageVolume"];
+                    this.dayChange = this.info["price"]["regularMarketChangePercent"]; // i think this is right
+                    this.news = data["news"];
+                });
+        }, 10);
+
 
     }
 

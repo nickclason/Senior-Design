@@ -60,6 +60,22 @@
                 </ng-template>
             </e-panel>
 
+            <e-panel [sizeX]="2" [sizeY]="1" [row]="4" [col]="0">
+                <ng-template #content>
+                    <div class="widget-container">
+                        <app-house-info class="gov-info"></app-house-info>
+                    </div>
+                </ng-template>
+            </e-panel>
+
+            <e-panel [sizeX]="2" [sizeY]="1" [row]="4" [col]="2">
+                <ng-template #content>
+                    <div class="widget-container">
+                        <app-senate-info class="gov-info"></app-senate-info>
+                    </div>
+                </ng-template>
+            </e-panel>
+
         </e-panels>
 
     </ejs-dashboardlayout>

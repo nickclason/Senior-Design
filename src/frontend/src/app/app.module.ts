@@ -53,6 +53,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { StockInfoComponent } from './stock-info/stock-info.component';
 import { MarketNewsComponent } from './market-news/market-news.component';
+import { HouseInfoComponent } from './house-info/house-info.component';
+import { SenateInfoComponent } from './senate-info/senate-info.component';
 
 
 // End User Defined Imports
@@ -73,7 +75,9 @@ import { MarketNewsComponent } from './market-news/market-news.component';
     PredictionChartComponent,
     HomeComponent,
     StockInfoComponent,
-    MarketNewsComponent
+    MarketNewsComponent,
+    HouseInfoComponent,
+    SenateInfoComponent
   ],
   imports: [
     AppRoutingModule,

@@ -207,46 +207,82 @@ $onyx: #424242;
                 color: white;
                 background-color: $onyx;
 
-    
                 .info-container {
                     display: flex;
                     flex-direction: column;
                     flex-grow: 1;
                     overflow: auto;
-                    
+
                     padding-left: 25px;
                     padding-right: 25px;
                     padding-bottom: 25px;
-                    
-                    .header-container
-                    {
+
+                    .header-container {
                         display: flex;
                         margin: auto;
-                        
+
                         h2 {
                             text-align: center;
                         }
                     }
-                    
+
                     .content-container {
                         display: flex;
                         flex-direction: row;
                         // flex-grow: 1;
-    
+
                         .content {
                             display: flex;
                             flex-direction: column;
                             flex-grow: 1;
                             font-size: larger;
-                            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    
+                            font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial,
+                                sans-serif;
+
                             a {
                                 color: white;
                             }
-    
                         }
                     }
-                    
+                }
+            }
+
+            .gov-info {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow: auto;
+                border-radius: 25px;
+
+                button {
+                    width: 100%;
+                    height: 100%;
+                    outline: none;
+                    border: none;
+                    padding: 5px;
+                    background-color: $custom-pink;
+                    color: white;
+                    border-radius: 25px;
+                    justify-content: center;
+
+                    &:hover {
+                        background-color: $custom-bright-pink;
+                    }
+                }
+
+                .stock-btn {
+                    width: 100%;
+                    height: 100%;
+                    font-size: 14px;
+                    background-color: $onyx;
+                    border: none;
+                    padding: 0 !important;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: $custom-bright-pink;
+                    }
                 }
             }
         }
