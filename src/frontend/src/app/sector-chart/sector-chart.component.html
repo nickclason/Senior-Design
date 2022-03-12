@@ -1,4 +1,12 @@
-<div class="chart-container">
-    <ejs-treemap class="custom-chart" [dataSource]='data' weightValuePath='value' rangeColorValuePath='value'
-        [leafItemSettings]='leafItemSettings' [tooltipSettings]="tooltipSettings" [background]="background" [margin]="margin"></ejs-treemap>
+
+<div class="container">
+    <div class="widget-header">
+        <h2>Portfolio Allocation by Sector</h2>
+    </div>
+    
+    <div class="chart-container">
+        <ejs-treemap class="custom-chart" [dataSource]='data' weightValuePath='value' rangeColorValuePath='value'
+            [leafItemSettings]='leafItemSettings' [tooltipSettings]="tooltipSettings" [background]="background"
+            [margin]="margin"></ejs-treemap>
+    </div>
 </div>

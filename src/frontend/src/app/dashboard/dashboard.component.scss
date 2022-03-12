@@ -8,6 +8,7 @@ $onyx: #424242;
     width: 100%;
     height: 100%;
     padding: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
     .e-dashboardlayout.e-control .e-panel {
         background-color: $custom-pink;
@@ -19,7 +20,8 @@ $onyx: #424242;
         display: flex;
         flex-direction: column;
         padding: 10px;
-
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        
         .widget-container {
             width: 100%;
             height: 100%;
@@ -34,6 +36,36 @@ $onyx: #424242;
                 flex-direction: column;
                 overflow: auto;
                 border-radius: 25px;
+                background-color: $onyx;
+
+                .container {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    .header-container {
+                        width: 100%;
+                        height: 10%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 25px;
+                        background-color: $onyx;
+                        color: white;
+                    }
+
+                    .table-container {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        overflow: auto;
+                        border-radius: 25px;
+                    }
+                }
             }
 
             // Transaction Widget
@@ -47,35 +79,51 @@ $onyx: #424242;
                 color: white;
                 background-color: $onyx;
 
-                .form-container {
+                .container {
+                    width: 100%;
+                    height: 100%;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
-                    align-items: center;
-                    flex-grow: 3;
+                    gap: 10px;
 
-                    form {
+                    .header-container {
                         width: 100%;
-                        height: 100%;
+                        height: 10%;
                         display: flex;
                         flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 25px;
+                        background-color: $onyx;
+                        color: white;
+                        flex-grow: 1;
+                    }
+
+                    .form-container {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-grow: 3;
+    
+                        form {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                        }
+                    }
+    
+                    .button-container {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-grow: 1;
                     }
                 }
 
-                .button-container {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    align-items: center;
-                    flex-grow: 1;
-
-                    button {
-                        width: 50%;
-                        padding: 15px;
-                        margin-top: 20px;
-                        margin-right: 1em;
-                    }
-                }
+                
             }
 
             // Watchlist Widget
@@ -88,82 +136,105 @@ $onyx: #424242;
                 border-radius: 25px;
                 gap: 2%;
 
-                .table-container {
+                .container {
                     width: 100%;
                     height: 100%;
                     display: flex;
                     flex-direction: column;
-                    overflow: auto;
-                    border-radius: 25px;
+                    gap: 10px;
+                    background-color: $onyx; // doing this makes it "appear" to all be one thing, idk but this is just a UI decision
 
-                    button {
+                    .header-container {
                         width: 100%;
-                        height: 100%;
-                        outline: none;
-                        border: none;
-                        padding: 5px;
-                        background-color: $custom-pink;
-                        color: white;
-                        border-radius: 25px;
+                        height: 10%;
+                        display: flex;
+                        flex-direction: column;
                         justify-content: center;
-
-                        &:hover {
-                            background-color: $custom-bright-pink;
-                        }
+                        align-items: center;
+                        border-radius: 15px;
+                        background-color: $onyx;
+                        color: white;
                     }
 
-                    .remove-btn {
-                        background: none;
-                        font-size: 14px;
-
-                        &:hover {
-                            background-color: $custom-bright-pink;
-                        }
-
-                        .remove::before {
-                            content: "\e7e9";
-                        }
-
-                        span.e-icons {
-                            color: #c0c2c5;
-                            line-height: 2;
-                        }
-                    }
-
-                    .stock-btn {
+                    .table-container {
                         width: 100%;
                         height: 100%;
-                        font-size: 14px;
+                        display: flex;
+                        flex-direction: column;
+                        overflow: auto;
+                        border-radius: 25px;
+    
+                        button {
+                            width: 100%;
+                            height: 100%;
+                            outline: none;
+                            border: none;
+                            padding: 5px;
+                            background-color: $custom-pink;
+                            color: white;
+                            border-radius: 25px;
+                            justify-content: center;
+    
+                            &:hover {
+                                background-color: $custom-bright-pink;
+                            }
+                        }
+    
+                        .remove-btn {
+                            background: none;
+                            font-size: 14px;
+    
+                            &:hover {
+                                background-color: $custom-bright-pink;
+                            }
+    
+                            .remove::before {
+                                content: "\e7e9";
+                            }
+    
+                            span.e-icons {
+                                color: #c0c2c5;
+                                line-height: 2;
+                            }
+                        }
+    
+                        .stock-btn {
+                            width: 100%;
+                            height: 100%;
+                            font-size: 14px;
+                            background-color: $onyx;
+                            border: none;
+                            padding: 0 !important;
+                            cursor: pointer;
+    
+                            &:hover {
+                                background-color: $custom-bright-pink;
+                            }
+                        }
+                    }
+    
+                    .submit-form-container {
+                        width: 100%;
+                        border-radius: 25px;
+                        display: flex;
+                        flex-direction: row;
+                        color: white;
                         background-color: $onyx;
-                        border: none;
-                        padding: 0 !important;
-                        cursor: pointer;
-
-                        &:hover {
-                            background-color: $custom-bright-pink;
+    
+                        .custom-form {
+                            flex-grow: 2;
+                            margin: auto;
+                        }
+    
+                        .custom-button {
+                            flex-grow: 1;
+                            margin: auto;
+                            font-size: 14px;
                         }
                     }
                 }
 
-                .submit-form-container {
-                    width: 100%;
-                    border-radius: 25px;
-                    display: flex;
-                    flex-direction: row;
-                    color: white;
-                    background-color: $onyx;
-
-                    .custom-form {
-                        flex-grow: 2;
-                        margin: auto;
-                    }
-
-                    .custom-button {
-                        flex-grow: 1;
-                        margin: auto;
-                        font-size: 14px;
-                    }
-                }
+                
             }
 
             // Chart Widgets
@@ -176,23 +247,43 @@ $onyx: #424242;
                 background-color: $onyx;
                 border-radius: 25px;
 
-                .chart-container {
+                .container {
+                    width: 100%;
+                    height: 100%;
                     display: flex;
                     flex-direction: column;
-                    flex-grow: 1;
+                    gap: 10px;
 
-                    color: white;
-                    // border: 1px solid white;
-
-                    .custom-chart {
+                    .widget-header {
+                        width: 100%;
+                        height: 10%;
                         display: flex;
                         flex-direction: column;
-                        width: 90%;
-                        height: 90%;
-                        margin: auto;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 25px;
+                        background-color: $onyx;
                         color: white;
+                    }
 
+                    .chart-container {
+                        display: flex;
+                        flex-direction: column;
+                        flex-grow: 1;
+    
+                        color: white;
                         // border: 1px solid white;
+    
+                        .custom-chart {
+                            display: flex;
+                            flex-direction: column;
+                            width: 90%;
+                            height: 90%;
+                            margin: auto;
+                            color: white;
+    
+                            // border: 1px solid white;
+                        }
                     }
                 }
             }
@@ -252,8 +343,38 @@ $onyx: #424242;
                 height: 100%;
                 display: flex;
                 flex-direction: column;
-                overflow: auto;
                 border-radius: 25px;
+                background-color: $onyx;
+
+                .gov-container {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    .widget-title {
+                        width: 100%;
+                        height: 10%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 25px;
+                        background-color: $onyx;
+                        color: white;
+                    }
+
+                    .table-container {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        overflow: auto;
+                        border-radius: 25px;
+                    }
+                }
+                
 
                 button {
                     width: 100%;

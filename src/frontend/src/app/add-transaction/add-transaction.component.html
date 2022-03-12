@@ -1,28 +1,35 @@
-<div class="form-container">
-  <form [formGroup]="transactionForm">
-    <mat-form-field [floatLabel]="'never'">
-      <input matInput placeholder="Enter stock" formControlName="symbol">
-    </mat-form-field>
+<div class="container">
+  <div class="header-container">
+    <h2>Add to Portfolio</h2>
+  </div>
 
-    <mat-form-field [floatLabel]="'never'">
-      <input matInput placeholder="Enter quantity" formControlName="quantity" type="number" min="0">
-    </mat-form-field>
-
-    <mat-form-field [floatLabel]="'never'">
-      <mat-select placeholder="Buy/Sell" matInput formControlName="buy">
-        <mat-option value=1>Buy</mat-option>
-        <mat-option value=0>Sell</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field [floatLabel]="'never'">
-      <input matInput [matDatepicker]="picker" placeholder="Select date" formControlName="date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </form>
-</div>
-
-<div class="button-container">
-  <button mat-raised-button class="custom-button" color="primary" (click)="clickEvent()">Add Transaction</button>
+  <div class="form-container">
+    <form [formGroup]="transactionForm">
+      <mat-form-field [floatLabel]="'never'">
+        <input matInput placeholder="Enter stock" formControlName="symbol">
+      </mat-form-field>
+  
+      <mat-form-field [floatLabel]="'never'">
+        <input matInput placeholder="Enter quantity" formControlName="quantity" type="number" min="0">
+      </mat-form-field>
+  
+      <mat-form-field [floatLabel]="'never'">
+        <mat-select placeholder="Buy/Sell" matInput formControlName="buy">
+          <mat-option value=1>Buy</mat-option>
+          <mat-option value=0>Sell</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field [floatLabel]="'never'">
+        <input matInput [matDatepicker]="picker" placeholder="Select date" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
+  </div>
+  
+  <div class="button-container">
+    <button mat-raised-button class="custom-button" color="primary" (click)="clickEvent()">Add Transaction</button>
+  </div>
+  
 </div>

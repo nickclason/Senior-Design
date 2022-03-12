@@ -1,30 +1,40 @@
-<table mat-table [dataSource]="holdings" class="mat-elevation-z8">
+<div class="container">
+  <div class="header-container">
+    <h2>Portfolio Holdings</h2>
+  </div>
 
-  <ng-container matColumnDef="current_value">
-    <th mat-header-cell *matHeaderCellDef> Current Value</th>
-    <td mat-cell *matCellDef="let element"> {{element.current_value}} </td>
-  </ng-container>
+  <div class="table-container">
+    <table mat-table [dataSource]="holdings" class="mat-elevation-z8">
+      <ng-container matColumnDef="current_value">
+        <th mat-header-cell *matHeaderCellDef> Current Value</th>
+        <td mat-cell *matCellDef="let element"> {{element.current_value}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Stock </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="logo_url">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> <img class="ticker-pic" [src]="element.logo_url" /> </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="total_value">
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td mat-cell *matCellDef="let element"> {{element.total_value}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
 
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Stock </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
 
-  <ng-container matColumnDef="logo_url">
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let element"> <img class="ticker-pic" [src]="element.logo_url" /> </td>
-  </ng-container>
 
-  <ng-container matColumnDef="quantity">
-    <th mat-header-cell *matHeaderCellDef>Quantity</th>
-    <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="total_value">
-    <th mat-header-cell *matHeaderCellDef>Value</th>
-    <td mat-cell *matCellDef="let element"> {{element.total_value}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
