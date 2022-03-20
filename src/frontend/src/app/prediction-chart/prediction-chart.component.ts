@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { DataService, PredictionData } from '../services/data.service';
-
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ILoadedEventArgs, ChartTheme } from '@syncfusion/ej2-angular-charts';
 
 @Component({
@@ -12,8 +12,12 @@ import { ILoadedEventArgs, ChartTheme } from '@syncfusion/ej2-angular-charts';
 })
 export class PredictionChartComponent implements OnInit {
 
+  predictionForm = new FormGroup({
+    symbol: new FormControl('', Validators.required)
+  });
+
   predictionData: PredictionData[] = [];
-  symbol: string = '';
+  // symbol: string = '';
 
   title!: String;
   titleStyle!: Object;
@@ -91,8 +95,9 @@ export class PredictionChartComponent implements OnInit {
   }
 
   newPrediction() {
-    this.dataService.loadPredictionData(this.symbol);
-    this.title = "Prediction for " + this.symbol.toUpperCase();
+    const symbol = this.predictionForm.get('symbol')!.value.toUpperCase();
+    this.dataService.loadPredictionData(symbol);
+    this.title = "Prediction for " + symbol;
   }
 
   convert_unix_to_date(data: any) {

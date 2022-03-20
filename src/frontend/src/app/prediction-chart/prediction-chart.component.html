@@ -20,10 +20,16 @@
             </e-stockchart-series-collection>
     
         </ejs-stockchart>
-    
-        <div>
-            <input type="symbol" [(ngModel)]="symbol">
-            <button (click)="newPrediction()">Get Price Prediction</button>
+
+        <div class="submit-form-container">
+            <form class="custom-form" [formGroup]="predictionForm">
+                <mat-form-field [floatLabel]="'never'">
+                    <input matInput placeholder="Enter stock" formControlName="symbol">
+                </mat-form-field>
+            </form>
+            <button class="custom-button" (click)="newPrediction()">Get Price Prediction</button>
         </div>
+
+
     </div>
 </div>

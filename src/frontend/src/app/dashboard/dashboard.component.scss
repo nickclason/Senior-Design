@@ -214,7 +214,7 @@ $onyx: #424242;
                     }
     
                     .submit-form-container {
-                        width: 100%;
+                        width: 95%;
                         border-radius: 25px;
                         display: flex;
                         flex-direction: row;
@@ -283,6 +283,26 @@ $onyx: #424242;
                             color: white;
     
                             // border: 1px solid white;
+                        }
+
+                        .submit-form-container {
+                            width: 95%;
+                            border-radius: 25px;
+                            display: flex;
+                            flex-direction: row;
+                            color: white;
+                            // background-color: $onyx;
+        
+                            .custom-form {
+                                flex-grow: 2;
+                                margin: auto;
+                            }
+        
+                            .custom-button {
+                                flex-grow: 1;
+                                margin: auto;
+                                font-size: 14px;
+                            }
                         }
                     }
                 }
