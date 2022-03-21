@@ -1,12 +1,45 @@
 
 <div *ngIf="!hasTransactions" class="no-transactions">
-    <h2>No Senate Transactions Reported for this Date</h2>
+    <div class="content">
+        <h2>No Senate Transactions Reported for this Date</h2>
+        <h3>Please choose another date</h3>
+    </div>
+
+    <div class="form-container">
+        <form [formGroup]="dateForm">
+            <mat-form-field [floatLabel]="'never'">
+                <input matInput [matDatepicker]="picker" placeholder="Select date" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </form>
+        <div class="button-container">
+            <button class="custom-button" (click)="selectDate()">Go</button>
+        </div>
+    </div>
 </div>
 
 
-<div class="gov-container">
+<div *ngIf="hasTransactions" class="gov-container">
     <div class="widget-title">
-        <h2>Senate Transactions</h2>
+        <div class="header">
+            <div class="title">
+                <h2>Senate Transactions</h2>
+            </div>
+
+            <div class="date-form-container">
+                <form [formGroup]="dateForm">
+                    <mat-form-field [floatLabel]="'never'">
+                        <input matInput [matDatepicker]="picker" placeholder="Select date" formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </form>
+                <div class="button-container">
+                    <button class="custom-button" (click)="selectDate()">Go</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="table-container">
