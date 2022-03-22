@@ -18,6 +18,8 @@ export class AddTransactionComponent implements OnInit {
     date: new FormControl(new Date(), Validators.required),
   });
 
+  todayDate:Date = new Date();
+  
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -46,7 +48,7 @@ export class AddTransactionComponent implements OnInit {
     this.transactionForm.reset();
 
     setTimeout(() => this.dataService.loadHoldings(), 1000) // wait 1 second so the POST has time to be updated in the backend
-    setTimeout(() => this.dataService.loadPortfolioChartData(), 1000)
+    setTimeout(() => this.dataService.loadPortfolioChartData("1y"), 1000)
     setTimeout(() => this.dataService.loadSectorChartData(), 1000)
   }
 }

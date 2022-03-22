@@ -63,7 +63,7 @@ export interface PredictionData {
 
 
 const HOLDINGS_API = environment.apiServer + '/portfolio/get_holdings';
-const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?start_date=2022-01-01&end_date=2022-03-06&interval=1d';
+const PORTFOLIO_CHART_API = environment.apiServer + '/portfolio/timeseries?period=';
 const CREATE_TRANSACTION_API = environment.apiServer + '/portfolio/create_transaction';
 const GET_WATCHLIST_API = environment.apiServer + '/watchlist/get';
 const ADD_WATCHLIST_API = environment.apiServer + '/watchlist/add';
@@ -151,12 +151,15 @@ export class DataService {
     return this._portfolioChartData.asObservable();
   }
 
-  loadPortfolioChartData() {
+  loadPortfolioChartData(period: string) {
     const opts = { headers: new HttpHeaders({'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')}) };
+    var url = PORTFOLIO_CHART_API + period;
 
-    this.http.get<TimePoint[]>(PORTFOLIO_CHART_API, opts).subscribe(
+    console.log(url)
+    this.http.get<TimePoint[]>(url, opts).subscribe(
       data => {
         this.dataStore.portfolioChartData = data;
+        console.log(data)
         this._portfolioChartData.next(Object.assign({}, this.dataStore).portfolioChartData);
       },
       error => console.log('Could not load portfolio chart data.')
@@ -216,15 +219,7 @@ export class DataService {
   loadAll() {
     this.loadWatchlist();
     this.loadHoldings();
-    this.loadPortfolioChartData();
+    this.loadPortfolioChartData('1y');
     this.loadSectorChartData();
   }
-
-
-  // getStockHistory(symbol: string): Observable<any> {
-    
-  //   this.http.get<any[]>(STOCK_HISTORY_API+symbol.toUpperCase()+'&period=max').subscribe(
-  //     // data => { console.log(data); }
-  //   );
-  // }
 }

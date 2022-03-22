@@ -13,6 +13,7 @@ from app.models.transaction import Transaction
 import yfinance as yf
 
 import datetime
+from datetime import timedelta
 # from time import sleep
 
 # '''
@@ -88,9 +89,26 @@ def get_holdings():
 def timeseries():
     if request.method == 'GET':
         try:
-            start_date = request.args.get('start_date')
-            end_date = request.args.get('end_date')
-            interval = request.args.get('interval')
+            # period = request.args.get('period').lower()
+            end_date = datetime.datetime.today().strftime('%Y-%m-%d')
+            # if period == '1w':
+            #    days = timedelta(days=7)
+            # elif period == '1mo':
+            #     days = timedelta(days=30)
+            # elif period == '6mo':
+            #     days = timedelta(days=30*6)
+            # elif period == '1y':
+            #     days = timedelta(days=365)
+            # elif period == '5y':
+            #     days = timedelta(days=365*5)
+            # elif period == 'max': # just doing 10 yrs for now idc anymore
+            #     days = timedelta(days=365*10)
+            # else: # 1yr by default
+            #     days = timedelta(days=365)
+            
+            start_date = datetime.datetime.strptime(end_date, '%Y-%m-%d') - timedelta(days=90)
+            start_date = start_date.strftime('%Y-%m-%d')
+            # print(start_date, end_date)
 
             user = get_authenticated_user() # Get the user
             portfolio = user.portfolio # Get the user's portfolio]

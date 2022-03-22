@@ -18,7 +18,8 @@ export class HouseInfoComponent implements OnInit {
   dateForm = new FormGroup({
     date: new FormControl(new Date(), Validators.required)
   });
-
+  todayDate:Date = new Date();
+  
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {

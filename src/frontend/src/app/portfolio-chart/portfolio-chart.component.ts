@@ -15,8 +15,6 @@ export class PortfolioChartComponent implements OnInit {
 
   stockChartData: TimePoint[] = [];
 
-  public title!: String;
-  public titleStyle!: Object;
   public chartArea!: Object;
   public background!: string;
   public border!: Object;
@@ -64,18 +62,8 @@ export class PortfolioChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.portfolioChartData$.subscribe(data => this.stockChartData = this.convert_unix_to_date(data));
-    this.dataService.loadPortfolioChartData()
+    this.dataService.loadPortfolioChartData('1y')
 
-    this.title = 'Portfolio Value';
-    this.titleStyle = {
-      fontFamily: "Trebuchet MS",
-      fontWeight: 'regular',
-      color: "#FFFFFF",
-      size: '16pt'
-    };
-    // this.chartArea = {
-    //   background: '#424242'
-    // };
     this.background = '#424242';
     this.border = {
       color: '#424242',
@@ -107,5 +95,11 @@ export class PortfolioChartComponent implements OnInit {
       new_data[i]['y'] = data[i]['close'];
     }
     return new_data;
+  }
+
+  changePeriod(period: string) {
+    // this.dataService.changePortfolioChartPeriod(period);
+    this.dataService.loadPortfolioChartData(period);
+    console.log(period)
   }
 }

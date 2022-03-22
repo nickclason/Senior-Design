@@ -14,7 +14,8 @@ export class SenateInfoComponent implements OnInit {
   hasTransactions: boolean = true;
   transactions: any;
   displayedColumns: string[] = ['senator', 'ticker', 'asset_type', 'amount', 'disclosure_date', 'transaction_date', 'transaction_type', 'owner'];
-
+  todayDate:Date = new Date();
+  
   dateForm = new FormGroup({
     date: new FormControl(new Date(), Validators.required)
   });

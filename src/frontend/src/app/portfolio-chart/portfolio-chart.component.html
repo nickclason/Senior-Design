@@ -1,7 +1,26 @@
 <div class="container">
+
+    <div class="widget-header">
+
+        <div class="header">
+            <div class="title">
+                <h2>Portfolio Value</h2>
+            </div>
+
+            <!-- <div class="button-container">
+                <button class="custom-button" (click)="changePeriod('1w')">1w</button>
+                <button class="custom-button" (click)="changePeriod('1mo')">1m</button>
+                <button class="custom-button" (click)="changePeriod('6mo')">6m</button>
+                <button class="custom-button" (click)="changePeriod('1y')">1yr</button>
+                <button class="custom-button" (click)="changePeriod('5y')">5yr</button>
+                <button class="custom-button" (click)="changePeriod('max')">Max</button>
+            </div> -->
+        </div>
+    </div>
+
     <div class="chart-container">
         <ejs-stockchart id="portfolioChart_1" class="custom-chart" [enableSelector]='false' [enableCustomRange]="false"
-            [enablePeriodSelector]="false" [title]='title' [titleStyle]="titleStyle" [chartArea]='chartArea' 
+            [enablePeriodSelector]="false" [chartArea]='chartArea' 
             [background]="background" [border]="border" [theme]="theme" [tooltip]="tooltip">
             <e-stockchart-series-collection>
                 <e-stockchart-series [dataSource]='stockChartData' type='Line' xName='x' yName='y' width=2 [fill]="fill" [marker]="marker"></e-stockchart-series>

@@ -264,6 +264,42 @@ $onyx: #424242;
                         border-radius: 25px;
                         background-color: $onyx;
                         color: white;
+
+                        .header {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-around;
+                            // margin-top: 20px;
+
+                            .title {
+                                display: flex;
+                                font-size: 14px;
+                                flex-grow: 3;
+                                justify-content: center;
+                                margin: auto;
+                            }
+
+                            // .button-container {
+                            //     width: 65%;
+                            //     display: flex;
+                            //     flex-direction: row;
+                            //     justify-content: space-between;
+                            //     align-items: center;
+                            //     flex-grow: 1;
+                            //     margin: auto;
+
+                            //     button {
+                            //         display: flex;
+                            //         justify-content: space-evenly;
+                            //         width: 10%;
+                            //         height: 100%;
+                            //     }
+                            // }
+
+
+                        }
+
                     }
 
                     .chart-container {
@@ -271,8 +307,6 @@ $onyx: #424242;
                         flex-direction: column;
                         flex-grow: 1;
     
-                        color: white;
-                        // border: 1px solid white;
     
                         .custom-chart {
                             display: flex;
