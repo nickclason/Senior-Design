@@ -12,6 +12,7 @@ p {
     color: white;
     font-family: "Courier New";
     align-items: left;
+    font-weight:bolder;
 }
 
 .paragraphSCK{
@@ -21,6 +22,7 @@ p {
 .sub1 {
     color: white;
     font-family: "Trebuchet MS";
+    font-weight:200;
 }
 
 .sub2 {
@@ -31,7 +33,7 @@ p {
 }
 
 .button-container {
-    width: 25%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -55,6 +57,10 @@ p {
     &:hover {
         background-color: $custom-bright-pink;
     }
+}
+
+.svgItem {
+    justify-content: space-between;
 }
 
 
@@ -82,9 +88,9 @@ p {
             width: 50%;
             height: 100%;
             display: flex;
-            flex-direction: column;
+            //flex-direction: column;
             flex-grow: 1;
-            padding: 30px;
+            padding: 40px;
             background-color: $onyx;
             border-radius: 25px;
             margin-top: 10px;
