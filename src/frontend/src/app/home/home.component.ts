@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { LearnMoreComponent} from '../learn-more/learn-more.component';
 
 
 @Component({
@@ -15,9 +17,11 @@ export class HomeComponent implements OnInit {
   weeklyWinners: any;
   weeklyLosers: any;
 
+  @ViewChild('learnMore') stockInfo!: LearnMoreComponent;
+
   dailyColumn: string[] = ['logo_url', 'symbol',  'daily_change'];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.http.get<any>('http://localhost:5000/data/get_daily_data').subscribe(
@@ -26,5 +30,21 @@ export class HomeComponent implements OnInit {
                 this.dailyLosers = data['losers'];
             }
         );
+  }
+
+
+
+  learnMoreClick() {
+    console.log('learn more clicked')
+    const dialogRef = this.dialog.open(LearnMoreComponent,
+      {
+        width: "80%",
+        height: "90%",
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The stock dialog was closed');
+    });
+
   }
 }

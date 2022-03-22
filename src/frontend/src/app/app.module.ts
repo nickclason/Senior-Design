@@ -55,6 +55,7 @@ import { StockInfoComponent } from './stock-info/stock-info.component';
 import { MarketNewsComponent } from './market-news/market-news.component';
 import { HouseInfoComponent } from './house-info/house-info.component';
 import { SenateInfoComponent } from './senate-info/senate-info.component';
+import { LearnMoreComponent } from './learn-more/learn-more.component';
 
 
 // End User Defined Imports
@@ -77,7 +78,8 @@ import { SenateInfoComponent } from './senate-info/senate-info.component';
     StockInfoComponent,
     MarketNewsComponent,
     HouseInfoComponent,
-    SenateInfoComponent
+    SenateInfoComponent,
+    LearnMoreComponent
   ],
   imports: [
     AppRoutingModule,
