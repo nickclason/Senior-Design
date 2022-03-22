@@ -30,6 +30,12 @@ export class HomeComponent implements OnInit {
                 this.dailyLosers = data['losers'];
             }
         );
+    this.http.get<any>('http://localhost:5000/data/get_weekly_data').subscribe(
+            data => {
+                this.weeklyWinners = data['winners'];
+                this.weeklyLosers = data['losers'];
+            }
+      );
   }
 
 

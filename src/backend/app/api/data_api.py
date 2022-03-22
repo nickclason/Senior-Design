@@ -8,7 +8,7 @@ import yfinance as yf
 from app.env import *
 from app.helper import *
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from bs4 import BeautifulSoup
 
 
@@ -229,6 +229,112 @@ def get_news():
         print(e)
         return make_response(jsonify(error=str(e), statusCode=400))
 
+def sort_change(e):
+    return e['chg']
+def sort_symbol(e):
+    return e['symbol']
+
+def get_days_of_month(month, year):
+    if (month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12):
+        return 31
+    elif (month == 4 or month == 6 or month == 9 or month == 11):
+        return 30
+    else:
+        if (year % 4 == 0):
+            return 29
+        return 28
+    #python 3.10
+    # match month:
+    #     case 1, 3, 5, 7, 8, 10, 12: 
+    #         return 31
+    #     case 4, 6, 9, 11:
+    #         return 30
+    #     case 2: 
+    #         if year % 4 == 0:
+    #             return 29
+    #         return 28
+    #python 3.9
+
+def get_previous_week():
+    today = datetime.today()
+# today_formatted = today.strftime("%Y-%m-%d")
+    if (today.weekday() > 4): #if it is a weekend
+        extra_subtract = 6 - today.weekday() #additional days depending if it is Sat/Sun
+        if (today.day < 8): #and we are earlier than the eigthth day of the month
+            if (today.month == 1): #if january
+                temp_year = today.year - 1
+                temp_month = 12
+                max_days = 31
+                temp_date = date(temp_year, temp_month, max_days - extra_subtract + (today.day - 7))
+                return temp_date
+            else:
+                temp_month = today.month - 1 #decrement the month
+                temp_day = today.day - 7 #get the number to subtract from the max days
+                max_days = get_days_of_month(today.month - 1, today.year)
+                max_days = max_days + temp_day - extra_subtract
+                temp_date = date(today.year, today.month - 1, max_days)
+                return temp_date
+        else: #if it is past the eigthth of the month and it is a weekend
+            temp_day = today.day - 7 - extra_subtract
+            temp_date = date(today.year, today.month, temp_day)
+            return temp_date
+    else: #weekday
+        if (today.day < 8): #beginning of month
+            if (today.month == 1): #january
+                temp_year = today.year - 1
+                temp_month = 12
+                max_days = 31
+                temp_day = today.day - 7
+                temp_date = date(temp_year, temp_month, max_days + temp_day)
+                return temp_date
+            else:
+                max_days = get_days_of_month(today.month - 1, today.year)
+                new_day = max_days + (today.day - 7)
+                temp_date = date(today.year, today.month - 1, new_day)
+                return temp_date
+        else: #base case
+            temp_date = date(today.year, today.month, today.day - 7)
+            return temp_date
+
+@data_bp.route("/get_weekly_data", methods=['GET'])
+def get_weekly_data():
+    try:
+        print("GET - WEEKLY DATA")
+        stocks = Stock.query.all()
+        symbols = []
+ 
+        for stock in stocks:
+            symbols.append(stock.symbol)
+        week_date = get_previous_week()
+        print("Week Old Date: {}".format(week_date))
+        temp_data = yf.download(symbols, week_date.strftime("%Y-%m-%d"))['Adj Close']
+        # print(temp_data.iloc[0])
+ 
+        old_week_data = temp_data.iloc[0]
+        data_current = []
+        for stock in stocks:
+            ticker = yf.Ticker(stock.symbol)
+            stats = ticker.stats()
+            data_current.append( {'symbol': stock.symbol, 'current_price': stats['financialData']['currentPrice'], 'logo_url': stock.logo_url})
+ 
+        current_sorted = sorted(data_current, reverse=False, key=sort_symbol)
+        weekly_data = []
+        count = 0
+        for item in current_sorted:
+            # print("Current Price: {}, Week Old Price: {}".format(item['current_price'], old_week_data[count]))
+            calculation = (item['current_price'] - old_week_data[count])
+            weekly_data.append(
+                {'symbol': item['symbol'], 'chg': calculation / old_week_data[count], 'logo_url': item['logo_url']})
+            count += 1
+ 
+        sorted_items = sorted(weekly_data, reverse=True, key=sort_change)
+        winners = sorted_items[0:5]
+        losers = sorted_items[-5:]
+        losers = sorted(losers, key=lambda loser: loser['chg'])
+        return jsonify(winners=winners, losers=losers)
+    except Exception as e:
+        print(e)
+        return make_response(jsonify(error=str(e), statusCode=400))
 
 @data_bp.route("/get_daily_data", methods=['GET'])
 def get_daily_data():
