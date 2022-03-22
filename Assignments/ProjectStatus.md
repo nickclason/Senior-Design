@@ -72,9 +72,11 @@ Implemented watchlist, sector chart, predicted prices chart, created a DataServi
 ## 03/08/22 - Work on making the application look presentable
 Style all components and make them responsive.
 
-## 03/15/22 -
+## 03/15/22 - Improve Home page, overall application styling, Implement Government Info Widgets
+Work on providing the home page with content that will be useful to new users, clean up the application styling and UI to make it more presentable and more uniform, added new widgets that display both House of Representative and Senate reported transactions.
 
-## 03/22/22 - 
+## 03/22/22 - Spring Break/Improving Home page and government info widgets
+Less work done this week, but the home page has had several improvements in the data it reports, and also added the ability to select dates for the government info widgets.
 
 ## 03/29/22 -
 
