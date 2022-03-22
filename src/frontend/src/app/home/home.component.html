@@ -86,12 +86,52 @@
     <div class="content-container">
       <div class="list-container">
         <h2>Weekly Winners</h2>
+        <table mat-table [dataSource]="weeklyWinners" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Stock </th>
+            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="logo_url">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> <img class="ticker-pic" [src]="element.logo_url" /> </td>
+          </ng-container>
+
+          <ng-container matColumnDef="daily_change">
+            <th mat-header-cell *matHeaderCellDef>Weekly Change</th>
+            <td mat-cell *matCellDef="let element"> {{element.chg * 100 | number}}% </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="dailyColumn; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: dailyColumn;"></tr>
+        </table>
       </div>
     </div>
 
     <div class="content-container">
       <div class="list-container">
         <h2>Weekly Losers</h2>
+        <table mat-table [dataSource]="weeklyLosers" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Stock </th>
+            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="logo_url">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> <img class="ticker-pic" [src]="element.logo_url" /> </td>
+          </ng-container>
+
+          <ng-container matColumnDef="daily_change">
+            <th mat-header-cell *matHeaderCellDef>Weekly Change</th>
+            <td mat-cell *matCellDef="let element"> {{element.chg * 100 | number}}% </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="dailyColumn; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: dailyColumn;"></tr>
+        </table>
       </div>
     </div>
 
