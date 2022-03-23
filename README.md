@@ -6,6 +6,13 @@ Welcome to the the repository for our Senior Design Project
 
 # How to Run
 ```
+After pulling the repository in src/backend/app
+you must create a file "env.py" and supply the following API keys
+
+* ALPACA_API_KEY='api_key'
+* ALPACA_SECRET_KEY='api_key'
+* ALPHA_VANTAGE_API_KEY='api_key'
+
 cd src
 
 # Windows
