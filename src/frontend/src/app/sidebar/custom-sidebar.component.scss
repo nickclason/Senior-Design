@@ -46,6 +46,10 @@
     content: '\e7e9';
 }
 
+#dockSidebar .help::before {
+    content: '\e607'
+}
+
 #dockSidebar .theme::before {
     content: '\ec13';
 }

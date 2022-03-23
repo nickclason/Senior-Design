@@ -9,6 +9,7 @@ import { RegisterComponent } from '../register/register.component';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { LearnMoreComponent } from '../learn-more/learn-more.component';
 // End User Defined Imports
 // -----------------------------------------------------------------------------
 
@@ -107,5 +108,16 @@ export class CustomSidebarComponent implements OnInit {
     // console.log('dashboard');
     this.displayDashboard = true;
     this.displayHome = false;
+  }
+
+  onHelp() {
+    const dialogRef = this.dialog.open(LearnMoreComponent, {
+      width: "80%",
+      height: "90%",
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The login dialog was closed');
+    });
   }
 }
