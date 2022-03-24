@@ -47,8 +47,10 @@ export class AddTransactionComponent implements OnInit {
     this.dataService.postTransaction(transaction).subscribe();
     this.transactionForm.reset();
 
-    setTimeout(() => this.dataService.loadHoldings(), 1000) // wait 1 second so the POST has time to be updated in the backend
-    setTimeout(() => this.dataService.loadPortfolioChartData("1y"), 1000)
-    setTimeout(() => this.dataService.loadSectorChartData(), 1000)
+    setTimeout(() => this.dataService.loadAll(), 1500) // wait 1 second before making this call so the POST has time to be updated in the backen
+    
+    // setTimeout(() => this.dataService.loadHoldings(), 1000) // wait 1 second so the POST has time to be updated in the backend
+    // setTimeout(() => this.dataService.loadPortfolioChartData("1y"), 1000)
+    // setTimeout(() => this.dataService.loadSectorChartData(), 1000)
   }
 }
