@@ -78,8 +78,10 @@ Work on providing the home page with content that will be useful to new users, c
 ## 03/22/22 - Spring Break/Improving Home page and government info widgets
 Less work done this week, but the home page has had several improvements in the data it reports, and also added the ability to select dates for the government info widgets.
 
-## 03/29/22 -
+## 03/29/22 - Finish implementing features
+Finish implementing all features and begin testing project to ensure everything works as desired.
 
-## 04/05/22 -
+## 04/05/22 - Complete Testing/Bug Fixing
+Continue testing to ensure that the application works as intended, fix any outstanding issues, and wrap up project work.
 
 ## 04/12/22 - Senior Design Expo
