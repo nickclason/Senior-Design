@@ -85,3 +85,4 @@ Finish implementing all features and begin testing project to ensure everything 
 Continue testing to ensure that the application works as intended, fix any outstanding issues, and wrap up project work.
 
 ## 04/12/22 - Senior Design Expo
+We presented our project to judges and got feedback regarding our project
